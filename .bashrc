@@ -53,6 +53,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias grep='grep --color=auto -i'
+alias nano="nano -c"
 
 # copy std output to clipboard
 # pre-requirement: sudo apt-get install xsel

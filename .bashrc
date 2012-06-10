@@ -38,6 +38,8 @@ if [ -f ~/.bash_completion ]; then
 fi
 
 eval "$(fasd --init auto)"
+alias n='f -e nano'
+_fasd_bash_hook_cmd_complete n
 
 alias ..="cd .."
 alias ...="cd ../.."

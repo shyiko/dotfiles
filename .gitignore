@@ -1,0 +1,15 @@
+# intellij idea
+.idea
+*.iml
+*.ipr
+*.iws
+
+# build
+target
+build
+tmp
+temp
+dist
+build.log
+
+

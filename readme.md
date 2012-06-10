@@ -2,7 +2,8 @@ Personal ~/* files guided by [dotfiles.github.com](http://dotfiles.github.com).
 
 ### Usage
 
-```git clone https://github.com/shyiko/dotfiles.git && cd dotfiles && ./sync.sh
+```bash
+git clone https://github.com/shyiko/dotfiles.git && cd dotfiles && ./sync.sh
 ```
 
 ### Things to keep in mind

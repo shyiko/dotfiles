@@ -12,4 +12,8 @@ temp
 dist
 build.log
 
-
+# java
+*.class
+*.jar
+*.war
+*.ear

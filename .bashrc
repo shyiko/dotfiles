@@ -192,7 +192,7 @@ function jkill() {
         kill -9 $(jps -l | grep $port | cut -d\  -f1)
         return
     fi
-    local input=`netstat -lp | grep ${port}`
+    local input=`netstat -lnp | grep ${port}`
     if [[ "$input" =~ ([0-9])+[/]java ]]; then
 	    local id=`echo $BASH_REMATCH | sed s/[/]java//`
 	    kill -9 $id

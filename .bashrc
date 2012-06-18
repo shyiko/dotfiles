@@ -201,3 +201,9 @@ function jkill() {
 	    echo "Unable to determine java application bound to ${port}"
     fi
 }
+
+# evaluate math function
+# examples: "_ 1024*17/3"
+function _() {
+    echo $(($1));
+}

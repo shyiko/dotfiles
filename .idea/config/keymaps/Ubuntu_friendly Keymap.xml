@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<keymap version="1" name="Ubuntu-friendly Keymap" parent="Default for XWin">
+  <action id="Back">
+    <keyboard-shortcut first-keystroke="control alt COMMA" />
+  </action>
+  <action id="Forward">
+    <keyboard-shortcut first-keystroke="control alt PERIOD" />
+  </action>
+  <action id="ShowUsages">
+    <keyboard-shortcut first-keystroke="control alt Z" />
+  </action>
+  <action id="VcsShowNextChangeMarker">
+    <keyboard-shortcut first-keystroke="control alt PAGE_DOWN" />
+  </action>
+  <action id="VcsShowPrevChangeMarker">
+    <keyboard-shortcut first-keystroke="control alt PAGE_UP" />
+  </action>
+</keymap>
+

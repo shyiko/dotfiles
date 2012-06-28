@@ -22,7 +22,7 @@ shopt -s cmdhist
 export EDITOR="nano"
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
-export HISTSIZE=32768
+export HISTSIZE=4096
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups:ignorespace
 export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
@@ -203,7 +203,7 @@ function jkill() {
 }
 
 # evaluate math function
-# examples: "_ 1024*17/3"
+# examples: "_ 1024*17/3.0"
 function _() {
-    echo $(($1));
+    echo "$1" | bc;
 }

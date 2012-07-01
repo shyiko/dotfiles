@@ -149,7 +149,7 @@ function ips() {
 }
 
 # sudo apt-get install markdown realpath
-function md() {
+function markdown-to-html() {
     markdown $1 > $1.html
     realpath $1.html | clip
 }

@@ -28,4 +28,3 @@ A great deal of magic was shamelessly taken from:
 * [Mathias Bynens / dotfiles](https://github.com/mathiasbynens/dotfiles)
 * [Juven Xu / maven-bash-completion](https://github.com/juven/maven-bash-completion)
 * [Robert Evans / bash-it](https://github.com/revans/bash-it)
-* [Wei Dai / fasd](https://github.com/clvv/fasd)

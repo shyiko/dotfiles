@@ -20,9 +20,18 @@
     show-current-branch = !git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||'
 [core]
 	excludesfile = ~/.gitignore
+	autocrlf = input
+[diff]
+    tool = sourcetree
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 [merge]
     # include summaries of merged commits into newly created merge commit message
     log = true
+    tool = sourcetree
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
 [apply]
     # ignore whitespaces when applying a patch
     whitespace = fix

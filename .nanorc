@@ -3,7 +3,6 @@ set tabsize 4
 set autoindent
 
 syntax "python" "\.py$" "jhbuildrc$"
-header 				"^#!.*/python[-0-9._]*"
 color brightblue 	"def [A-Za-z0-9_]+"
 color green 		"\<(and|as|assert|break|class|continue|def|del|elif|else|except)\>"
 color green 		"\<(exec|finally|for|from|global|if|import|in|is|lambda|not|or)\>"
@@ -66,7 +65,6 @@ color magenta 		"\.?"
 color cyan 			"(\s|^|@)#.*$"
 
 syntax "yaml" "\.yaml$"
-header 				"^---" "%YAML"
 color brightgreen 	"(^| )!!(binary|bool|float|int|map|null|omap|seq|set|str) "
 color brightmagenta "\<(YES|yes|Y|y|TRUE|true|ON|on|NO|no|N|n|FALSE|false|OFF|off)\>"
 color red 			":[[:space:]]" "\[" "\]" ":[[:space:]]+[|>]" "^[[:space:]]*- "
@@ -128,7 +126,6 @@ color brightyellow 	"^@@.*"
 color magenta 		"^diff.*"
 
 syntax "sh" "\.sh$"
-header 				"^#!.*/(ba|k|pdk)?sh[-0-9_]*"
 color brightgreen 	"^[0-9A-Z_]+\(\)"
 color green 		"\<(case|do|done|elif|else|esac|exit|fi|for|function|if|in|local|read|return|select|shift|then|time|until|while)\>"
 color green 		"(\{|\}|\(|\)|\;|\]|\[|`|\\|\$|<|>|!|=|&|\|)"

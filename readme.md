@@ -19,7 +19,7 @@ Following files contain personal information and thus should be modified once cl
 
 - ui.username
 
-.bash_profile
+.env
 
 ### Acknowledgement
 

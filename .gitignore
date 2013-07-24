@@ -1,19 +1,10 @@
-# intellij idea
 .idea
 *.iml
 *.ipr
 *.iws
-
-# build
-target
-build
-tmp
-temp
-dist
-build.log
-
-# java
+*.log
 *.class
 *.jar
 *.war
 *.ear
+node_modules

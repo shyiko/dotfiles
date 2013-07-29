@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<keymap version="1" name="sse" parent="Mac OS X">
+  <action id="$Delete">
+    <keyboard-shortcut first-keystroke="DELETE" />
+    <keyboard-shortcut first-keystroke="meta BACK_SPACE" />
+  </action>
+  <action id="Back">
+    <keyboard-shortcut first-keystroke="meta alt LEFT" />
+    <keyboard-shortcut first-keystroke="shift meta OPEN_BRACKET" />
+  </action>
+  <action id="ClassNameCompletion">
+    <keyboard-shortcut first-keystroke="control alt SPACE" />
+    <keyboard-shortcut first-keystroke="meta alt SPACE" />
+  </action>
+  <action id="CodeCompletion">
+    <keyboard-shortcut first-keystroke="meta SPACE" />
+  </action>
+  <action id="CollapseBlock" />
+  <action id="Console.Hibernate.Execute" />
+  <action id="Console.Jdbc.Execute" />
+  <action id="Console.Jpa.Execute" />
+  <action id="Editor Delete">
+    <keyboard-shortcut first-keystroke="meta BACK_SPACE" />
+  </action>
+  <action id="EditorCodeBlockEndWithSelection" />
+  <action id="EditorCodeBlockStartWithSelection" />
+  <action id="EditorSplitLine" />
+  <action id="Forward">
+    <keyboard-shortcut first-keystroke="meta alt RIGHT" />
+    <keyboard-shortcut first-keystroke="shift meta CLOSE_BRACKET" />
+  </action>
+  <action id="NewElement">
+    <keyboard-shortcut first-keystroke="control N" />
+    <keyboard-shortcut first-keystroke="control ENTER" />
+    <keyboard-shortcut first-keystroke="alt ENTER" />
+  </action>
+  <action id="PreviousProjectWindow" />
+  <action id="QuickJavaDoc">
+    <keyboard-shortcut first-keystroke="control J" />
+    <mouse-shortcut keystroke="control button2" />
+    <keyboard-shortcut first-keystroke="meta BACK_SLASH" />
+  </action>
+  <action id="ShowIntentionActions">
+    <keyboard-shortcut first-keystroke="meta ENTER" />
+  </action>
+  <action id="SmartTypeCompletion">
+    <keyboard-shortcut first-keystroke="alt SPACE" />
+  </action>
+  <action id="SwitchApply">
+    <keyboard-shortcut first-keystroke="control alt ENTER" />
+  </action>
+  <action id="SwitchDown">
+    <keyboard-shortcut first-keystroke="control alt DOWN" />
+  </action>
+  <action id="SwitchLeft">
+    <keyboard-shortcut first-keystroke="control alt LEFT" />
+  </action>
+  <action id="SwitchRight">
+    <keyboard-shortcut first-keystroke="control alt RIGHT" />
+  </action>
+  <action id="SwitchUp">
+    <keyboard-shortcut first-keystroke="control alt UP" />
+  </action>
+  <action id="VcsShowNextChangeMarker">
+    <keyboard-shortcut first-keystroke="shift control alt DOWN" />
+    <keyboard-shortcut first-keystroke="shift meta PERIOD" />
+  </action>
+  <action id="VcsShowPrevChangeMarker">
+    <keyboard-shortcut first-keystroke="shift control alt UP" />
+    <keyboard-shortcut first-keystroke="shift meta COMMA" />
+  </action>
+  <action id="ViewSource" />
+</keymap>
+

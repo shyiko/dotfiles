@@ -24,7 +24,7 @@ Plug 'scrooloose/syntastic' " syntax checking hacks for Vim
 Plug 'shyiko/vim-smooth-scroll' " nice and smooth scrolling in Vim
 Plug 'SirVer/ultisnips' " ultimate snippet solution for Vim
 Plug 'sjl/gundo.vim' " visualize your Vim undo tree
-Plug 'skammer/vim-css-color' " highlight colors in css files
+Plug 'ap/vim-css-color' " highlight colors in css files
 Plug 'svermeulen/vim-easyclip' " simplified clipboard functionality for Vim
 Plug 'terryma/vim-expand-region' " visually select increasingly larger regions of text using the same key combination
 Plug 'terryma/vim-multiple-cursors' " true Sublime Text style multiple selections for Vim
@@ -39,6 +39,12 @@ Plug 'tpope/vim-unimpaired' " handy bracket mappings
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' } "fast, as-you-type, fuzzy-search code completion engine for Vim
 Plug 'wavded/vim-stylus' "syntax highlighting for Stylus
 Plug 'kien/ctrlp.vim' "fuzzy file, buffer, mru, tag, etc finder
+Plug 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
+Plug 'jlfwong/vim-mercenary' " mercurial wrapper
+Plug 'pbrisbin/vim-mkdir' " automatically create any non-existent directories before writing the buffer
+Plug 'mhinz/vim-signify' " show a VCS diff using Vim's sign column
+Plug 'elzr/vim-json' " better JSON for Vim
+Plug 'tomtom/tcomment_vim' " comment vim-plugin that also handles embedded filetypes
 
 call plug#end()
 
@@ -111,4 +117,6 @@ nnoremap <silent> <C-e> :CtrlPMRU<CR>
 
 cnoremap <expr> <Space> ambicmd#expand("\<Space>")
 cnoremap <expr> <CR> ambicmd#expand("\<CR>")
+
+let g:vim_json_syntax_conceal = 0
 

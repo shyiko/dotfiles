@@ -33,6 +33,7 @@ rm-dsstore() { find ${1:-.} -type f -name '*.DS_Store' -ls -delete; }
 
 alias ebp="${EDITOR:-vim} ~/.bash_profile"
 alias ebrc="${EDITOR:-vim} ~/.bashrc"
+alias evrc="${EDITOR:-vim} ~/.vimrc"
 
 alias remind-sudo-passwordless-mode='string="Defaults:username !requiretty \nDefaults:username visiblepw \nDefaults:username !authenticate"; echo -e $string; unset string'
 

@@ -48,6 +48,7 @@ export HISTCONTROL=ignoredups:ignorespace
 . ~/.bash/docker.bash
 . ~/.bash/extract.bash
 . ~/.bash/fasd.bash
+. ~/.bash/fc.bash
 . ~/.bash/fzf.bash
 . ~/.bash/fzf.fasd.bash
 . ~/.bash/fzf.git.bash

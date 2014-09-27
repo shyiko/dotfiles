@@ -1,7 +1,6 @@
 .ssh/*
 !.ssh/config
 .bash/**.local.**
-.bash/bundle
 .vim/bundle
 .vim/backup
 .vim/swap

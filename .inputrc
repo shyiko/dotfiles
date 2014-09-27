@@ -1,0 +1,20 @@
+# https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html
+
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+set input-meta on
+set output-meta on
+set convert-meta off
+
+set show-all-if-ambiguous on
+
+set completion-ignore-case on
+
+# vi-mode prone to SEGFAULTs on 4.3.11(1)-release/x86_64-apple-darwin13.1.0
+# set editing-mode vi
+
+set mark-symlinked-directories on
+
+set skip-completed-text on
+

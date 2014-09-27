@@ -1,0 +1,12 @@
+.idea
+*.iml
+*.ipr
+*.iws
+*.log
+*~
+target
+build
+node_modules
+tmp
+.DS_Store
+

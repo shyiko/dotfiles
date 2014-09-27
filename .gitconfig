@@ -1,0 +1,48 @@
+[user]
+name = Stanley Shyiko
+email = stanley.shyiko@gmail.com
+
+[branch "master"]
+remote = origin
+merge = refs/heads/master
+
+[core]
+excludesfile = ~/.gitignore_global
+autocrlf = input
+
+[apply]
+# ignore whitespaces when applying a patch
+whitespace = fix
+
+[color]
+ui = auto
+
+[http]
+postBuffer = 524288000
+
+[mergetool "fugitive"]
+cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+
+[merge]
+tool = fugitive
+# include summaries of merged commits into newly created merge commit message
+log = true
+
+[diff]
+tool = vimdiff
+
+[alias]
+co = checkout
+glog = log --pretty=oneline -n 20 --graph
+st = status -s
+ci = commit
+lb = branch
+# remove untracked files
+purge = clean -df
+undo = reset --soft HEAD^
+shelve = stash
+unshelve = stash apply
+
+[url "git://gist.github.com/"]
+insteadOf = "gist:"
+

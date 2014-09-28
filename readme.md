@@ -20,6 +20,7 @@ ln -s ~/.dotfiles/.inputrc ~/.inputrc
 ln -s ~/.dotfiles/.screenrc ~/.screenrc
 ln -s ~/.dotfiles/.ssh ~/.ssh
 ln -s ~/.dotfiles/.vim ~/.vim
+ln -s ~/.dotfiles/.vimrc ~/.vimrc
 ```
 
 ```sh

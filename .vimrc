@@ -123,6 +123,8 @@ cnoremap <C-a> <C-b>
 map <silent> <C-e> $
 inoremap <silent> <C-e> <C-o>$
 
+inoremap <silent> <C-k> <C-o>D
+
 " <M-1>
 map ¡ <plug>NERDTreeTabsToggle<CR>
 

@@ -106,6 +106,23 @@ nmap <silent> <C-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 nmap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 nmap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
+" move 'by word' with:
+" <M-left>
+map <Esc>B <C-Left> " nvo
+map! <Esc>B <C-Left> " ic
+" <M-right>
+map <Esc>F <C-Right>
+map! <Esc>F <C-Right>
+
+" move 'to the line beginning/end' with:
+" <C-Left> (iTerm2-mapped as 0x01)
+map <silent> <C-a> 0
+inoremap <silent> <C-a> <C-o>0
+cnoremap <C-a> <C-b>
+" <C-Right> (iTerm2-mapped as 0x05)
+map <silent> <C-e> $
+inoremap <silent> <C-e> <C-o>$
+
 " <M-1>
 map ¡ <plug>NERDTreeTabsToggle<CR>
 
@@ -113,7 +130,9 @@ map ¡ <plug>NERDTreeTabsToggle<CR>
 set grepprg=ag\ --nogroup\ --nocolor
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 let g:ctrlp_use_caching = 0
-nnoremap <silent> <C-e> :CtrlPMRU<CR>
+
+" <M-p>
+nnoremap π :CtrlPMRU<CR>
 
 cnoremap <expr> <Space> ambicmd#expand("\<Space>")
 cnoremap <expr> <CR> ambicmd#expand("\<CR>")

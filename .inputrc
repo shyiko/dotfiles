@@ -1,20 +1,16 @@
 # https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html
 
+# use arrow up/down for history traversal
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
 set input-meta on
 set output-meta on
 set convert-meta off
-
 set show-all-if-ambiguous on
-
 set completion-ignore-case on
-
-# vi-mode prone to SEGFAULTs on 4.3.11(1)-release/x86_64-apple-darwin13.1.0
-# set editing-mode vi
-
+# symbolic links to directories shoud have a slash appended
 set mark-symlinked-directories on
-
+# do not insert characters from the completion that match characters after point in the word being completed
 set skip-completed-text on
 

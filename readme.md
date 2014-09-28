@@ -7,6 +7,7 @@ git clone --recursive https://github.com/shyiko/dotfiles.git ~/.dotfiles
 ```
 
 ```sh
+ln -s ~/.dotfiles/.agignore ~/.agignore
 ln -s ~/.dotfiles/.bash ~/.bash
 ln -s ~/.dotfiles/.bash_profile ~/.bash_profile
 ln -s ~/.dotfiles/.bashrc ~/.bashrc

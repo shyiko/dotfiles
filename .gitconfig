@@ -32,7 +32,7 @@ log = true
 tool = vimdiff
 
 [alias]
-d = diff
+d = diff HEAD
 co = checkout
 glog = log --pretty=oneline -n 20 --graph
 st = status -s

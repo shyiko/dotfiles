@@ -43,6 +43,8 @@ purge = clean -df
 undo = reset --soft HEAD^
 shelve = stash
 unshelve = stash apply
+pl = pull
+pp = push
 
 [url "git://gist.github.com/"]
 insteadOf = "gist:"

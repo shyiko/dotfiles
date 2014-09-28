@@ -6,11 +6,11 @@ merge = mercenary
 purge =
 shelve =
 color =
-graphlog = 
+graphlog =
 pager =
 rebase =
 progress =
-fetch = 
+fetch =
 
 [pager]
 pager = LESS='FSRX' less
@@ -24,4 +24,5 @@ mercenary.args = -f -c \"HGdiff\" \"$MERGED\"
 # hg already knows about: glog, st, ci, purge
 lb = branches
 undo = rollback
-
+pl = pull -b . -u
+pp = push -r .

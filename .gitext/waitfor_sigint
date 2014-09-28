@@ -1,0 +1,8 @@
+#!/bin/bash
+_trap_control_c() {
+  exit 0
+}
+
+trap _trap_control_c SIGINT
+
+while true; do read x; done

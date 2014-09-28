@@ -143,3 +143,8 @@ cnoremap <expr> <CR> ambicmd#expand("\<CR>")
 
 let g:vim_json_syntax_conceal = 0
 
+nnoremap <C-j> m`o<Esc>``
+nnoremap <C-k> m`O<Esc>``
+
+nmap <CR><CR> i<CR>
+

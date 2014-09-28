@@ -106,10 +106,12 @@ nmap <silent> <C-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 nmap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 nmap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
+" map = nvo, map! = ic
+
 " move 'by word' with:
 " <M-left>
-map <Esc>B <C-Left> " nvo
-map! <Esc>B <C-Left> " ic
+map <Esc>B <C-Left>
+map! <Esc>B <C-Left>
 " <M-right>
 map <Esc>F <C-Right>
 map! <Esc>F <C-Right>

@@ -14,7 +14,7 @@ fetch =
 
 [pager]
 pager = LESS='FSRX' less
-ignore = version, help, update, serve, record
+attend = show, diff, d, lg, lga, nlg, nlga
 
 [merge-tools]
 mercenary.executable = vim
@@ -22,7 +22,12 @@ mercenary.args = -f -c \"HGdiff\" \"$MERGED\"
 
 [alias]
 # hg already knows about: glog, st, ci, purge
+show = log --stat --color=always -vpr
 lb = branches
 undo = rollback
 pl = pull -b . -u
 pp = push -r .
+lga = glog --style=$HOME/.dotfiles/.hgext/hg-lga-style
+lg = lga --rev 'ancestors(.)'
+nlga = glog --style=$HOME/.dotfiles/.hgext/hg-nlga-style
+nlg = nlga --rev 'ancestors(.)'

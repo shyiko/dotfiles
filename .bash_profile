@@ -68,6 +68,7 @@ export HISTCONTROL=ignoredups:ignorespace
 . ~/.bash/pip.bash
 . ~/.bash/serve.bash
 . ~/.bash/svn.bash
+. ~/.bash/transfer.bash
 . ~/.bash/up.bash
 . ~/.bash/url.bash
 . ~/.bash/vagrant.bash

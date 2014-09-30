@@ -15,6 +15,7 @@ ln -s ~/.dotfiles/.curlrc ~/.curlrc
 ln -s ~/.dotfiles/.git ~/.git
 ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/.dotfiles/.gitignore_global ~/.gitignore_global
+ln -s ~/.dotfiles/.grip ~/.grip
 ln -s ~/.dotfiles/.hgignore_global ~/.hgignore_global
 ln -s ~/.dotfiles/.hgrc ~/.hgrc
 ln -s ~/.dotfiles/.inputrc ~/.inputrc

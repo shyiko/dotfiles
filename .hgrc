@@ -23,10 +23,10 @@ mercenary.args = -f -c \"HGdiff\" \"$MERGED\"
 [alias]
 # hg already knows about: glog, st, ci, purge
 show = log --stat --color=always -vpr
-lb = branches
+ba = branches
 undo = rollback
-pl = pull -b . -u
-pp = push -r .
+l = pull -b . -u
+p = push -r .
 lga = glog --style=$HOME/.dotfiles/.hgext/lga.style
 lg = lga --rev 'ancestors(.)'
 nlga = glog --style=$HOME/.dotfiles/.hgext/nlga.style

@@ -38,13 +38,13 @@ co = checkout
 glog = log --pretty=oneline --graph
 st = status -s
 ci = commit
-lb = branch
+ba = branch
 # remove untracked files
 purge = clean -df
 shelve = stash
 unshelve = stash apply
-pl = pull
-ps = push
+l = pull
+p = push
 lg = log --graph --pretty=format:'%Cred%h%Creset %Creset%Cblue%an%Creset %s %Cgreen(%cr)%Cred%d%Creset' --abbrev-commit --date=relative
 lga = "!git lg --all"
 serve = "!git instaweb --local -p 8000; $HOME/.dotfiles/.gitext/waitfor_sigint; git instaweb stop"

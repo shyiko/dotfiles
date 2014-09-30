@@ -41,11 +41,10 @@ ci = commit
 lb = branch
 # remove untracked files
 purge = clean -df
-undo = reset --soft HEAD^
 shelve = stash
 unshelve = stash apply
 pl = pull
-pp = push
+ps = push
 lg = log --graph --pretty=format:'%Cred%h%Creset %Creset%Cblue%an%Creset %s %Cgreen(%cr)%Cred%d%Creset' --abbrev-commit --date=relative
 lga = "!git lg --all"
 serve = "!git instaweb --local -p 8000; $HOME/.dotfiles/.gitext/waitfor_sigint; git instaweb stop"

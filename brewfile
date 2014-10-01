@@ -1,0 +1,36 @@
+update
+
+install the_silver_searcher
+install jq
+install cv
+install httpie
+install autoenv
+install rename
+install ngrep
+install mtr
+install lesspipe
+install tree
+install watch
+install hr
+install unrar
+install ssh-copy-id
+install htop-osx
+install ctags
+install vim
+install lighttpd
+install git
+install gh
+install gist
+install git-extras
+install thoughtbot/formulae/gitsh
+install mercurial
+install nvm
+install heroku-toolbelt
+install terminal-notifier
+
+install caskroom/cask/brew-cask
+
+cask install virtualbox
+cask install vagrant
+cask install boot2docker
+cask install packer

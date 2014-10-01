@@ -26,6 +26,11 @@ ln -s ~/.dotfiles/.vimrc ~/.vimrc
 ```
 
 ```sh
+brew bundle
+pip install -r pipfile
+```
+
+```sh
 vim +PlugInstall +qall
 ```
 

@@ -12,7 +12,6 @@ function _up_vcs() {
   updir=$PWD
   while [ ! -d "$updir/.git" ] && [ ! -d "$updir/.hg" ] && [ ! -d "$updir/.svn" ]; do
     updir=${updir%/*}
-    echo $updir
     if [ "$updir" = "" ]; then
       updir=$PWD
       break;

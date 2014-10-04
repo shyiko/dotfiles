@@ -28,9 +28,9 @@ v() {
   if [[ -z "$*" ]]; then
     local file
     file=$(fzf --query="$1" --select-1 --exit-0)
-    [ -n "$file" ] && view "$file"
+    [ -n "$file" ] && ${VIEWER:-less} "$file"
   else
-    view "$@"
+    ${VIEWER:-less} "$@"
   fi
 }
 

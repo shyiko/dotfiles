@@ -25,6 +25,7 @@ done;
 if which lesspipe.sh > /dev/null; then
   export LESSOPEN="|lesspipe.sh %s"
 fi
+export LESS="-rc"
 
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
@@ -35,6 +36,11 @@ export FIGNORE=DS_Store
 export TERM=xterm-256color
 
 export EDITOR='vim'
+# rkitover/vimpager adds to much lag, so using *stripped* version instead
+vimpager() {
+  vim --cmd 'let vimpager=1' $@
+}
+export VIEWER='vimpager'
 
 export HISTSIZE=32768
 export HISTFILESIZE=$HISTSIZE
@@ -55,6 +61,7 @@ export HISTCONTROL=ignoredups:ignorespace
 . ~/.bash/fzf.kill-on-port.bash
 . ~/.bash/gem.bash
 . ~/.bash/git.bash
+. ~/.bash/gitv.bash
 . ~/.bash/grunt.bash
 . ~/.bash/hg.bash
 . ~/.bash/http.bash

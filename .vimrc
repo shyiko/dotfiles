@@ -2,55 +2,68 @@ set nocompatible
 
 call plug#begin('~/.vim/bundle')
 
-Plug 'AndrewRadev/splitjoin.vim' " simplify the transition between multiline and single-line code
+Plug 'ap/vim-css-color' " highlight colors in css files
 Plug 'bling/vim-airline' " lean & mean status/tabline for Vim
-Plug 'briandoll/change-inside-surroundings.vim' " change the contents of the innermost 'surrounding'
 Plug 'bronson/vim-visual-star-search' " * or # search from a visual block
-Plug 'editorconfig/editorconfig-vim' " EditorConfig plugin for Vim
-Plug 'gregsexton/gitv' " gitk for Vim
-Plug 'itspriddle/vim-stripper' " strip trailing whitespace
-Plug 'jistr/vim-nerdtree-tabs' " NERDTree and tabs together in Vim, painlessly
+Plug 'elzr/vim-json' " better JSON for Vim
 Plug 'junegunn/fzf' " general-purpose fuzzy finder
 Plug 'junegunn/limelight.vim' " light and configurable statusline/tabline for Vim
 Plug 'kchmck/vim-coffee-script' " CoffeeScript support for Vim
-Plug 'Lokaltog/vim-easymotion' " simpler way to use some motions in Vim
-Plug 'matze/vim-move' " move lines and selections up and down
-Plug 'othree/html5.vim' " HTML5 omnicomplete funtion and syntax for Vim
-Plug 'Raimondi/delimitMate' " insert mode auto-completion for quotes, parens, brackets, etc
+Plug 'mhinz/vim-signify' " show a VCS diff using Vim's sign column
 Plug 'rhysd/accelerated-jk' " accelerate up-down moving
-Plug 'rking/ag.vim' " front for ag, A.K.A. the_silver_searcher
-Plug 'scrooloose/nerdtree' " tree explorer plugin for Vim
-Plug 'scrooloose/syntastic' " syntax checking hacks for Vim
 Plug 'shyiko/vim-smooth-scroll' " nice and smooth scrolling in Vim
-Plug 'SirVer/ultisnips' " ultimate snippet solution for Vim
-Plug 'sjl/gundo.vim' " visualize your Vim undo tree
-Plug 'ap/vim-css-color' " highlight colors in css files
 Plug 'svermeulen/vim-easyclip' " simplified clipboard functionality for Vim
 Plug 'terryma/vim-expand-region' " visually select increasingly larger regions of text using the same key combination
-Plug 'terryma/vim-multiple-cursors' " true Sublime Text style multiple selections for Vim
 Plug 'thinca/vim-ambicmd' " ambiguous command resolver
-Plug 'tommcdo/vim-exchange' " easy text exchange operator for Vim
-Plug 'tpope/vim-abolish' " easily search for, substitute, and abbreviate multiple variants of a word
-Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
-Plug 'tpope/vim-repeat' " enable repeating supported plugin maps with '.'
 Plug 'tpope/vim-sensible' " defaults everyone can agree on
-Plug 'tpope/vim-surround' " quoting/parenthesizing made simple
-Plug 'tpope/vim-unimpaired' " handy bracket mappings
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' } "fast, as-you-type, fuzzy-search code completion engine for Vim
 Plug 'wavded/vim-stylus' "syntax highlighting for Stylus
-Plug 'kien/ctrlp.vim' "fuzzy file, buffer, mru, tag, etc finder
-Plug 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
-Plug 'jlfwong/vim-mercenary' " mercurial wrapper
-Plug 'pbrisbin/vim-mkdir' " automatically create any non-existent directories before writing the buffer
-Plug 'mhinz/vim-signify' " show a VCS diff using Vim's sign column
-Plug 'elzr/vim-json' " better JSON for Vim
-Plug 'tomtom/tcomment_vim' " comment vim-plugin that also handles embedded filetypes
+
+if !exists("vimpager")
+  Plug 'AndrewRadev/splitjoin.vim' " simplify the transition between multiline and single-line code
+  Plug 'briandoll/change-inside-surroundings.vim' " change the contents of the innermost 'surrounding'
+  Plug 'editorconfig/editorconfig-vim' " EditorConfig plugin for Vim
+  Plug 'gregsexton/gitv' " gitk for Vim
+  Plug 'itspriddle/vim-stripper' " strip trailing whitespace
+  Plug 'jistr/vim-nerdtree-tabs' " NERDTree and tabs together in Vim, painlessly
+  Plug 'Lokaltog/vim-easymotion' " simpler way to use some motions in Vim
+  Plug 'matze/vim-move' " move lines and selections up and down
+  Plug 'othree/html5.vim' " HTML5 omnicomplete funtion and syntax for Vim
+  Plug 'Raimondi/delimitMate' " insert mode auto-completion for quotes, parens, brackets, etc
+  Plug 'rking/ag.vim' " front for ag, A.K.A. the_silver_searcher
+  Plug 'scrooloose/nerdtree' " tree explorer plugin for Vim
+  Plug 'scrooloose/syntastic' " syntax checking hacks for Vim
+  Plug 'SirVer/ultisnips' " ultimate snippet solution for Vim
+  Plug 'sjl/gundo.vim' " visualize your Vim undo tree
+  Plug 'terryma/vim-multiple-cursors' " true Sublime Text style multiple selections for Vim
+  Plug 'tommcdo/vim-exchange' " easy text exchange operator for Vim
+  Plug 'tpope/vim-abolish' " easily search for, substitute, and abbreviate multiple variants of a word
+  Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
+  Plug 'tpope/vim-repeat' " enable repeating supported plugin maps with '.'
+  Plug 'tpope/vim-surround' " quoting/parenthesizing made simple
+  Plug 'tpope/vim-unimpaired' " handy bracket mappings
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' } "fast, as-you-type, fuzzy-search code completion engine for Vim
+  Plug 'kien/ctrlp.vim' "fuzzy file, buffer, mru, tag, etc finder
+  Plug 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
+  Plug 'jlfwong/vim-mercenary' " mercurial wrapper
+  Plug 'pbrisbin/vim-mkdir' " automatically create any non-existent directories before writing the buffer
+  Plug 'tomtom/tcomment_vim' " comment vim-plugin that also handles embedded filetypes
+endif
 
 call plug#end()
 
 syntax on
 filetype plugin indent on
 
+if exists("vimpager")
+  set noswapfile
+  set undolevels=-1
+  set nomodifiable
+  noremap q :q<CR>
+endif
+
+set hlsearch
+nohlsearch
+nmap <silent> <Esc><Esc> :nohlsearch<CR>
 " show line numbers
 set number
 " treat all numbers as decimals

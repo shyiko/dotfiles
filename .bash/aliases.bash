@@ -1,5 +1,5 @@
 # alias e="${EDITOR:-vim}"
-# alias v="view"
+# alias v="${VIEWER:-less}"
 
 export CLICOLOR=1
 alias l="ls -CF"

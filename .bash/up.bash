@@ -27,3 +27,5 @@ function up() {
     cd $(_up "$@")
   fi
 }
+
+alias bd=up

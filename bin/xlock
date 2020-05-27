@@ -1,0 +1,24 @@
+#!/bin/bash
+[[ "$(whoami)" == "root" ]] && exit 0
+
+# https://github.com/Raymo111/i3lock-color
+# https://jlk.fjfi.cvut.cz/arch/manpages/man/i3lock.1.en
+i3lock-color -r \
+    --veriftext="" \
+    --wrongtext="" \
+    --noinputtext="" \
+    --locktext="" \
+    --lockfailedtext="" \
+    --color=2b303b \
+    --insidevercolor=eff1f500 \
+    --insidewrongcolor=eff1f500 \
+    --insidecolor=eff1f500 \
+    --ringvercolor=8fa1b3ff \
+    --ringwrongcolor=00000000 \
+    --ringcolor=343d46ff \
+    --separatorcolor=eff1f500 \
+    --keyhlcolor=c0c5ceff \
+    --bshlcolor=c0c5ceff
+
+sleep 1 # wait for all keys to be released
+xset dpms force standby

@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+# https://www.google.com/chrome/
+sudo add-apt-repository -y "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+sudo apt install -y google-chrome-stable

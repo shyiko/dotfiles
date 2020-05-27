@@ -1,0 +1,20 @@
+#!/bin/bash
+
+bg="2b303b"
+fg="c0c5ce"
+
+PATH_BK=$PATH
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+screen_size=$(xrandr --current | grep -Po 'current \d+ x \d+' | awk '{print $2 "x" $4}') # 1920x1080
+width=$(echo $screen_size | cut -d 'x' -f1 | head -1)
+height=$(echo $screen_size | cut -d 'x' -f2 | head -1)
+padding=$(($height/2-120)) # 420
+rofi_opt=
+if [[ "$(xrandr --current | grep -c '[0-9][*]')" ]]; then # --listactivemonitors is too slow
+    rofi_opt="-width $width -padding $padding"
+fi
+export PATH=$PATH_BK
+
+/usr/bin/rofi $rofi_opt -lines 10 -glob \
+    -hide-scrollbar -bw 0 -separator-style none "$@"
+

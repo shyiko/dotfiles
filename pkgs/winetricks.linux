@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+# required by protontricks
+# https://wiki.winehq.org/Winetricks#Installing_winetricks
+
+mkdir -p /tmp/pkgs/winetricks
+cd /tmp/pkgs/winetricks
+
+curl -sSL https://raw.githubusercontent.com/Winetricks/winetricks/20200412/src/winetricks -o winetricks
+chmod +x winetricks
+sudo mv -f winetricks /usr/local/bin

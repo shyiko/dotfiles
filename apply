@@ -1,0 +1,269 @@
+#!/bin/bash
+#
+# Usage:
+# ```
+# ~/.dotfiles/assimilate
+# ```
+# - `
+set -euo pipefail
+
+if [[ "$(whoami)" != "shyiko" ]]; then
+    echo "This script is expected to be run by 'shyiko'"
+    exit 1
+fi
+
+usage() {
+  cat <<EOF
+Usage: ${0} [command] [flags]
+
+Flags:
+  --dry-run Show what will happen without making any changes.
+  --skip-pkgs Do not install packages.
+  --skip-pkgs-aptfile
+  --skip-pkgs-brewfile
+  --skip-root Do not modify system files.
+EOF
+  exit 1
+}
+
+DRY_RUN=
+SKIP_PKGS=
+SKIP_APTFILE=
+SKIP_BREWFILE=
+SKIP_ROOT=
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --dry-run)
+      DRY_RUN=1
+      ;;
+    --skip-pkgs)
+      SKIP_PKGS=1
+      ;;
+    --skip-pkgs-aptfile)
+      SKIP_APTFILE=1
+      ;;
+    --skip-pkgs-brewfile)
+      SKIP_BREWFILE=1
+      ;;
+    --skip-root)
+      SKIP_ROOT=1
+      ;;
+    -h|--help)
+      usage
+      ;;
+    -*=)
+      echo "Error: unknown flag $1" >&2
+      exit 1
+      ;;
+    *)
+      usage
+      ;;
+  esac
+  shift
+done
+
+OS=$(uname -s | tr '[:upper:]' '[:lower:]') # darwin or linux
+if [ -f /etc/lsb-release ]; then
+    . /etc/lsb-release # DISTRIB_ID=Ubuntu, DISTRIB_CODENAME=bionic, ...
+fi
+
+function symlink() {
+    if [[ "$1" == "--root" ]]; then
+        local run=sudo
+        local src=$2
+        local dst=$3
+    else
+        local run=
+        local src=$1
+        local dst=$2
+    fi
+    if [ -e "$dst" ]; then
+        if [[ -L "$dst" && "$(realpath $dst)" == "$src" ]]; then
+            return
+        fi
+        echo "${dst/#$HOME\//\~\/} already exists (and is not a symlink or points to a different file)" >&2
+        return 1
+    fi
+    if [[ "$DRY_RUN" == "1" ]]; then
+        echo "Skipped ${dst/#$HOME\//\~\/} linking (--dry-run)"
+        return
+    fi
+    echo "Linking ${dst/#$HOME\//\~\/}" >&2
+    $run mkdir -p $(dirname $dst)
+    $run ln -sf "$src" "$dst"
+}
+
+function copy() {
+    if [[ "$1" == "--root" ]]; then
+        local run=sudo
+        local src=$2
+        local dst=$3
+    else
+        local run=
+        local src=$1
+        local dst=$2
+    fi
+    if [ -e "$dst" ] && diff --color -u "$dst" "$src"; then # cmp --silent "$src" "$dst"
+        return
+    fi
+    if [[ "$DRY_RUN" == "1" ]]; then
+        echo "Skipped ${dst/#$HOME\//\~\/} copying (--dry-run)"
+        return
+    fi
+    echo "Copying ${dst/#$HOME\//\~\/}" >&2
+    $run mkdir -p $(dirname $dst)
+    $run cp -i "$src" "$dst"
+}
+
+function install_pkgs_aptfile() {
+    if [[ "$SKIP_APTFILE" == "1" ]]; then
+        echo "Skipped aptfile (--skip-pkgs-aptfile)" >&2
+        return
+    fi
+
+    local aptfile_opt=
+    if [[ "$DRY_RUN" == "1" ]]; then
+        aptfile_opt=--dry-run
+    fi
+    bash ~/.dotfiles/aptfile $aptfile_opt
+}
+
+function install_pkgs_brewfile() {
+    if [[ "$SKIP_BREWFILE" == "1" ]]; then
+        echo "Skipped brewfile (--skip-pkgs-brewfile)" >&2
+        return
+    fi
+
+    if ! command -v brew >/dev/null; then
+        if [[ "$DRY_RUN" == "1" ]]; then
+            echo "Skipped brew installation (--dry-run)" >&2
+        else
+            echo "Installing brew" >&2
+            curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
+        fi
+    fi
+
+    if [[ "$DRY_RUN" == "1" ]]; then
+        echo 'Skipped brew bundle install (--dry-run not supported)' >&2
+    else
+        brew bundle install --file=~/.dotfiles/brewfile
+    fi
+}
+
+function install_pkgs() {
+    if [[ "$SKIP_PKGS" == "1" ]]; then
+        return
+    fi
+    echo "Installing pkgs..." >&2
+
+    if [[ "$DISTRIB_ID" == "Ubuntu" ]]; then
+        install_pkgs_aptfile
+    elif [[ "$OS" = "darwin" ]]; then
+        install_pkgs_brewfile
+    else
+        echo "Unsupported OS" >&2
+        exit 1
+    fi
+
+    local pkg_dir=~/.dotfiles/pkgs
+    for f in $(ls $pkg_dir); do
+        if [[ "$f" == *.* && "$f" != *.$OS ]]; then
+            if [[ "$f" != *.linux && "$f" != *.darwin ]]; then
+                echo "Skipped running $pkg_dir/$f (ext != $OS)" >&2
+            fi
+            continue
+        fi
+        cmd=$(eval "echo $(cat $pkg_dir/$f | grep '#@pkg.file=' | awk -F= '{print $2}')")
+        f_without_ext=${f%%.*}
+        cmd=${cmd:-$f_without_ext}
+        chmod +x $pkg_dir/$f
+        if ! command -v $cmd >/dev/null && ! [ -e $cmd ]; then
+            if [[ "$DRY_RUN" == "1" ]]; then
+                echo "Skipped running $pkg_dir/$f (--dry-run)" >&2
+                continue
+            fi
+            echo "Running $pkg_dir/$f" >&2
+            $pkg_dir/$f
+        fi
+    done
+}
+
+function configure_home() {
+    echo "Configuring home..." >&2
+
+    if [[ "$DRY_RUN" == "1" ]]; then
+        echo 'Skipped vim +PlugInstall (--dry-run not supported)' >&2
+    else
+        if [ ! -d ~/.config/nvim/bundle/vundle.vim ]; then
+            git clone --depth 1 https://github.com/VundleVim/Vundle.vim.git \
+                --branch v0.10.2 \
+                ~/.config/nvim/bundle/vundle.vim
+        fi
+        symlink ~/.dotfiles/.config/nvim/colors/base16-ocean.vim ~/.config/nvim/colors/base16-ocean.vim
+        symlink ~/.dotfiles/.config/nvim/ftplugin/markdown.vim ~/.config/nvim/ftplugin/markdown.vim
+        symlink ~/.dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
+        vim +PlugInstall +qall
+        mkdir -p ~/.local/share/nvim/{backup,swap,undo}
+    fi
+    if [ "$OS" = "linux" ]; then
+        symlink ~/.dotfiles/.config/Code/User/settings.json ~/.config/Code/User/settings.json
+        symlink ~/.dotfiles/.config/Code/User/keybindings.json ~/.config/Code/User/keybindings.json
+        symlink ~/.dotfiles/.config/dunst/dunstrc ~/.config/dunst/dunstrc
+        symlink ~/.dotfiles/.config/i3/config ~/.config/i3/config
+        symlink ~/.dotfiles/.config/i3status/config ~/.config/i3status/config
+        # nvim
+        symlink ~/.dotfiles/.config/rofi/config ~/.config/rofi/config
+        symlink ~/.dotfiles/.config/pulse/daemon.conf ~/.config/pulse/daemon.conf
+    fi
+    symlink ~/.dotfiles/.gnupg/gpg-agent.conf.$OS ~/.gnupg/gpg-agent.conf
+    symlink ~/.dotfiles/.gnupg/gpg.conf ~/.gnupg/gpg.conf
+    symlink ~/.dotfiles/.grip/settings.py ~/.grip/settings.py
+    if [ "$OS" = "linux" ]; then
+        symlink ~/.dotfiles/.screenlayout ~/.screenlayout
+    fi
+    symlink ~/.dotfiles/.ssh/config ~/.ssh/config
+    if [ "$OS" = "linux" ]; then
+        symlink ~/.dotfiles/.urxvt/ext ~/.urxvt/ext
+    fi
+    symlink ~/.dotfiles/.bash_profile ~/.bash_profile
+    symlink ~/.dotfiles/.bashrc ~/.bashrc
+    symlink ~/.dotfiles/.curlrc ~/.curlrc
+    symlink ~/.dotfiles/.gitconfig ~/.gitconfig
+    symlink ~/.dotfiles/.hushlogin ~/.hushlogin
+    symlink ~/.dotfiles/.inputrc ~/.inputrc
+    if [ "$OS" = "linux" ]; then
+        symlink ~/.dotfiles/.xbindkeysrc ~/.xbindkeysrc
+        symlink ~/.dotfiles/.xinitrc ~/.xinitrc
+        symlink ~/.dotfiles/.Xmodmap ~/.Xmodmap
+        symlink ~/.dotfiles/.Xresources ~/.Xresources
+        symlink ~/.dotfiles/.xserverrc ~/.xserverrc
+    fi
+    # secrets
+    if [ -d ~/Documents/.dotfiles ]; then
+        symlink ~/Documents/.dotfiles/.config/asciinema/config ~/.config/asciinema/config
+        symlink ~/Documents/.dotfiles/.grip/auth.json ~/.grip/auth.json
+    else
+        echo "WARN: ~/Documents/.dotfiles not found (secrets won't be linked)" >&2
+    fi
+}
+
+function configure_root() {
+    if [[ "$SKIP_ROOT" == "1" ]]; then
+        return
+    fi
+
+    echo "Configuring root..." >&2
+    if [ "$OS" = "linux" ]; then
+        for f in $(cd ~/.dotfiles/root && find . -type f); do
+            copy --root $HOME/.dotfiles/root/$f "/$f"
+        done
+
+        if [ ! -f /etc/X11/xorg.conf ]; then
+            symlink --root /etc/X11/xorg.conf /etc/X11/xorg.conf.igpu
+        fi
+    fi
+}
+
+install_pkgs
+configure_home
+configure_root

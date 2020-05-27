@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+SLACK_VERSION=4.4.3
+
+if apt-cache show slack-desktop >/dev/null; then
+    sudo apt install -y slack-desktop
+else
+    mkdir -p /tmp/pkgs/slack
+    cd /tmp/pkgs/slack
+
+    curl -sSL "https://downloads.slack-edge.com/linux_releases/slack-desktop-$SLACK_VERSION-amd64.deb" -o slack-desktop.deb
+    sudo dpkg -i slack-desktop.deb
+    # /etc/apt/sources.list.d/slack.list will be created upon installation
+fi
+

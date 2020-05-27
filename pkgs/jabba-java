@@ -1,0 +1,11 @@
+#!/bin/bash
+#@pkg.file=$HOME/.jabba/jdk/default/bin/java
+set -e
+
+JAVA_VERSION=zulu@1.8.252
+
+. ~/.jabba/jabba.sh
+if [[ "$(jabba alias default)" != "$JAVA_VERSION" ]]; then
+    jabba install $JAVA_VERSION
+    jabba alias default $JAVA_VERSION
+fi

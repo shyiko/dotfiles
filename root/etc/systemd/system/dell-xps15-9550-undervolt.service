@@ -1,0 +1,10 @@
+[Unit]
+Description=Dell XPS 15 undervolting
+
+[Service]
+Type=oneshot
+# https://github.com/georgewhewell/undervolt
+ExecStart=/usr/local/bin/undervolt --core -150 --cache -150 --gpu -130
+
+[Install]
+WantedBy=multi-user.target

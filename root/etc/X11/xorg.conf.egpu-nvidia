@@ -1,0 +1,38 @@
+# https://www.x.org/releases/current/doc/man/man5/xorg.conf.5.xhtml
+
+Section "ServerLayout"
+    Identifier "eGPU NVIDIA ServerLayout"
+    Screen "eGPU NVIDIA Screen"
+    Option "BlankTime" "0"
+    Option "StandbyTime" "0"
+    Option "SuspendTime" "0"
+    Option "OffTime" "0"
+EndSection
+
+Section "Screen"
+    Identifier "eGPU NVIDIA Screen"
+    Device "eGPU NVIDIA"
+    Monitor "eGPU NVIDIA Monitor"
+EndSection
+
+Section "Monitor"
+    Identifier "eGPU NVIDIA Monitor"
+    # https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling
+    Option "DPMS" "true"
+EndSection
+
+# https://download.nvidia.com/XFree86/Linux-x86_64/440.82/README/xconfigoptions.html
+# NVIDIA Corporation GP104 [GeForce GTX 1080] (rev ff)
+Section "Device"
+    Identifier "eGPU NVIDIA"
+    Driver "nvidia"
+    # lspci | grep -i nvidia, then convert hex to dec
+    BusID "PCI:11:0:0"
+    Option "AllowEmptyInitialConfiguration"
+    Option "AllowExternalGpus"
+    Option "ProbeAllGpus" "false"
+    # Use `nvidia-settings --config ~/.nvidia-settings-rc-custom --load-config-only` instead.
+    # Option "ForceFullCompositionPipeline" "on"
+EndSection
+
+# This config depends on nvidia.conf.

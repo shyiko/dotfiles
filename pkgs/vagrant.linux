@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+# https://www.vagrantup.com/docs/installation/
+VAGRANT_VERSION=2.2.9
+
+mkdir -p /tmp/pkgs/vagrant
+cd /tmp/pkgs/vagrant
+
+curl -sSL "https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb" \
+    -o vagrant.deb
+sudo dpkg -i vagrant.deb

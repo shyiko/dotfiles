@@ -1,56 +1,52 @@
 [user]
 name = Stanley Shyiko
 email = stanley.shyiko@gmail.com
+signingkey = 160a7a9cf46221a56b06ad64461a804f2609fd89
 
-[branch "master"]
-remote = origin
-merge = refs/heads/master
-
-[core]
-excludesfile = ~/.gitignore_global
-autocrlf = input
-
-[apply]
-# ignore whitespaces when applying a patch
-whitespace = fix
-
-[color]
-ui = auto
-
-[http]
-postBuffer = 524288000
-
-[mergetool "fugitive"]
-cmd = vim -f -c \"Gdiff\" \"$MERGED\"
-
-[merge]
-tool = fugitive
-# include summaries of merged commits into newly created merge commit message
-log = true
-
-[diff]
-tool = vimdiff
-
-[alias]
-d = diff HEAD
-ds = diff --staged
-co = checkout
-glog = log --pretty=oneline --graph
-st = status -s
-ci = commit
-ba = branch
-# remove untracked files
-purge = clean -df
-shelve = stash
-unshelve = stash apply
-l = pull
-p = push
-lg = log --graph --pretty=format:'%Cred%h%Creset %Creset%Cblue%an%Creset %s %Cgreen(%cr)%Cred%d%Creset' --abbrev-commit --date=relative
-lga = "!git lg --all"
-serve = "!git instaweb --local -p 8000; $HOME/.dotfiles/.gitext/waitfor_sigint; git instaweb stop"
-outgoing = log origin/master..HEAD
-incoming = "!git fetch $1; git log HEAD..$1/master"
+[credential "https://github.com"]
+username = shyiko
+[credential "https://gitlab.com"]
+username = shyiko
 
 [url "git://gist.github.com/"]
 insteadOf = "gist:"
 
+# git@2.13+ (https://stackoverflow.com/a/43654115)
+# [includeIf "gitdir:~/Development/code.uber.internal/"]
+#    path = ~/.dotfiles/.gitconfig_uber
+
+[core]
+excludesfile = ~/.dotfiles/.gitignore_global
+autocrlf = input
+# https://git-scm.com/docs/git-update-index#_untracked_cache
+untrackedCache = true
+
+[http]
+postBuffer = 524288000
+
+[alias]
+origin = remote show origin
+co = checkout
+s = status -s
+c = commit
+b = branch -vv
+bb = "!git for-each-ref --sort='-committerdate' --format='%(refname) %(committerdate:iso8601) %(contents:subject)' refs/heads | sed -e 's-refs/heads/--'"
+# remove untracked files (purge)
+rm-untracked = clean -df
+rm-not-gitignored = "!git clean -df && git reset --hard"
+rm-all = "!git clean -xdf && git reset --hard"
+undo = reset --soft HEAD~1
+shelve = stash
+unshelve = stash apply
+p = pull
+pb = pull --rebase --autostash
+pullb = pull --rebase --autostash
+pp = push
+l = log --pretty=oneline --graph
+ll = log --graph --pretty=format:'%Cred%h%Creset %Creset%Cblue%an%Creset %s %Cgreen(%cr)%Cred%d%Creset' --abbrev-commit --date=relative
+lpull = "!git fetch $1; git log HEAD..$1/master"
+lpush = log origin/master..HEAD
+serve = "!git instaweb --local -p 8000; bash -c '_trap_control_c() { exit 0; }; trap _trap_control_c SIGINT; while true; do read x; done'; git instaweb stop"
+env = "!pwd && env"
+summary = "!git-fame --log ERROR" # pip install git-fame tqdm
+# see also ~/.dotfiles/bin/git-*

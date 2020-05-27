@@ -1,0 +1,2 @@
+# cat /sys/bus/thunderbolt/devices/0-0/0-1/authorized is 0 (unauthorized) by default
+ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"

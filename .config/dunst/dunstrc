@@ -1,0 +1,45 @@
+# https://manpages.debian.org/testing/dunst/dunst.1.en.html
+
+[global]
+    font = "Droid Sans Mono 11"
+    markup = yes
+    format = "<b>%s %p</b>\n%b"
+    sort = yes
+    indicate_hidden = true
+    idle_threshold = 0
+    geometry = "600x5-0+26"
+    # https://github.com/dunst-project/dunst/issues/336
+    # geometry = "600x5-660+26"
+    alignment = center
+    show_age_threshold = 60
+    sticky_history = yes
+    follow = mouse
+    word_wrap = yes
+    separator_height = 2
+    padding = 10
+    horizontal_padding = 10
+    separator_color = frame
+    frame_width = 0
+
+[shortcuts]
+    close_all = mod4+k
+#    close = ctrl+space
+#    close_all = ctrl+shift+space
+#    history = ctrl+grave
+#    context = ctrl+shift+period
+
+[urgency_low]
+   background = "#96b5b4"
+   foreground = "#000000"
+   timeout = 5
+
+[urgency_normal]
+   background = "#a3be8c"
+   foreground = "#000000"
+   timeout = 10
+
+[urgency_critical]
+   background = "#ebcb8b"
+   foreground = "#000000"
+   timeout = 0
+

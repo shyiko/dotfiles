@@ -1,0 +1,43 @@
+# https://www.x.org/releases/current/doc/man/man5/xorg.conf.5.xhtml
+
+Section "ServerLayout"
+    Identifier "iGPU ServerLayout"
+    Screen "iGPU Screen"
+    # Do not turn off the monitor.
+    # https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling
+    Option "BlankTime" "0"
+    Option "StandbyTime" "0"
+    Option "SuspendTime" "0"
+    Option "OffTime" "0"
+EndSection
+
+Section "Screen"
+    Identifier "iGPU Screen"
+    Device "iGPU"
+    Monitor "iGPU Monitor"
+EndSection
+
+Section "Monitor"
+    Identifier "iGPU Monitor"
+    # Required for Option "BlankTime", etc. above to have an effect.
+    Option "DPMS" "true"
+EndSection
+
+# https://wiki.archlinux.org/index.php/intel_graphics
+# Intel Corporation HD Graphics 530 (rev 06)
+Section "Device"
+    Identifier "iGPU"
+    # `lspci | grep -i vga`, then convert hex to dec
+    BusID "PCI:0:2:0"
+    # Think about Driver "modesetting"?
+    # See https://www.phoronix.com/scan.php?page=article&item=intel-modesetting-2017&num=3 first.
+    # It's a viable options when used for
+    # https://download.nvidia.com/XFree86/Linux-x86_64/440.82/README/randr14.html
+    # and
+    # https://download.nvidia.com/XFree86/Linux-x86_64/440.82/README/primerenderoffload.html
+    # though.
+    Driver "intel"
+    # `man intel.4` for list of supported options.
+    # Use https://www.vsynctester.com/ (or https://www.youtube.com/watch?v=5xkNy9gfKOg) to test.
+    Option "TearFree" "true"
+EndSection

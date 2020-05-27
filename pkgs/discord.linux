@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+# https://discord.com/
+DISCORD_VERSION=0.0.10
+
+mkdir -p /tmp/pkgs/discord
+cd /tmp/pkgs/discord
+
+curl -sSL "https://dl.discordapp.net/apps/linux/$DISCORD_VERSION/discord-$DISCORD_VERSION.deb" -o discord.deb
+sudo dpkg -i discord.deb

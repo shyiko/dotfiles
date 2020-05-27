@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+# https://store.steampowered.com/about/
+sudo add-apt-repository multiverse
+sudo apt install -y steam

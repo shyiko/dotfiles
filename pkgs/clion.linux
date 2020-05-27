@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+# https://www.jetbrains.com/clion/download/#section=linux
+CLION_VERSION=CLion-2020.1.1
+
+if [ ! -f ~/Applications/$CLION_VERSION/bin/clion.sh ]; then
+    mkdir -p /tmp/pkgs/clion
+    curl -sSL https://download.jetbrains.com/cpp/$CLION_VERSION.tar.gz -o /tmp/pkgs/clion/$CLION_VERSION.tar.gz
+    mkdir -p ~/Applications/$CLION_VERSION~
+    atool -q --extract-to=$HOME/Applications/$CLION_VERSION~ /tmp/pkgs/clion/$CLION_VERSION.tar.gz
+    mv $HOME/Applications/$CLION_VERSION~/clion* $HOME/Applications/$CLION_VERSION # e.g. ~/Applications/CLion-2020.1.1/clion-2020.1.1/
+    rmdir $HOME/Applications/$CLION_VERSION~
+fi
+
+mkdir -p ~/.bin
+ln -sf ~/Applications/$CLION_VERSION/bin/clion.sh ~/.bin/clion

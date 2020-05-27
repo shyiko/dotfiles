@@ -1,0 +1,13 @@
+#!/bin/bash
+vpn_status() {
+	if [[ "$(ip l show vpn0 up | wc -l)" != "0" ]]; then
+		echo on
+	else
+		echo off
+	fi
+}
+
+i3status | while true; do
+	read line
+	echo "VPN: $(vpn_status) | $line" || exit 1
+done

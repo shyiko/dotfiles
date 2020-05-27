@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+# https://github.com/sharkdp/fd
+FD_VERSION=8.1.0
+
+mkdir -p /tmp/pkgs/fd
+cd /tmp/pkgs/fd
+
+curl -sSL "https://github.com/sharkdp/fd/releases/download/v${FD_VERSION}/fd-musl_${FD_VERSION}_amd64.deb" -o fd.deb
+sudo dpkg -i fd.deb

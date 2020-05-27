@@ -1,0 +1,35 @@
+#!/bin/bash
+set -euo pipefail
+
+# https://github.com/cdemoulins/pamixer
+sinks=$(pamixer --list-sinks | tail +2 | awk '{print $1}')
+
+case "$1" in
+up)
+    volume=$(pamixer --get-volume ||:)
+    new_volume=$((volume+2))
+    for sink in $sinks; do
+        pamixer --sink $sink --set-volume $new_volume
+    done
+;;
+down)
+    volume=$(pamixer --get-volume ||:)
+    new_volume=$((volume-2))
+    for sink in $sinks; do
+        pamixer --sink $sink --set-volume $new_volume
+    done
+;;
+toggle)
+    muted=$(pamixer --get-mute ||:)
+    op=--unmute
+    if [[ "$muted" == "false" ]]; then
+        op=--mute
+    fi
+    for sink in $sinks; do
+        pamixer --sink $sink $op
+    done
+;;
+*)
+echo "Usage: $0 (up|down|toggle)" >&2
+exit 1
+esac

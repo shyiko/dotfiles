@@ -1,0 +1,12 @@
+#!/bin/bash
+#@pkg.file=$HOME/.fzf/bin/fzf
+set -e
+
+if [ ! -d ~/.fzf ]; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git \
+        --branch 0.17.5 \
+        ~/.fzf
+fi
+if [ ! -f ~/.fzf.bash ]; then
+    ~/.fzf/install --key-bindings --completion --no-update-rc --no-fish --no-zsh
+fi

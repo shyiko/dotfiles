@@ -1,0 +1,33 @@
+#!/usr/bin/env perl -w
+
+=head1 NAME
+
+clear-selection-on-right-click - clear selection on right click.
+
+=head1 DESCRIPTION
+
+To install:
+- copy clear-selection-on-right-click to ~/.urxvt/ext/
+- add "URxvt.perl-ext-common: ...,clear-selection-on-right-click" to ~/.Xresources
+
+=cut
+
+sub on_button_press {
+  my ($self, $event) = @_;
+  $self->ModLevel3Mask;
+  if ($event->{button} == 3) {
+    $self->selection_clear;
+    return 1;
+  }
+  return;
+}
+
+sub on_button_release {
+  my ($self, $event) = @_;
+  $self->ModLevel3Mask;
+  if ($event->{button} == 3) {
+    $self->selection_clear;
+    return 1;
+  }
+  return;
+}

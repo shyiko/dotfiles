@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+# https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html
+
+mkdir -p /tmp/pkgs/aws
+cd /tmp/pkgs/aws
+
+curl -sSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o aws.zip
+unzip aws.zip
+sudo ./aws/install

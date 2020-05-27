@@ -1,0 +1,11 @@
+#!/bin/bash
+#@pkg.file=$HOME/.local/bin/pipx
+set -e
+
+# https://pipxproject.github.io/pipx/installation/
+# https://github.com/pipxproject/pipx/blob/d31e8366eaea3ace6ad55b8efb3161e97b9cd49c/docs/programs-to-try.md
+
+python3 -m pip install --user pipx
+
+# ~/.bash* already contain necessary code (i.e. ~/.local/bin is on the PATH)
+# python3 -m pipx ensurepath

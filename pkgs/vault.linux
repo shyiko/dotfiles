@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+VAULT_VERSION=1.4.1
+
+mkdir -p /tmp/pkgs/vault
+cd /tmp/pkgs/vault
+
+curl -sSL "https://releases.hashicorp.com/vault/$VAULT_VERSION/vault_${VAULT_VERSION}_linux_amd64.zip" \
+    -o vault_$VAULT_VERSION.zip
+atool -q -x vault_$VAULT_VERSION.zip
+sudo mv -f vault /usr/local/bin/vault

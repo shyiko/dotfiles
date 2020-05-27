@@ -1,0 +1,9 @@
+[Unit]
+Description=cpupower frequency-set
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/cpupower -c all frequency-set -g performance
+
+[Install]
+WantedBy=multi-user.target

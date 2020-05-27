@@ -1,0 +1,2 @@
+# Logitech M570 hot-plugging
+ACTION=="add", SUBSYSTEM=="input", ATTR{name}=="Logitech M570", RUN+="/usr/bin/sudo -u shyiko /usr/bin/at -f /usr/local/bin/udev-logitech-m570-add.sh now"

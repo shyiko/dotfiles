@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+I3LOCK_COLOR_VERSION=2.12.c.4
+I3LOCK_COLOR_SHA256=4b9a6a9cbf2ec94b1ef5a9dd3d4ab056886a248c93be1fe56cddda54ff0af928
+
+mkdir -p /tmp/pkgs/i3lock-color
+cd /tmp/pkgs/i3lock-color
+
+curl -sSL https://github.com/Raymo111/i3lock-color/releases/download/$I3LOCK_COLOR_VERSION/i3lock \
+    -o i3lock-color
+if [[ "$(sha256sum i3lock | awk '{print $1}')" != "$I3LOCK_COLOR_SHA256"]; then
+    echo "Checksum mismatch: sha256sum /tmp/pkgs/i3lock-color != $I3LOCK_COLOR_SHA256" >&2
+    exit 1
+fi
+chmod +x i3lock-color
+sudo mv -f i3lock-color /usr/local/bin/

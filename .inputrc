@@ -1,16 +1,30 @@
 # https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html
+#
+# `man readline` to get a list of all possible bindings
+# `bind -f ~/.inputrc` to reload
 
 # use arrow up/down for history traversal
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
+# ctrl+arrow left/right to skip words
+"\eOd": backward-word
+"\eOc": forward-word
+
+# ctrl+backspace
+"\C-h": backward-kill-word
+# ctrl+delete
+"\e[3^": kill-word
+
+# ctrl+y (interferes with fzf)
+# "\C-y": kill-whole-line
+
+set meta-flag on
 set input-meta on
 set output-meta on
 set convert-meta off
 set show-all-if-ambiguous on
 set completion-ignore-case on
-# symbolic links to directories shoud have a slash appended
 set mark-symlinked-directories on
-# do not insert characters from the completion that match characters after point in the word being completed
 set skip-completed-text on
-
+set bell-style none

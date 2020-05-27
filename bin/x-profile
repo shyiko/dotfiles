@@ -1,0 +1,14 @@
+#!/bin/bash
+set -euo pipefail
+
+if [[ "$1" == "" ]]; then
+	echo "Usage: x-profile PROFILE"
+	echo "Available PROFILEs (/etc/X11/xorg.conf.*): $(echo $(find /etc/X11/ -maxdepth 1 -name 'xorg.conf.*' -type f | cut -d. -f3))"
+	exit 1
+fi
+
+if [ ! -e "/etc/X11/xorg.conf.$1" ]; then
+	echo "'/etc/X11/xorg.conf.$1' does not exist" >&2
+	exit 1
+fi
+ln -sf "/etc/X11/xorg.conf.$1" /etc/X11/xorg.conf

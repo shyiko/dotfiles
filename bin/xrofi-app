@@ -1,0 +1,15 @@
+#!/bin/bash
+PATH= ~/.dotfiles/bin/xrofi -show run \
+    -run-list-command "/bin/bash -c '/bin/cat $HOME/.dotfiles/.config/rofi/app.list $HOME/.dotfiles/.config/rofi/app.list.*'" \
+    -run-command "$HOME/.dotfiles/bin/xrofi-app-run {cmd}"
+
+# remove commands that are no longer on the PATH
+tmp_file=$(mktemp ~/.cache/rofi-3.runcache.tmp.XXXXXX)
+echo > $tmp_file
+while read -r line; do
+    if which $(echo $line | awk '{print $2}') &>/dev/null; then
+        echo $line >> $tmp_file
+    fi
+done < ~/.cache/rofi-3.runcache
+mv -f $tmp_file ~/.cache/rofi-3.runcache
+

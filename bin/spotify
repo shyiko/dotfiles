@@ -1,0 +1,2 @@
+#!/bin/bash
+exec /usr/bin/spotify --force-device-scale-factor=1.15

@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+
+# https://support.yubico.com/support/solutions/articles/15000010964-enabling-the-yubico-ppa-on-ubuntu
+
+sudo add-apt-repository -y ppa:yubico/stable
+sudo apt install -y yubikey-manager

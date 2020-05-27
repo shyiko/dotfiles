@@ -1,9 +1,0 @@
-.ssh/*
-!.ssh/config
-.bash/*.local.*
-.vim/bundle
-.vim/backup
-.vim/swap
-.vim/undo
-.grip/*
-!.grip/settings.py

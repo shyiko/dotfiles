@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# restic init --repo ~/Documents/.vault/dotfiles
+# (
+#     cd ~/.dotfiles &&
+#     restic --repo ~/Documents/.vault/dotfiles backup \
+#         .config/asciinema/config \
+#         .grip/auth.json
+# )
+
+DISK_LABEL=shyiko-sd
+RESTIC_REPO_NAME=linux.restic-repo
+
+mounted="$(udisksctl info --block-device "/dev/disk/by-label/$DISK_LABEL" | grep MountPoints | awk -F: '{print $2}' | grep -cv '^ *$')"
+if [[ "$mounted" == "0" ]]; then
+    udisksctl mount --block-device "/dev/disk/by-label/$DISK_LABEL"
+fi
+
+# restic init --repo /media/shyiko/shyiko-sd/linux.restic-repo
+# skipped: ~/Music
+sudo restic -r "/media/shyiko/$DISK_LABEL/$RESTIC_REPO_NAME" backup \
+    /etc/NetworkManager/system-connections \
+    ~/Documents \
+    ~/Development \
+    ~/Music \
+    ~/Pictures \
+    ~/.GNS3 \
+    ~/.dosbox \
+    ~/.config/GNS3 \
+    ~/.dotfiles \
+    ~/.bash_history \
+    ~/.gnupg \
+    ~/.yubico \
+    ~/.ssh \
+    ~/.aws \
+    ~/.config/gcloud \
+    ~/.kube
+
+if [[ "$mounted" == "0" ]]; then
+    udisksctl unmount --block-device "/dev/disk/by-label/$DISK_LABEL"
+fi

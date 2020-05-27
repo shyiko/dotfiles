@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# https://wiki.archlinux.org/index.php/Xorg/Keyboard_configuration#Adjusting_typematic_delay_and_rate
+# xset r rate 200 40
+exec /usr/bin/X -ardelay 200 -arinterval 25 -nolisten tcp "$@" # previously used -ardelay 330

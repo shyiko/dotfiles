@@ -1,0 +1,61 @@
+#!/usr/bin/env perl -w
+
+# https://github.com/shyiko/urxvt-selection-open
+# @version 0.1.0
+# @author Stanley Shyiko <stanley.shyiko@gmail.com>
+# @license MIT
+
+=head1 NAME
+
+selection-open - open selection (it can be used to open URLs in $BROWSER, files
+(both relative and absolute) in $EDITOR, etc.).
+
+=head1 DESCRIPTION
+
+To install:
+- copy selection-open to ~/.urxvt/ext/
+- add "URxvt.perl-ext-common: ...,selection-open" to ~/.Xresources
+- add to ~/.bashrc and/or ~/.zshrc
+
+    _urxvt_selection_open() { local exit_code=$?; echo -ne "\0033]777;selection-open;path;$PWD\0007"; return $exit_code; }
+    export PROMPT_COMMAND="_urxvt_selection_open; $PROMPT_COMMAND"
+
+Usage (example):
+
+    ! open selected file in vscode
+    URxvt.keysym.A-e: perl:selection-open:bash -c 'vscode -g ${@/#\~/$HOME}' --
+    ! open selected directory in nautilus
+    URxvt.keysym.A-o: perl:selection-open:bash -c 'nautilus ${@/#\~/$HOME}' --
+
+=cut
+
+use Encode;
+
+my $utf8 = Encode::find_encoding('UTF-8');
+
+sub on_osc_seq_perl {
+    my ($self, $osc) = @_;
+    return unless $osc =~ s/^selection-open;//;
+    local $@;
+    $osc = eval { $utf8->decode($osc, Encode::FB_CROAK) };
+    if ($@) {
+        warn "selection-open: unexpected $@";
+        return;
+    }
+    return unless $osc =~ s/^path;//;
+    $self->{'selection-open-cwd'} = $osc;
+    return 1;
+}
+
+sub on_user_command {
+    my ($self, $cmd) = @_;
+    my $script = $cmd;
+    return unless $script =~ s/^selection\-open://;
+    my $term = $self->{term};
+    my $cwd = $self->{'selection-open-cwd'} or return;
+    my $txt = $self->selection or return;
+    $txt =~ s/'/\\'/g;
+    chdir($cwd);
+    $term->exec_async($script . " '" . $txt . "'");
+    return;
+}

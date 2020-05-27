@@ -1,0 +1,54 @@
+# https://i3wm.org/i3status/manpage.html
+
+general {
+    colors = false
+    color_good = '#33cc00'
+    color_degraded = '#ffff66'
+    color_bad = '#ff0000'
+    interval = 5
+}
+
+# order += "path_exists VPN"
+# order += "run_watch VPN"
+order += "wireless _first_"
+order += "ethernet eth0"
+order += "battery 0"
+order += "volume master"
+order += "tztime local"
+
+# path_exists VPN {
+#     path = "/proc/sys/net/ipv4/conf/vpn0"
+# }
+
+# run_watch VPN {
+#     pidfile = "/var/run/openvpn.pid"
+# }
+
+wireless _first_ {
+    format_up = "   %quality %essid(%ip)"
+    format_down = "WiFi: down"
+}
+
+ethernet eth0 {
+    format_up = "E: %ip"
+    format_down = "E: down"
+}
+
+battery 0 {
+    format = "⚡  %percentage %remaining"
+    hide_seconds = true
+    integer_battery_capacity = true
+    last_full_capacity = true
+}
+
+volume master {
+    format = "  %volume"
+    format_muted = "  %volume"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}
+
+tztime local {
+    format = "  %Y-%m-%d %H:%M "
+}

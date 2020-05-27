@@ -1,0 +1,11 @@
+[Unit]
+Description=Dell XPS 15 low cpu freq on resume workaround
+After=suspend.target
+
+[Service]
+Type=oneshot
+# reset "rdmsr -a 0x19a" after suspend (it's 0x0 before suspend)
+ExecStart=/usr/sbin/wrmsr -a 0x19a 0xe
+
+[Install]
+WantedBy=suspend.target

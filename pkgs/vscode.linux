@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+
+# https://code.visualstudio.com/docs/setup/linux
+sudo add-apt-repository -y "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo apt install -y code
+ln -sf /usr/bin/code /usr/local/bin/vscode

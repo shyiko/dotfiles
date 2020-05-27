@@ -1,0 +1,136 @@
+#!/bin/bash
+set -euo pipefail
+export PATH=$HOME/.bin:$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+DRY_RUN=
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --dry-run)
+      DRY_RUN=1
+      ;;
+    -h|--help)
+      usage
+      ;;
+    -*=)
+      echo "Error: unknown flag $1" >&2
+      exit 1
+      ;;
+    *)
+      usage
+      ;;
+  esac
+  shift
+done
+
+apt_pkgs=(
+    # apt
+    apt-transport-https
+    ca-certificates
+    apt-file
+    software-properties-common # for add-apt-repository
+    bash-completion
+
+    # X11/i3
+    xorg
+    dbus-x11
+    x11-utils # for xev, xwininfo, ...
+    xdotool
+    xbacklight
+    xinput
+    xbindkeys
+    xvkbd
+    arandr
+    xclip
+    autocutsel
+    compton
+    i3
+    i3status
+    i3lock
+    rofi
+    dunst
+    feh
+    libnotify-bin
+    xautolock
+    rxvt-unicode
+    at # used by root/etc/udev/rules.d/*
+
+    # gnome/GTK
+    lxappearance
+    arc-theme
+    adwaita-icon-theme-full
+    gnome-screenshot
+    gnome-system-monitor
+    gnome-disk-utility
+    gnome-calculator
+    dconf-editor
+    cheese
+    nautilus
+    file-roller
+    baobab
+    evince
+    eog
+    solaar
+    redshift
+    safeeyes # https://www.dejal.com/timeout/ on macOS
+    pavucontrol
+    volumeicon-alsa
+    playerctl
+    spek
+    font-manager
+    fonts-dejavu
+    fonts-font-awesome
+    fonts-liberation2
+    fonts-noto
+    hunspell hunspell-en-us
+    meld
+    flameshot # macOS - https://github.com/lupoDharkael/flameshot/issues/586
+
+    msr-tools # for wrmsr/rdmsr
+    util-linux # for lscpu
+
+    # CLI tooling
+    build-essential # for make
+    procps # for watch
+    git lighttpd
+    atool unzip unrar bzip2 xz-utils
+    progress # https://github.com/xfennec/progress
+    ripgrep
+    jq
+    fasd
+    direnv
+    neovim
+    ncdu
+    expect
+    bc
+    curl
+    htop
+    elfutils
+    imagemagick
+
+    # network
+    network-manager-gnome
+    network-manager-openconnect-gnome
+    blueman
+    ntp
+    iproute2 # for ip, ss, ...
+    ldnsutils # for drill (drill if you can, dig if you have to, nslookup if you must)
+    mtr-tiny
+    socat
+    tcpdump tcpflow ngrep mitmproxy wireshark-gtk
+
+    # security
+    policykit-1-gnome
+    gpg gpg-agent pinentry-gtk2
+    seahorse
+    scdaemon pcscd # for gpg2 --card-status
+    openssh-client # for ssh-copy-id
+)
+
+apt_install_opt=
+if [[ "$DRY_RUN" == "1" ]]; then
+    apt_install_opt=--dry-run
+fi
+
+set -x
+sudo apt update -qq
+sudo apt install $apt_install_opt -yq "${apt_pkgs[@]}"

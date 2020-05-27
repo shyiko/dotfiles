@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+# https://www.jetbrains.com/idea/download/#section=linux
+IDEA_VERSION=ideaIC-2020.1.1
+
+if [ ! -f ~/Applications/$IDEA_VERSION/bin/idea.sh ]; then
+    mkdir -p /tmp/pkgs/idea
+    curl -sSL https://download.jetbrains.com/idea/$IDEA_VERSION.tar.gz -o /tmp/pkgs/idea/$IDEA_VERSION.tar.gz
+    mkdir -p ~/Applications/$IDEA_VERSION~
+    atool --extract-to=$HOME/Applications/$IDEA_VERSION~ /tmp/pkgs/idea/$IDEA_VERSION.tar.gz
+    mv $HOME/Applications/$IDEA_VERSION~/idea* $HOME/Applications/$IDEA_VERSION # e.g. ~/Applications/ideaIC-2020.1.1/idea-IC-201.7223.91/
+    rmdir $HOME/Applications/$IDEA_VERSION~
+fi
+
+mkdir -p ~/.bin
+ln -sf ~/Applications/$IDEA_VERSION/bin/idea.sh ~/.bin/idea

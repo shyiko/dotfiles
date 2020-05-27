@@ -1,0 +1,5 @@
+#!/bin/bash
+#@pkg.file=$HOME/.local/bin/asciinema
+set -e
+
+pipx install asciinema

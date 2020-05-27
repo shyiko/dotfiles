@@ -1,36 +1,62 @@
-update
+# https://formulae.brew.sh/formula/
+# https://formulae.brew.sh/cask/
 
-install the_silver_searcher
-install jq
-install cv
-install httpie
-install autoenv
-install rename
-install ngrep
-install mtr
-install lesspipe
-install tree
-install watch
-install hr
-install unrar
-install ssh-copy-id
-install htop-osx
-install ctags
-install vim
-install lighttpd
-install git
-install gh
-install gist
-install git-extras
-install thoughtbot/formulae/gitsh
-install mercurial
-install nvm
-install heroku-toolbelt
+update
+brew install caskroom/cask/brew-cask
+
+cask install iterm2
+cask install bartender
+cask install spectacle # (or magnet from AppStore)
+cask install typora
+# https://medium.com/workflow-lab/6-tools-to-turn-any-webpage-into-desktop-mac-app-9ababf8ec740
+install nativefier # cask: flotato, fluid, ...
 install terminal-notifier
 
-install caskroom/cask/brew-cask
+cask install figma
+cask install whatsapp
+cask install dynalist
+cask install notion
 
-cask install virtualbox
-cask install vagrant
-cask install boot2docker
-cask install packer
+# CLI tooling
+install coreutils
+install bash
+install llvm # for clang
+install watch
+install git
+install lighttpd
+install atool
+install unzip
+install unrar
+install bzip2
+install xz
+install progress
+install ripgrep
+install jq
+install fasd
+install direnv
+install neovim
+install ncdu
+install expect
+install bc
+install curl
+install htop-osx
+install x86_64-elf-binutils
+install imagemagick
+
+# network
+# https://github.com/brona/iproute2mac
+# for drill (drill if you can, dig if you have to, nslookup if you must)
+install ldns
+install mtr
+install socat
+install tcpdump
+install tcpflow
+install ngrep
+install mitmproxy
+install wireshark
+
+# security
+install gnupg
+install gnupg-pkcs11-scd # for gpg2 --card-status
+install pinentry-mac
+install ssh-copy-id

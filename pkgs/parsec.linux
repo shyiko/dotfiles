@@ -1,0 +1,15 @@
+#!/bin/bash
+#@pkg.file=parsecd
+set -e
+
+# https://support.parsecgaming.com/hc/en-us/articles/115002699032-Linux-Ubuntu-18-04
+#
+# AMD and Nvidia cards need to have a VAAPI-VDPAU wrapper setup, which most systems have by default.
+# You may need to set your your libva to use it with export LIBVA_DRIVER_NAME=vdpau.
+# You can use vainfo to verify that your system has hardware decoding enabled.
+
+mkdir -p /tmp/pkgs/parsecd
+cd /tmp/pkgs/parsecd
+
+curl -sSL https://builds.parsecgaming.com/package/parsec-linux.deb -o parsec.deb
+sudo dpkg -i parsec.deb

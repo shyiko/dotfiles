@@ -1,0 +1,6 @@
+#!/bin/bash
+#@pkg.file=$HOME/.local/bin/ansible
+set -e
+
+# https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html
+pipx install ansible

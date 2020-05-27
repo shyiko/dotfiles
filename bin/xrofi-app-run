@@ -1,0 +1,3 @@
+#!/bin/bash
+export PATH=$HOME/.bin:$HOME/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+exec "$@"

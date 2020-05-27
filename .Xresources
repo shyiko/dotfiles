@@ -1,0 +1,75 @@
+! use "xrdb ~/.Xresources" to reload
+
+URxvt.font:xft:dejavu sans mono:medium:pixelsize=15
+URxvt.boldFont:xft:dejavu sans mono:medium:pixelsize=15
+URxvt.letterSpace: -1
+URxvt.lineSpace: 1
+! URxvt.cursorBlink: 1
+! extensions are located in /usr/lib/x86_64-linux-gnu/urxvt/perl (system), ~/.urxvt/ext (user)
+! curl -sL https://raw.githubusercontent.com/shyiko/urxvt-clipboard-paste-on-right-click/master/clipboard-paste-on-right-click > ~/.urxvt/ext/clipboard-paste-on-right-click
+! curl -sL https://raw.githubusercontent.com/shyiko/urxvt-selection-open/master/selection-open > ~/.urxvt/ext/selection-open
+URxvt.perl-ext-common: default,selection-to-clipboard,selection-open,confirm-paste,clear-selection-on-right-click,clip,font-size
+URxvt.keysym.Control-Shift-C: perl:clip:copy
+URxvt.keysym.Control-Shift-V: perl:clip:paste
+URxvt.keysym.A-e: perl:selection-open:bash -c 'vscode -g ${@/#\~/$HOME}' --
+URxvt.keysym.A-o: perl:selection-open:bash -c 'nautilus ${@/#\~/$HOME}' --
+URxvt.scrollTtyOutput: false
+URxvt.scrollWithBuffer: true
+URxvt.scrollTtyKeypress: true
+URxvt.saveLines: 8192
+URxvt.scrollBar: false
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+URxvt.depth: 32
+URxvt.background: rgba:2b2b/3030/3b3b/f2f2
+
+! Base16 Ocean
+! Scheme: Chris Kempson (http://chriskempson.com)
+
+#define base00 #2b303b
+#define base01 #343d46
+#define base02 #4f5b66
+#define base03 #65737e
+#define base04 #a7adba
+#define base05 #c0c5ce
+#define base06 #dfe1e8
+#define base07 #eff1f5
+#define base08 #bf616a
+#define base09 #d08770
+#define base0A #ebcb8b
+#define base0B #a3be8c
+#define base0C #96b5b4
+#define base0D #8fa1b3
+#define base0E #b48ead
+#define base0F #ab7967
+
+*.foreground:   base05
+*.background:   base00
+*.cursorColor:  base05
+
+*.color0:       base00
+*.color1:       base08
+*.color2:       base0B
+*.color3:       base0A
+*.color4:       base0D
+*.color5:       base0E
+*.color6:       base0C
+*.color7:       base05
+
+*.color8:       base03
+*.color9:       base08
+*.color10:      base0B
+*.color11:      base0A
+*.color12:      base0D
+*.color13:      base0E
+*.color14:      base0C
+*.color15:      base07
+
+! note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
+! use 'shell' template to set these if necessary
+*.color16:      base09
+*.color17:      base0F
+*.color18:      base01
+*.color19:      base02
+*.color20:      base04
+*.color21:      base06

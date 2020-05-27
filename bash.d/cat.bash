@@ -1,0 +1,1 @@
+alias tac="tail -r"

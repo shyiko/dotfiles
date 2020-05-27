@@ -1,0 +1,11 @@
+# Use
+# `xmodmap -e ...` to load (e.g. `xmodmap -e 'keycode 150 = NoSymbol'`),
+# `xmodmap ~/.Xmodmap` to reload,
+# `xmodmap -pke` to list all keycodes.
+
+# Disable sleep button (XF86Sleep).
+keycode 150 = NoSymbol
+
+# Remap RIGHT_SHIFT to ENTER.
+# remove Shift = Shift_R
+# keycode 62 = Return

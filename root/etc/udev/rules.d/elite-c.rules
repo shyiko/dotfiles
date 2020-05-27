@@ -1,0 +1,2 @@
+# Elite C v3.0
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff4", MODE:="0666"

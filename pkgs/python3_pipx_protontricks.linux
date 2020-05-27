@@ -1,0 +1,8 @@
+#!/bin/bash
+#@pkg.file=$HOME/.local/bin/protontricks
+set -e
+
+# https://github.com/Matoking/protontricks
+# for things like `protontricks 321960 uplay` (install uplay)
+
+pipx install protontricks

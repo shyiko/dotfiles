@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+# https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html
+
+mkdir -p /tmp/pkgs/visualvm
+cd /tmp/pkgs/visualvm
+
+if [ ! -d ~/Applications/visualvm-2.0.2 ]; then
+    curl -sSL "https://github.com/visualvm/visualvm.src/releases/download/2.0.2/visualvm_202.zip" -o visualvm_202.zip
+    atool -q -x visualvm_202.zip
+    mv visualvm_202 ~/Applications/visualvm-2.0.2
+fi
+
+mkdir -p ~/.bin
+ln -sf ~/Applications/visualvm-2.0.2/bin/visualvm ~/.bin/visualvm

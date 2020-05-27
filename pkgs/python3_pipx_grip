@@ -1,0 +1,5 @@
+#!/bin/bash
+#@pkg.file=$HOME/.local/bin/grip
+set -e
+
+pipx install grip

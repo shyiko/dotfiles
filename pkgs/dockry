@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+DOCKRY_VERSION=0.2.0
+
+mkdir -p /tmp/pkgs/dockry
+cd /tmp/pkgs/dockry
+
+curl -sSL "https://github.com/shyiko/dockry/releases/download/$DOCKRY_VERSION/dockry-$DOCKRY_VERSION-$(
+        bash -c '[[ $OSTYPE == darwin* ]] && echo darwin || echo linux'
+    )-amd64" \
+    -o dockry
+chmod +x dockry
+sudo mv -f dockry /usr/local/bin/

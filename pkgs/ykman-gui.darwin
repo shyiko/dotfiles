@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+YKMAN_GUI_VERSION=1.1.4
+
+mkdir -p /tmp/pkgs/ykman-gui
+cd /tmp/pkgs/ykman-gui
+
+curl -sSL "https://developers.yubico.com/yubikey-manager-qt/Releases/yubikey-manager-qt-$YKMAN_GUI_VERSION.pkg" \
+    -o yubikey-manager-qt.pkg
+sudo installer -verbose -pkg yubikey-manager-qt.pkg -target /

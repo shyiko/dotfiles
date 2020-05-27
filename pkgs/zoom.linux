@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+# https://zoom.us/download?os=linux
+
+mkdir -p /tmp/pkgs/zoom
+cd /tmp/pkgs/zoom
+
+curl -sSL https://zoom.us/client/latest/zoom_amd64.deb -o zoom_amd64.deb
+sudo dpkg -i zoom_amd64.deb

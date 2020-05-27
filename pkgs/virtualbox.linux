@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+# https://www.vagrantup.com/docs/virtualbox/
+
+# https://www.virtualbox.org/wiki/Downloads
+# https://www.virtualbox.org/wiki/Download_Old_Builds_5_2
+# https://www.virtualbox.org/wiki/Download_Old_Builds_6_0
+
+VIRTUALBOX_DEB_URL=https://download.virtualbox.org/virtualbox/6.1.8/virtualbox-6.1_6.1.8-137981~Ubuntu~eoan_amd64.deb
+VIRTUALBOX_EXT_URL=https://download.virtualbox.org/virtualbox/6.1.8/Oracle_VM_VirtualBox_Extension_Pack-6.1.8.vbox-extpack
+
+# VIRTUALBOX_DEB_URL=https://download.virtualbox.org/virtualbox/6.0.22/virtualbox-6.0_6.0.22-137980~Ubuntu~eoan_amd64.deb
+# VIRTUALBOX_EXT_URL=https://download.virtualbox.org/virtualbox/6.0.22/Oracle_VM_VirtualBox_Extension_Pack-6.0.22.vbox-extpack
+
+mkdir -p /tmp/pkgs/virtualbox
+cd /tmp/pkgs/virtualbox
+
+curl -sSL "$VIRTUALBOX_DEB_URL" -o vbox.deb
+curl -sSL "$VIRTUALBOX_EXT_URL" -o vbox.vbox-extpack
+
+sudo dpkg -i vbox.deb
+sudo VBoxManage extpack install vbox.vbox-extpack

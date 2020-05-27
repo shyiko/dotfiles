@@ -1,0 +1,13 @@
+#!/usr/bin/env perl -w
+# URxvt.perl-ext-common : selection-to-clipboard,clip
+# URxvt.keysym.Control-Shift-V : perl:clip:paste
+
+use strict;
+
+sub on_user_command {
+  my ($self, $cmd) = @_;
+  if ($cmd eq "clip:paste") {
+    $self->selection_request (urxvt::CurrentTime, 3);
+  }
+  return;
+}

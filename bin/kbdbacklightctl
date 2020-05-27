@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+
+case "$1" in
+on)
+    echo 1 > /sys/class/leds/dell::kbd_backlight/brightness
+;;
+off)
+    echo 0 > /sys/class/leds/dell::kbd_backlight/brightness
+;;
+auto)
+    echo 2 > /sys/class/leds/dell::kbd_backlight/brightness
+;;
+*)
+echo "Usage: $0 (on|off|auto)" >&2
+exit 1
+esac

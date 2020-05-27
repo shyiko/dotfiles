@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+UNDERVAULT_VERSION=0.3.0
+
+mkdir -p /tmp/pkgs/undervault
+cd /tmp/pkgs/undervault
+
+curl -sSL "https://raw.githubusercontent.com/georgewhewell/undervolt/$UNDERVAULT_VERSION/undervolt.py" \
+    -o undervolt
+chmod +x undervolt
+sudo mv -f undervolt /usr/local/bin/

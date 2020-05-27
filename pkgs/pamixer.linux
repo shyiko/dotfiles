@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+# https://github.com/cdemoulins/pamixer
+PAMIXER_VERSION=1.4
+
+mkdir -p /tmp/pkgs/packer
+cd /tmp/pkgs/packer
+
+sudo apt install -y libpulse-dev libboost-dev libboost-program-options-dev
+git clone --depth 1 https://github.com/cdemoulins/pamixer.git --branch "$PAMIXER_VERSION" repo
+cd repo
+make
+sudo mv -f pamixer /usr/local/bin/pamixer

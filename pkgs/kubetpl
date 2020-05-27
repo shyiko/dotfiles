@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+KUBETPL_VERSION=0.9.0
+
+mkdir -p /tmp/pkgs/kubetpl
+cd /tmp/pkgs/kubetpl
+
+curl -sSL "https://github.com/shyiko/kubetpl/releases/download/$KUBETPL_VERSION/kubetpl-$KUBETPL_VERSION-$(
+        bash -c '[[ $OSTYPE == darwin* ]] && echo darwin || echo linux'
+    )-amd64" \
+    -o kubetpl
+chmod a+x kubetpl
+sudo mv -f kubetpl /usr/local/bin/

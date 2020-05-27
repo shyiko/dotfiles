@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+# https://kicad-pcb.org/download/ubuntu/
+KICAD_VERSION=5.1
+
+sudo add-apt-repository --yes ppa:js-reynaud/kicad-$KICAD_VERSION
+sudo apt install --install-recommends -y kicad

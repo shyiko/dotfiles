@@ -1,0 +1,59 @@
+# https://www.x.org/releases/current/doc/man/man5/xorg.conf.5.xhtml
+# https://download.nvidia.com/XFree86/Linux-x86_64/440.82/README/randr14.html
+
+Section "ServerLayout"
+    Identifier "dGPU ServerLayout"
+    Screen "dGPU Screen"
+    Inactive "iGPU"
+    # Do not turn off the monitor.
+    # https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling
+    Option "BlankTime" "0"
+    Option "StandbyTime" "0"
+    Option "SuspendTime" "0"
+    Option "OffTime" "0"
+EndSection
+
+Section "Screen"
+    Identifier "dGPU Screen"
+    Device "dGPU"
+    Monitor "dGPU Monitor"
+EndSection
+
+Section "Monitor"
+    Identifier "dGPU Monitor"
+    # Required for Option "BlankTime", etc. above to have an effect.
+    Option "DPMS" "true"
+EndSection
+
+# https://download.nvidia.com/XFree86/Linux-x86_64/440.82/README/xconfigoptions.html
+# NVIDIA Corporation GM107M [GeForce GTX 960M] (rev a2)
+Section "Device"
+    Identifier "dGPU"
+    Driver "nvidia"
+    # `lspci | grep -i nvidia`, then convert hex to dec
+    BusID "PCI:1:0:0"
+    Option "AllowEmptyInitialConfiguration"
+    Option "ProbeAllGpus" "false"
+EndSection
+
+# https://wiki.archlinux.org/index.php/intel_graphics
+# Intel Corporation HD Graphics 530 (rev 06)
+Section "Device"
+    Identifier "iGPU"
+    # lspci | grep -i vga, then convert hex to dec
+    BusID "PCI:0:2:0"
+    # NOTE: xbacklight does not work with the modesetting driver (https://gitlab.freedesktop.org/xorg/xserver/issues/47).
+    # You can, however, control brightness with `/sys/class/backlight/intel_backlight/brightness`.
+    # See https://wiki.archlinux.org/index.php/backlight for more.
+    Driver "modesetting"
+    # https://manpages.debian.org/stretch/xserver-xorg-core/modesetting.4.en.html
+
+    # You may need to add
+    #
+    #     xrandr --output eDP-1-1 --set "PRIME Synchronization" 1
+    #
+    # to ~/.xinirc if you observe "tearing".
+    # Use `xrandr --verbose` to confirm.
+EndSection
+
+# This config depends on nvidia.conf.

@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+# https://www.spotify.com/us/download/linux/
+sudo add-apt-repository -y "deb http://repository.spotify.com stable non-free"
+sudo apt install -y spotify-client

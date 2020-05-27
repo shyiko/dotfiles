@@ -1,0 +1,2 @@
+#!/bin/bash
+pkexec sh -c "systemctl stop qemu-kvm; systemctl start vboxdrv"

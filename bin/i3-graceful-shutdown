@@ -1,0 +1,24 @@
+#!/bin/bash
+window_list() {
+    xdotool search --class ".*" | xargs -L1 -i{} xdotool getwindowpid {} 2>/dev/null | sort -u
+}
+kill -15 $(window_list)
+for i in {1..14}; do
+    if [[ "$(window_list)" == "" ]]; then
+        break
+    fi
+    sleep 0.5
+done
+
+# xinput disable 'DLL06E4:01 06CB:7A13 Touchpad'
+
+case "$1" in
+-r)
+    exec systemctl reboot
+;;
+*)
+echo "Usage: $0 (|-r)" >&2
+exit 1
+esac
+
+exec systemctl poweroff

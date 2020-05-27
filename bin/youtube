@@ -1,0 +1,2 @@
+#!/bin/bash
+exec google-chrome-stable --app=https://www.youtube.com/playlist?list=PLXoT2BWEpUqp74lCxVKTw0DDGEXeeCQTy

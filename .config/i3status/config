@@ -2,9 +2,6 @@
 
 general {
     colors = false
-    color_good = '#33cc00'
-    color_degraded = '#ffff66'
-    color_bad = '#ff0000'
     interval = 5
 }
 
@@ -25,7 +22,7 @@ order += "tztime local"
 # }
 
 wireless _first_ {
-    format_up = "   %quality %essid(%ip)"
+    format_up = "%quality %essid(%ip)"
     format_down = "WiFi: down"
 }
 
@@ -35,20 +32,20 @@ ethernet eth0 {
 }
 
 battery 0 {
-    format = "⚡  %percentage %remaining"
+    format = "B: %percentage %remaining"
     hide_seconds = true
     integer_battery_capacity = true
     last_full_capacity = true
 }
 
 volume master {
-    format = "  %volume"
-    format_muted = "  %volume"
+    format = " %volume"
+    format_muted = " %volume"
     device = "default"
     mixer = "Master"
     mixer_idx = 0
 }
 
 tztime local {
-    format = "  %Y-%m-%d %H:%M "
+    format = " %Y-%m-%d %H:%M "
 }

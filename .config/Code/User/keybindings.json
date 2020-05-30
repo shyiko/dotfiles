@@ -1,112 +1,30 @@
 [
     {
-        "key": "ctrl+e",
-        "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
+        "key": "ctrl+shift+a",
+        "command": "workbench.action.showCommands",
     },
     {
-        "key": "ctrl+shift+,",
-        "command": "workbench.action.openRecent"
-    },
-    {
-        "key": "ctrl+shift+j",
-        "command": "editor.action.insertSnippet"
-    },
-    {
-        "key": "ctrl+shift+g",
-        "command": "editor.action.addSelectionToNextFindMatch"
-    },
-    {
-        "key": "ctrl+alt+v",
-        "command": "editor.action.insertSnippet",
-        "args": {
-            "name": "Extract As Variable"
-        }
-    },
-    {
-        "key": "ctrl+shift+/",
-        "command": "editor.action.blockComment",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+shift+k",
-        "command": "git.pushTo"
+        "key": "alt+enter",
+        "command": "editor.action.quickFix"
     },
     {
         "key": "ctrl+q",
         "command": "-workbench.action.quit"
     },
     {
-        "key": "ctrl+shift+=",
-        "command": "-editor.unfoldAll",
-        "when": "editorFocus"
+        "key": "ctrl+q",
+        "command": "editor.action.triggerParameterHints",
+        "when": "editorHasSignatureHelpProvider && editorTextFocus"
     },
     {
-        "key": "ctrl+-",
-        "command": "-editor.fold",
-        "when": "editorFocus"
+        "key": "ctrl+j",
+        "command": "editor.action.insertSnippet"
     },
+// https://code.visualstudio.com/docs/editor/refactoring
     {
-        "key": "ctrl+0",
-        "command": "-workbench.action.focusSideBar"
-    },
-    {
-        "key": "ctrl+shift+=",
-        "command": "-workbench.action.zoomIn"
-    },
-    {
-        "key": "ctrl+numpad_add",
-        "command": "-workbench.action.zoomIn"
-    },
-    {
-        "key": "ctrl+=",
-        "command": "-workbench.action.zoomIn"
-    },
-    {
-        "key": "ctrl+-",
-        "command": "-workbench.action.zoomOut"
-    },
-    {
-        "key": "ctrl+numpad_subtract",
-        "command": "-workbench.action.zoomOut"
-    },
-    {
-        "key": "ctrl+numpad0",
-        "command": "-workbench.action.zoomReset"
-    },
-    {
-        "key": "ctrl+shift+=",
-        "command": "editor.action.fontZoomIn"
-    },
-    {
-        "key": "ctrl+-",
-        "command": "editor.action.fontZoomOut"
-    },
-    {
-        "key": "ctrl+0",
-        "command": "editor.action.fontZoomReset"
-    },
-    {
-        "key": "ctrl+shift+-",
-        "command": "-editor.foldAll",
-        "when": "editorFocus"
-    },
-    {
-        "key": "shift+alt+down",
-        "command": "-editor.action.moveLinesDownAction",
+        "key": "ctrl+shift+/",
+        "command": "editor.action.blockComment",
         "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "shift+alt+up",
-        "command": "-editor.action.moveLinesUpAction",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+shift+tab",
-        "command": "-workbench.action.quickOpenLeastRecentlyUsedEditorInGroup"
-    },
-    {
-        "key": "ctrl+shift+tab",
-        "command": "-workbench.action.quickOpenLeastRecentlyUsedEditorInGroup"
     },
     {
         "key": "ctrl+shift+backspace",
@@ -116,5 +34,127 @@
         "key": "ctrl+shift+backspace",
         "command": "editor.action.deleteLines",
         "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+d",
+        "command": "-editor.action.addSelectionToNextFindMatch",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+d",
+        "command": "editor.action.duplicateSelection"
+    },
+    {
+        "key": "shift+f6",
+        "command": "editor.action.rename"
+    },
+    {
+        "key": "ctrl+shift+f7",
+        "command": "editor.action.selectHighlights",
+        "when": "editorFocus"
+    },
+    {
+        "key": "alt+shift+up",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+shift+down",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+// navigation
+    {
+        "key": "ctrl+e",
+        "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "workbench.action.quickOpen"
+    },
+    {
+        "key": "ctrl+f12",
+        "command": "-editor.action.goToImplementation",
+        "when": "editorHasImplementationProvider && editorTextFocus && !isInEmbeddedEditor"
+    },
+    {
+        "key": "ctrl+f12",
+        "command": "workbench.action.gotoSymbol"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "-workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "editor.action.goToImplementation",
+        "when": "editorHasImplementationProvider && editorTextFocus && !isInEmbeddedEditor"
+    },
+// explorer
+    {
+        "key": "alt+q",
+        "command": "workbench.view.explorer",
+    },
+    {
+        "key": "alt+1",
+        "command": "workbench.view.explorer",
+    },
+    {
+        "key": "space",
+        "command": "filesExplorer.openFilePreserveFocus",
+        "when":"sideBarFocus && activeViewlet == 'workbench.view.explorer'"
+    },
+// scm
+    {
+        "key": "ctrl+shift+g",
+        "command": "-workbench.view.scm"
+    },
+    {
+        "key": "alt+k",
+        "command": "workbench.view.scm",
+    },
+    {
+        "key": "alt+shift+k",
+        "command": "git.pushTo"
+    },
+    {
+        "key": "alt+9",
+        "command": "workbench.view.scm",
+    },
+// fold
+    {
+        "key": "ctrl+shift+=",
+        "command": "-editor.unfoldAll",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+shift+-",
+        "command": "-editor.foldAll",
+        "when": "editorFocus"
+    },
+// zoom
+    {
+        "key": "ctrl+=",
+        "command": "-workbench.action.zoomIn"
+    },
+    {
+        "key": "ctrl+=",
+        "command": "editor.action.fontZoomIn"
+    },
+    {
+        "key": "ctrl+-",
+        "command": "-workbench.action.zoomOut"
+    },
+    {
+        "key": "ctrl+-",
+        "command": "editor.action.fontZoomOut"
+    },
+    {
+        "key": "ctrl+0",
+        "command": "-workbench.action.focusSideBar"
+    },
+    {
+        "key": "ctrl+0",
+        "command": "editor.action.fontZoomReset"
     },
 ]

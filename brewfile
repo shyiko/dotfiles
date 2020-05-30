@@ -12,6 +12,39 @@ cask install typora
 install nativefier # cask: flotato, fluid, ...
 install terminal-notifier
 
+install awscli
+cask install clion
+cask install discord
+cask install docker # includes docker-compose
+install fd
+cask install firefox
+cask install gns3
+cask install goland
+cask install google-chrome
+cask install google-cloud-sdk
+install grpcurl
+cask install insync
+cask install intellij-idea-ce
+cask install kicad
+install packer
+cask install parsec
+install python
+install rename
+cask install slack
+cask install spotify
+install step
+install terraform
+cask install vagrant
+install vault
+cask install virtualbox
+cask install visual-studio-code
+cask install visualvm
+cask install vlc
+cask install vnc-viewer
+cask install writefull
+install ykman
+cask install zoomus
+
 cask install figma
 cask install whatsapp
 cask install dynalist

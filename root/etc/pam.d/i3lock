@@ -4,4 +4,4 @@
 #
 
 # auth sufficient pam_yubico.so mode=challenge-response
-# auth include login
+auth include login

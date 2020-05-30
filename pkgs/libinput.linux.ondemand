@@ -1,0 +1,29 @@
+#!/bin/bash
+set -e
+
+LIBINPUT_VERSION=1.15.5
+
+# NOTE: you'll need to uncomment
+# deb-src http://archive.ubuntu.com/ubuntu focal main restricted
+# deb-src http://archive.ubuntu.com/ubuntu focal-updates main restricted
+# in /etc/apt/sources.list
+#
+# sudo apt-get build-dep libinput
+sudo apt-get install \
+    autopoint debhelper dh-autoreconf dh-strip-nondeterminism dwz gettext gir1.2-gudev-1.0 intltool-debian libarchive-zip-perl libcroco3 libdebhelper-perl libevdev-dev libfile-stripnondeterminism-perl libgudev-1.0-dev libmtdev-dev libsub-override-perl libtool libudev-dev libwacom-dev meson ninja-build po-debconf
+
+# not discovered by build-dep libinput above
+sudo apt-get install \
+    libgtk-3-dev check libsystemd-dev
+
+mkdir -p /tmp/pkgs/libinput
+cd /tmp/pkgs/libinput
+
+git clone --depth=1 https://gitlab.freedesktop.org/libinput/libinput --branch=1.15.5
+cd libinput
+
+git apply ~/.dotfiles/manual/libinput.patch
+
+meson --prefix=/usr -Ddocumentation=false builddir/
+ninja -C builddir/
+sudo ninja -C builddir/ install

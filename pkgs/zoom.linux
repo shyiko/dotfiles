@@ -7,4 +7,4 @@ mkdir -p /tmp/pkgs/zoom
 cd /tmp/pkgs/zoom
 
 curl -sSL https://zoom.us/client/latest/zoom_amd64.deb -o zoom_amd64.deb
-sudo dpkg -i zoom_amd64.deb
+sudo apt install -y ./zoom_amd64.deb

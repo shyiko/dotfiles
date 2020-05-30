@@ -9,16 +9,13 @@ Bookmarks
 DotENV
 Duplicate action
 EditorConfig for VS Code
-Git History
 GitLens
-IntelliJ IDEA Keybindings
-Open folder in new instance
 Python
 Relative Path
 Spell Right
+    ln -s /usr/share/hunspell/en_US.* ~/.config/Code/Dictionaries/
 Systemd Support
 Terraform
-Todo Tree
 Vagrantfile Support
 vscode-proto3
 YAML

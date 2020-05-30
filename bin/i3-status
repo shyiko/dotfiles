@@ -9,5 +9,5 @@ vpn_status() {
 
 i3status | while true; do
 	read line
-	echo "VPN: $(vpn_status) | $line" || exit 1
+	echo "VPN: $(vpn_status) | $line " || exit 1
 done

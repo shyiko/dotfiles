@@ -10,7 +10,7 @@ else
     cd /tmp/pkgs/slack
 
     curl -sSL "https://downloads.slack-edge.com/linux_releases/slack-desktop-$SLACK_VERSION-amd64.deb" -o slack-desktop.deb
-    sudo dpkg -i slack-desktop.deb
+    sudo apt install -y ./slack-desktop.deb
     # /etc/apt/sources.list.d/slack.list will be created upon installation
 fi
 

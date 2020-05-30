@@ -1,5 +1,0 @@
-#!/bin/bash
-#@pkg.file=$HOME/.cargo/bin/rustup
-set -e
-
-curl https://sh.rustup.rs -sSf | sh -s -- --no-modify-path -y

@@ -35,7 +35,7 @@ export VIEWER='lessvim'
 
 # read-only version of vim (.vimrc's `if exists("vimpager") ... endif`)
 lessvim() {
-  vim --cmd 'let vimpager=1' "$@"
+  nvim --cmd 'let vimpager=1' "$@"
 }
 
 alias q="exit"

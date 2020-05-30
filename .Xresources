@@ -1,10 +1,17 @@
 ! use "xrdb ~/.Xresources" to reload
 
-URxvt.font:xft:dejavu sans mono:medium:pixelsize=15
-URxvt.boldFont:xft:dejavu sans mono:medium:pixelsize=15
+! fc-list
+!
+! 'Inconsolata Nerd Font Mono' (https://github.com/ryanoasis/nerd-fonts) is used as a fallback to get FontAwesome glyps to render
+! https://github.com/FortAwesome/Font-Awesome/issues/3681#issuecomment-478277810
+!
+! NOTE: Switching to 'DejaVu Sans Mono Nerd Font' would likely remove the need for 2 separate fonts.
+!
+URxvt.font:xft:DejaVu Sans Mono:Book:pixelsize=13.5,xft:Inconsolata Nerd Font Mono:size=13.5
+URxvt.boldFont:xft:DejaVu Sans Mono:Book:pixelsize=13.5,xft:Inconsolata Nerd Font Mono:size=13.5
 URxvt.letterSpace: -1
 URxvt.lineSpace: 1
-! URxvt.cursorBlink: 1
+
 ! extensions are located in /usr/lib/x86_64-linux-gnu/urxvt/perl (system), ~/.urxvt/ext (user)
 ! curl -sL https://raw.githubusercontent.com/shyiko/urxvt-clipboard-paste-on-right-click/master/clipboard-paste-on-right-click > ~/.urxvt/ext/clipboard-paste-on-right-click
 ! curl -sL https://raw.githubusercontent.com/shyiko/urxvt-selection-open/master/selection-open > ~/.urxvt/ext/selection-open
@@ -22,6 +29,20 @@ URxvt.iso14755: false
 URxvt.iso14755_52: false
 URxvt.depth: 32
 URxvt.background: rgba:2b2b/3030/3b3b/f2f2
+
+! https://wiki.archlinux.org/index.php/Font_configuration#Applications_without_fontconfig_support
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintslight
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+! use "xdpyinfo | grep resolution" (or https://www.sven.de/dpi/) to find out correct value
+! see https://www.omnicalculator.com/other/pixels-per-inch for theory
+! Xft.dpi: 96
+! Xft.dpi: 79 ! 2560x1080/35inch
+!
+! See -dpi in .xserverrc.
 
 ! Base16 Ocean
 ! Scheme: Chris Kempson (http://chriskempson.com)

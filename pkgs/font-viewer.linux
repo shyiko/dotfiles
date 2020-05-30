@@ -1,0 +1,2 @@
+sudo apt install -y font-viewer
+sudo ln -sf /usr/libexec/font-manager/font-viewer /usr/local/bin/font-viewer

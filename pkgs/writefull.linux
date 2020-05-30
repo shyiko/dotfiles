@@ -7,6 +7,6 @@ cd /tmp/pkgs/writefull
 # https://www.addictivetips.com/ubuntu-linux-tips/install-writefull-editor-on-linux/
 curl -sSL https://s3-eu-west-1.amazonaws.com/writefull-binaries/3.0.0-beta19/writefull_3.0.0-beta19_amd64.deb \
     -o writefull.deb
-sudo dpkg -i writefull.deb
+sudo apt install -y ./writefull.deb
 
 sudo ln -sf /usr/local/writefull/Writefull /usr/local/bin/writefull

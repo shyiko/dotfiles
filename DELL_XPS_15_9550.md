@@ -73,11 +73,11 @@ Plug it in, `sudo ip link set <network_interface> up && sudo dhcpcd <network_int
 > [Intel Core i7-6700HQ](https://ark.intel.com/content/www/us/en/ark/products/88967/intel-core-i7-6700hq-processor-6m-cache-up-to-3-50-ghz.html/) (Skylake)
 
 <details>
-<summary>/etc/systemd/system/cpupower</summary>
+<summary>/etc/systemd/system/cpupower-performance</summary>
 
 ```
 [Unit]
-Description=cpupower frequency-set
+Description=cpupower frequency-set performance
 
 [Service]
 Type=oneshot
@@ -129,7 +129,7 @@ WantedBy=multi-user.target
 > PREREQUISITE: install [msr-tools](https://01.org/msr-tools/overview) and [undervolt](https://github.com/georgewhewell/undervolt).
 
 ```bash
-systemctl enable cpupower
+systemctl enable cpupower-performance
 systemctl enable dell-xps15-9550-cpu-freq-after-suspend
 systemctl enable dell-xps15-9550-undervolt
 ```
@@ -215,6 +215,7 @@ Section "Device"
     # `man intel.4` for list of supported options.
     # Use https://www.vsynctester.com/ (or https://www.youtube.com/watch?v=5xkNy9gfKOg) to test.
     Option "TearFree" "true"
+    Option "DRI" "3" # otherwise steam fails on start
 EndSection
 ```
 

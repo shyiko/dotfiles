@@ -2,7 +2,7 @@
 # https://wiki.archlinux.org/index.php/i3
 
 # font for window titles
-font pango:Noto Sans Mono 10
+font pango:Noto Sans Mono 9
 popup_during_fullscreen leave_fullscreen
 new_window pixel 0
 focus_follows_mouse no
@@ -35,6 +35,7 @@ bar {
     status_command ~/.dotfiles/bin/i3-status
     # output primary
     tray_output HDMI1
+    tray_output HDMI-1-1
     tray_output HDMI-0
     tray_output primary
     separator_symbol " | "
@@ -53,13 +54,13 @@ set $alt Mod1
 # mouse+$mod to drag floating windows
 floating_modifier $mod
 
-set $screen_layout Screen Layout: [h]home-hdmi [j]home-hdmi-laptop-on-the-right
-bindsym $mod+n mode "$screen_layout"
+set $screen_layout Screen Layout: [c]home-hdmi [r]home-hdmi-laptop-on-the-right
+bindsym Control+$mod+Shift+s mode "$screen_layout"
 
 mode "$screen_layout" {
     # saved with arandr
-    bindsym --release h mode "default"; exec ~/.dotfiles/.screenlayout/home-hdmi.sh
-    bindsym --release j mode "default"; exec ~/.dotfiles/.screenlayout/home-hdmi-laptop-on-the-right.sh
+    bindsym --release c mode "default"; exec ~/.dotfiles/.screenlayout/home-hdmi.sh
+    bindsym --release r mode "default"; exec ~/.dotfiles/.screenlayout/home-hdmi-laptop-on-the-right.sh
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
@@ -150,7 +151,7 @@ mode "move" {
 }
 bindsym $mod+m mode "move"
 
-set $mode_i3 i3: [r]reload [R]restart ctrl+w[kill] backspace[restart] delete[poweroff]
+set $mode_i3 i3: [r]reload [R]restart k[kill] backspace[restart] delete[poweroff]
 bindsym Control+$mod+Shift+a mode "$mode_i3"
 
 mode "$mode_i3" {
@@ -159,10 +160,10 @@ mode "$mode_i3" {
     # restart (preserve workspaces/session; can be used to upgrade i3)
     bindsym Shift+r restart
     # exit (terminate X session)
-    bindsym Control+w exec i3-msg exit
+    bindsym k mode "default"; exec i3-msg exit
 
-    bindsym BackSpace exec ~/.dotfiles/bin/i3-graceful-shutdown -r
-    bindsym Delete exec ~/.dotfiles/bin/i3-graceful-shutdown
+    bindsym BackSpace mode "default"; exec ~/.dotfiles/bin/i3-graceful-shutdown -r
+    bindsym Delete mode "default"; exec ~/.dotfiles/bin/i3-graceful-shutdown
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -218,8 +219,8 @@ bindsym Control+$mod+Right workspace next
 set $ws0  "0:  "
 set $ws1  "1:1:  "
 set $ws2  "2:2:  "
-set $ws3  "3:3:"
-set $ws4  "4:4:"
+set $ws3  "3:3"
+set $ws4  "4:4"
 set $ws5  "5:5:  "
 set $ws6  "6:6:  "
 set $ws7  "7:7:  "
@@ -231,20 +232,20 @@ set $ws12 "12:12"
 set $ws13 "13:  "
 # first one present (from the left) wins
 # https://i3wm.org/docs/userguide.html#workspace_screen
-workspace $ws0 output HDMI1 HDMI-0 primary
-workspace $ws1 output HDMI1 HDMI-0 primary
-workspace $ws2 output HDMI1 HDMI-0 primary
-workspace $ws3 output HDMI1 HDMI-0 primary
-workspace $ws4 output HDMI1 HDMI-0 primary
-workspace $ws5 output HDMI1 HDMI-0 primary
-workspace $ws6 output HDMI1 HDMI-0 primary
-workspace $ws7 output HDMI1 HDMI-0 primary
-workspace $ws8 output HDMI1 HDMI-0 primary
-workspace $ws9 output HDMI1 HDMI-0 primary
-workspace $ws10 output HDMI1 HDMI-0 primary
-workspace $ws11 output HDMI1 HDMI-0 primary
-workspace $ws12 output HDMI1 HDMI-0 primary
-workspace $ws13 output HDMI1 HDMI-0 primary
+workspace $ws0 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws1 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws2 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws3 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws4 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws5 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws6 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws7 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws8 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws9 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws10 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws11 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws12 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws13 output HDMI1 HDMI-1-1 HDMI-0 primary
 # default - switch
 bindsym $mod+asciitilde workspace $ws0
 bindsym $mod+1 workspace $ws1
@@ -313,10 +314,10 @@ set $wsl3 "23: L3 "
 set $wsl4 "24: L4 "
 # first one present (from the left) wins
 # https://i3wm.org/docs/userguide.html#workspace_screen
-workspace $wsl1 output DVI-I-1-1 primary HDMI1 HDMI-0
-workspace $wsl2 output DVI-I-1-1 primary HDMI1 HDMI-0
-workspace $wsl3 output DVI-I-1-1 primary HDMI1 HDMI-0
-workspace $wsl4 output DVI-I-1-1 primary HDMI1 HDMI-0
+workspace $wsl1 output DVI-I-1-1 primary HDMI1 HDMI-1-1 HDMI-0
+workspace $wsl2 output DVI-I-1-1 primary HDMI1 HDMI-1-1 HDMI-0
+workspace $wsl3 output DVI-I-1-1 primary HDMI1 HDMI-1-1 HDMI-0
+workspace $wsl4 output DVI-I-1-1 primary HDMI1 HDMI-1-1 HDMI-0
 # default - switch
 bindsym $alt+$mod+1 workspace $wsl1
 bindsym $alt+$mod+2 workspace $wsl2
@@ -360,6 +361,7 @@ bindsym Shift+Print exec gnome-screenshot
 # don't forget to
 # gsettings set org.gnome.gnome-screenshot auto-save-directory "/home/$USER/Pictures/Screenshots/"
 
+# HINT: use xprop/xwininfo to find out class/title/etc.
 for_window [title="Calculator"] floating enable
 # https://www.electronjs.org/apps/colorpicker
 for_window [title="Colorpicker"] floating enable
@@ -377,7 +379,7 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id dunst
 # https://flameshot.js.org/#/
 # exec --no-startup-id flameshot
-# exec --no-startup-id insync start
+# exec --no-startup-id insync
 
 exec --no-startup-id redshift
 exec --no-startup-id safeeyes

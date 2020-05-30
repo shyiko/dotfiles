@@ -30,6 +30,7 @@ DRY_RUN=
 SKIP_PKGS=
 SKIP_APTFILE=
 SKIP_BREWFILE=
+SKIP_PKGSPKGS=
 SKIP_ROOT=
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -44,6 +45,9 @@ while [[ $# -gt 0 ]]; do
       ;;
     --skip-pkgs-brewfile)
       SKIP_BREWFILE=1
+      ;;
+    --skip-pkgs-pkgs)
+      SKIP_PKGSPKGS=1
       ;;
     --skip-root)
       SKIP_ROOT=1
@@ -117,7 +121,7 @@ function copy() {
 
 function install_pkgs_aptfile() {
     if [[ "$SKIP_APTFILE" == "1" ]]; then
-        echo "Skipped aptfile (--skip-pkgs-aptfile)" >&2
+        echo "Skipped ~/.dotfiles/aptfile (--skip-pkgs-aptfile)" >&2
         return
     fi
 
@@ -130,7 +134,7 @@ function install_pkgs_aptfile() {
 
 function install_pkgs_brewfile() {
     if [[ "$SKIP_BREWFILE" == "1" ]]; then
-        echo "Skipped brewfile (--skip-pkgs-brewfile)" >&2
+        echo "Skipped ~/.dotfiles/brewfile (--skip-pkgs-brewfile)" >&2
         return
     fi
 
@@ -150,7 +154,7 @@ function install_pkgs_brewfile() {
     fi
 }
 
-function install_pkgs() {
+function install_pkgs() (
     if [[ "$SKIP_PKGS" == "1" ]]; then
         return
     fi
@@ -164,6 +168,13 @@ function install_pkgs() {
         echo "Unsupported OS" >&2
         exit 1
     fi
+
+    if [[ "$SKIP_PKGSPKGS" == "1" ]]; then
+        echo "Skipped ~/.dotfiles/pkgs/* (--skip-pkgs-pkgs)" >&2
+        return
+    fi
+
+    export PATH=$HOME/.bin:$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 
     local pkg_dir=~/.dotfiles/pkgs
     for f in $(ls $pkg_dir); do
@@ -186,7 +197,7 @@ function install_pkgs() {
             $pkg_dir/$f
         fi
     done
-}
+)
 
 function configure_home() {
     echo "Configuring home..." >&2
@@ -202,9 +213,11 @@ function configure_home() {
         symlink ~/.dotfiles/.config/nvim/colors/base16-ocean.vim ~/.config/nvim/colors/base16-ocean.vim
         symlink ~/.dotfiles/.config/nvim/ftplugin/markdown.vim ~/.config/nvim/ftplugin/markdown.vim
         symlink ~/.dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
-        vim +PlugInstall +qall
+        nvim +PlugInstall +qall
         mkdir -p ~/.local/share/nvim/{backup,swap,undo}
     fi
+
+    symlink ~/.dotfiles/.config/bat/config ~/.config/bat/config
     if [ "$OS" = "linux" ]; then
         symlink ~/.dotfiles/.config/Code/User/settings.json ~/.config/Code/User/settings.json
         symlink ~/.dotfiles/.config/Code/User/keybindings.json ~/.config/Code/User/keybindings.json
@@ -213,6 +226,7 @@ function configure_home() {
         symlink ~/.dotfiles/.config/i3status/config ~/.config/i3status/config
         # nvim
         symlink ~/.dotfiles/.config/rofi/config ~/.config/rofi/config
+        symlink ~/.dotfiles/.config/ranger/rc.conf ~/.config/ranger/rc.conf
         symlink ~/.dotfiles/.config/pulse/daemon.conf ~/.config/pulse/daemon.conf
     fi
     symlink ~/.dotfiles/.gnupg/gpg-agent.conf.$OS ~/.gnupg/gpg-agent.conf
@@ -259,7 +273,7 @@ function configure_root() {
         done
 
         if [ ! -f /etc/X11/xorg.conf ]; then
-            symlink --root /etc/X11/xorg.conf /etc/X11/xorg.conf.igpu
+            symlink --root /etc/X11/xorg.conf.igpu /etc/X11/xorg.conf
         fi
     fi
 }

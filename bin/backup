@@ -9,6 +9,7 @@
 # )
 
 DISK_LABEL=shyiko-sd
+# DISK_LABEL=b5b75e94-580a-44ab-83f0-0299c598d4b2 # shyiko-essd
 RESTIC_REPO_NAME=linux.restic-repo
 
 mounted="$(udisksctl info --block-device "/dev/disk/by-label/$DISK_LABEL" | grep MountPoints | awk -F: '{print $2}' | grep -cv '^ *$')"

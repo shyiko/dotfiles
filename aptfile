@@ -1,6 +1,5 @@
 #!/bin/bash
 set -euo pipefail
-export PATH=$HOME/.bin:$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 DRY_RUN=
 while [[ $# -gt 0 ]]; do
@@ -27,15 +26,16 @@ apt_pkgs=(
     apt-transport-https
     ca-certificates
     apt-file
-    software-properties-common # for add-apt-repository
+    software-properties-common # for add-apt-repository (unfortunate side-effect: software-properties-common pulls in packagekit)
     bash-completion
 
     # X11/i3
     xorg
+    xserver-xorg-input-synaptics
     dbus-x11
     x11-utils # for xev, xwininfo, ...
     xdotool
-    xbacklight
+    xbacklight # alternative - light
     xinput
     xbindkeys
     xvkbd
@@ -75,8 +75,8 @@ apt_pkgs=(
     pavucontrol
     volumeicon-alsa
     playerctl
-    spek
     font-manager
+    font-viewer
     fonts-dejavu
     fonts-font-awesome
     fonts-liberation2
@@ -84,9 +84,12 @@ apt_pkgs=(
     hunspell hunspell-en-us
     meld
     flameshot # macOS - https://github.com/lupoDharkael/flameshot/issues/586
+    cups
+    system-config-printer
 
-    msr-tools # for wrmsr/rdmsr
-    util-linux # for lscpu
+    vlc
+    firefox
+    dosbox
 
     # CLI tooling
     build-essential # for make
@@ -104,8 +107,11 @@ apt_pkgs=(
     bc
     curl
     htop
-    elfutils
+    elfutils # https://en.wikipedia.org/wiki/GNU_Binutils
     imagemagick
+
+    msr-tools # for wrmsr/rdmsr
+    util-linux # for lscpu - https://en.wikipedia.org/wiki/util-linux
 
     # network
     network-manager-gnome
@@ -133,4 +139,9 @@ fi
 
 set -x
 sudo apt update -qq
-sudo apt install $apt_install_opt -yq "${apt_pkgs[@]}"
+
+# https://linux.die.net/man/8/apt-get
+if (apt-get install --dry-run -yq "${apt_pkgs[@]}" 2>&1 || true) |
+    grep -cqE '^Conf|^Inst|^Remv|^E:'; then
+    sudo apt install $apt_install_opt -yq "${apt_pkgs[@]}"
+fi

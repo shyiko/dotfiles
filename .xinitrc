@@ -9,9 +9,9 @@ setxkbmap -option caps:escape
 pkill xbindkeys
 xbindkeys # --nodaemon &
 
-~/.dotfiles/root/etc/X11/xinput-set-prop-touchpad.sh
-~/.dotfiles/root/etc/X11/xinput-set-prop-logitech-m570.sh
-~/.dotfiles/root/etc/X11/xinput-set-prop-logitech-mx-ergo.sh
+~/.dotfiles/root/usr/local/bin/xinput-set-prop-touchpad.sh
+~/.dotfiles/root/usr/local/bin/xinput-set-prop-logitech-m570.sh
+~/.dotfiles/root/usr/local/bin/xinput-set-prop-logitech-mx-ergo.sh
 
 # clipboard sync
 pkill autocutsel
@@ -21,9 +21,6 @@ autocutsel &
 pkill polkit-gnome-authentication-agent-1
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 
-# pkill ssh-agent
-# eval $(ssh-agent)
-
 if [ "$(ls -l /etc/X11/xorg.conf | grep -c igpu)" -eq "1" ]; then
 	# generated with `gtf 2560 1080 60`
 	xrandr --newmode "2560x1080_60"  230.76  2560 2728 3000 3440  1080 1081 1084 1118  -HSync +Vsync
@@ -31,13 +28,14 @@ if [ "$(ls -l /etc/X11/xorg.conf | grep -c igpu)" -eq "1" ]; then
 elif [ "$(ls -l /etc/X11/xorg.conf | grep -c dgpu)" -eq "1" ]; then
 	xrandr --setprovideroutputsource modesetting NVIDIA-0
 	xrandr --auto
+	nvidia-settings --config ~/.dotfiles/.nvidia-settings-rc-dgpu --load-config-only
 elif [ "$(ls -l /etc/X11/xorg.conf | grep -c egpu-nvidia)" -eq "1" ]; then
 	nvidia-settings --config ~/.dotfiles/.nvidia-settings-rc-egpu --load-config-only
 fi
 
 # compositor
 pkill compton
-/usr/local/bin/compton -CGfb -D 4 -I 0.03
+/usr/bin/compton -CGfb -D 4 -I 0.03
 
 # https://github.com/acrisci/playerctl/issues/51#issuecomment-431921919
 exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) i3

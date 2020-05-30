@@ -8,4 +8,4 @@ mkdir -p /tmp/pkgs/step
 cd /tmp/pkgs/step
 
 curl -sSL "https://github.com/smallstep/cli/releases/download/v${STEP_VERSION}/step-cli_${STEP_VERSION}_amd64.deb" -o step.deb
-sudo dpkg -i step.deb
+sudo apt install -y ./step.deb

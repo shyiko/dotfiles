@@ -12,4 +12,4 @@ mkdir -p /tmp/pkgs/parsecd
 cd /tmp/pkgs/parsecd
 
 curl -sSL https://builds.parsecgaming.com/package/parsec-linux.deb -o parsec.deb
-sudo dpkg -i parsec.deb
+sudo apt install -y ./parsec.deb

@@ -1,5 +1,5 @@
 #!/bin/bash
-PATH= ~/.dotfiles/bin/xrofi -show run \
+PATH= ~/.dotfiles/bin/xrofi -show run -font "mono 11" \
     -run-list-command "/bin/bash -c '/bin/cat $HOME/.dotfiles/.config/rofi/app.list $HOME/.dotfiles/.config/rofi/app.list.*'" \
     -run-command "$HOME/.dotfiles/bin/xrofi-app-run {cmd}"
 

@@ -9,7 +9,7 @@ cd /tmp/pkgs/i3lock-color
 
 curl -sSL https://github.com/Raymo111/i3lock-color/releases/download/$I3LOCK_COLOR_VERSION/i3lock \
     -o i3lock-color
-if [[ "$(sha256sum i3lock | awk '{print $1}')" != "$I3LOCK_COLOR_SHA256"]; then
+if [[ "$(sha256sum i3lock-color | awk '{print $1}')" != "$I3LOCK_COLOR_SHA256" ]]; then
     echo "Checksum mismatch: sha256sum /tmp/pkgs/i3lock-color != $I3LOCK_COLOR_SHA256" >&2
     exit 1
 fi

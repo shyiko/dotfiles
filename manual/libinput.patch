@@ -1,0 +1,22 @@
+diff --git a/src/libinput.c b/src/libinput.c
+index e764375..8010b6b 100644
+--- a/src/libinput.c
++++ b/src/libinput.c
+@@ -717,7 +717,7 @@ libinput_event_pointer_get_axis_value(struct libinput_event_pointer *event,
+ 			value = event->delta.x;
+ 			break;
+ 		case LIBINPUT_POINTER_AXIS_SCROLL_VERTICAL:
+-			value = event->delta.y;
++			value = event->delta.y * 1.75;
+ 			break;
+ 		}
+ 	}
+@@ -745,7 +745,7 @@ libinput_event_pointer_get_axis_value_discrete(struct libinput_event_pointer *ev
+ 			value = event->discrete.x;
+ 			break;
+ 		case LIBINPUT_POINTER_AXIS_SCROLL_VERTICAL:
+-			value = event->discrete.y;
++			value = event->discrete.y * 1.75;
+ 			break;
+ 		}
+ 	}

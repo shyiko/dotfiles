@@ -1,4 +1,5 @@
 #!/bin/bash
+#@pkg.file=vncviewer
 set -e
 
 # https://www.realvnc.com/en/connect/download/viewer/linux/
@@ -10,5 +11,5 @@ cd /tmp/pkgs/realvncviewer
 
 curl -sSL "https://www.realvnc.com/download/file/viewer.files/VNC-Viewer-$REALVNCVIEWER_VERSION-Linux-x64.deb" \
     -o realvncviewer.deb
-sudo dpkg -i realvncviewer.deb
+sudo apt install -y ./realvncviewer.deb
 

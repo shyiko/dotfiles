@@ -3,5 +3,6 @@
 set -e
 
 # https://cloud.google.com/sdk/docs/downloads-apt-get
+curl -sSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo add-apt-repository -y "deb https://packages.cloud.google.com/apt cloud-sdk main"
 sudo apt install -y google-cloud-sdk

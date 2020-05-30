@@ -40,4 +40,5 @@ Section "Device"
     # `man intel.4` for list of supported options.
     # Use https://www.vsynctester.com/ (or https://www.youtube.com/watch?v=5xkNy9gfKOg) to test.
     Option "TearFree" "true"
+    Option "DRI" "3" # otherwise steam fails on start
 EndSection

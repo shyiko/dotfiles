@@ -1,5 +1,9 @@
 #!/bin/sh
 
-# https://wiki.archlinux.org/index.php/Xorg/Keyboard_configuration#Adjusting_typematic_delay_and_rate
-# xset r rate 200 40
-exec /usr/bin/X -ardelay 200 -arinterval 25 -nolisten tcp "$@" # previously used -ardelay 330
+# ardelay/arinterval are set per https://github.com/shyiko/qmk_firmware/tree/master/keyboards/crkbd/keymaps/shyiko#linux
+# see https://wiki.archlinux.org/index.php/Xorg/Keyboard_configuration#Adjusting_typematic_delay_and_rate for more
+#
+# dpi is set to consitent value regardless of whether it's intel or nvidia
+# use "xdpyinfo | grep resolution" (or https://www.sven.de/dpi/) to find correct value
+# see https://www.omnicalculator.com/other/pixels-per-inch for theory
+exec /usr/bin/X -ardelay 200 -arinterval 25 -dpi 96 -nolisten tcp "$@" # previously used -ardelay 330

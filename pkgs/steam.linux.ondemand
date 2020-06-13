@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+# https://wiki.archlinux.org/index.php/Steam/Troubleshooting#Runtime_issues
+# https://store.steampowered.com/about/
+sudo add-apt-repository -y multiverse
+
+mkdir -p /tmp/pkgs/steam
+cd /tmp/pkgs/steam
+
+curl -sSL https://steamcdn-a.akamaihd.net/client/installer/steam.deb \
+    -o steam.deb
+sudo apt install -y ./steam.deb
+
+# intel
+sudo apt install -y libgl1-mesa-dri:i386 libgl1-mesa-glx:i386
+
+# nvidia
+sudo apt install libnvidia-gl-440:i386
+
+# NOTE: you'll need to launch steam to complete installation

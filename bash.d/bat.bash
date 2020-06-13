@@ -1,1 +1,2 @@
-alias b=bat
+alias b=bat --paging=never
+alias bb=bat --paging=always

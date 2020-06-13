@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+sudo apt install -y libxcb-composite0
+
 I3LOCK_COLOR_VERSION=2.12.c.4
 I3LOCK_COLOR_SHA256=4b9a6a9cbf2ec94b1ef5a9dd3d4ab056886a248c93be1fe56cddda54ff0af928
 

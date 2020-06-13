@@ -1,0 +1,5 @@
+#!/bin/bash
+#@pkg.file=$HOME/.cargo/bin/delta
+
+. $HOME/.cargo/env
+cargo install --git=https://github.com/dandavison/delta.git --rev=e8a51a5bcc2d634832b9306893914a986b8d3f54 # msater, 2020-06-03

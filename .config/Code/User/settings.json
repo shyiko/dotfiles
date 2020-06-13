@@ -1,37 +1,27 @@
 {
+    "[markdown]": {
+        "editor.quickSuggestions": false,
+        "editor.wordWrap": "bounded",
+        "editor.wordWrapColumn": 120,
+        "files.trimTrailingWhitespace": false
+    },
+    "breadcrumbs.enabled": true,
     "debug.console.fontSize": 13,
-    "markdown.preview.fontSize": 13,
-    "terminal.integrated.fontSize": 13,
-    "window.zoomLevel": 0.75,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.fontFamily": "'DejaVu Sans Mono', 'monospace', 'FontAwesome', 'Droid Sans Fallback'",
+    "editor.fontSize": 12,
+    "editor.formatOnType": true,
+    "editor.minimap.enabled": false,
+    "editor.multiCursorModifier": "alt",
     "editor.rulers": [
         {
-            "column": 80,
-            // "color": "#e6e4e6"
+            "column": 80
         },
         {
-            "column": 120,
-            // "color": "#e6e4e6"
-        },
+            "column": 120
+        }
     ],
-    "workbench.colorCustomizations": {
-        "editorRuler.foreground": "#5c63705e"
-    },
-    // https://github.com/Microsoft/vscode/issues/32037#issuecomment-322042146
-    "keyboard.dispatch": "keyCode",
-    "explorer.openEditors.visible": 0,
-    "editor.formatOnType": true,
     "editor.scrollBeyondLastLine": false,
-    // "todo-tree.defaultHighlight": {
-    //     "foreground": "white",
-    //     "background": "red",
-    //     "icon": "check",
-    //     "type": "text"
-    // },
-    "files.trimTrailingWhitespace": true,
-    "files.autoSave": "onFocusChange",
-    "editor.minimap.enabled": false,
-    "gitlens.hovers.currentLine.over": "line",
-    "window.title": "${folderName}${separator}${activeEditorMedium}",
     // https://github.com/Microsoft/vscode/issues/32579#issuecomment-341502559
     "editor.tokenColorCustomizations": {
         "textMateRules": [
@@ -144,87 +134,88 @@
             }
         ]
     },
-    "files.associations": {
-        "*.env.template": "dotenv",
-    },
-    "workbench.statusBar.feedback.visible": false,
-    "workbench.sideBar.location": "left",
     "editor.wordWrap": "bounded",
     "editor.wordWrapColumn": 160,
-    "[markdown]": {
-        "editor.wordWrap": "bounded",
-        "editor.wordWrapColumn": 120,
-        "editor.quickSuggestions": false,
-        "files.trimTrailingWhitespace": false
+    "explorer.confirmDelete": false,
+    "explorer.openEditors.visible": 0,
+    "extensions.autoCheckUpdates": false,
+    "extensions.autoUpdate": false,
+    "files.associations": {
+        "*.env.template": "dotenv"
     },
+    "files.autoSave": "onFocusChange",
+    "files.trimTrailingWhitespace": true,
+    "git.enableSmartCommit": true,
+    "gitlens.blame.avatars": false,
+    "gitlens.codeLens.enabled": false,
+    "gitlens.currentLine.enabled": false,
     "gitlens.hovers.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.hovers.enabled": false,
     "gitlens.mode.statusBar.enabled": false,
-    "diffEditor.ignoreTrimWhitespace": false,
-    "spellright.notificationClass": "hint",
-    "workbench.editor.highlightModifiedTabs": true,
-    "search.showLineNumbers": true,
-    "editor.fontFamily": "'DejaVu Sans Mono', 'monospace', 'FontAwesome', 'Droid Sans Fallback'",
-    "editor.fontSize": 12,
-    "window.restoreWindows": "none",
-    "yaml.format.enable": true,
-    "go.goroot": "~/.go/1.12.1",
+    "gitlens.statusBar.enabled": false,
+    "gitlens.views.compare.avatars": false,
+    "gitlens.views.compare.files.layout": "tree",
+    "gitlens.views.compare.location": "scm",
+    "gitlens.views.fileHistory.avatars": false,
+    "gitlens.views.fileHistory.location": "scm",
+    "gitlens.views.lineHistory.avatars": false,
+    "gitlens.views.lineHistory.location": "scm",
+    "gitlens.views.repositories.avatars": false,
+    "gitlens.views.repositories.files.layout": "tree",
+    "gitlens.views.repositories.location": "scm",
+    "gitlens.views.repositories.showBranchComparison": false,
+    "gitlens.views.search.avatars": false,
+    "gitlens.views.search.files.layout": "tree",
+    "gitlens.views.search.location": "scm",
+    "go.gopath": "~/.go",
+    "go.goroot": "~/.go/default",
     "go.inferGopath": true,
-    "go.gopath": "~/.go/global",
-    "editor.multiCursorModifier": "alt",
-    "window.menuBarVisibility": "toggle",
-    "todo-tree.highlights.defaultHighlight": {
-        "foreground": "white",
-        "background": "red",
-        "icon": "check",
-        "type": "text"
-    },
-    "spellright.language": [
-        "en_US"
-    ],
+    // https://github.com/Microsoft/vscode/issues/32037#issuecomment-322042146
+    "keyboard.dispatch": "keyCode",
+    "markdown.preview.fontSize": 13,
+    "scm.defaultViewMode": "tree",
+    "search.showLineNumbers": true,
     "spellright.documentTypes": [
         "markdown",
         "latex",
         "plaintext"
     ],
-    "todo-tree.tree.showScanModeButton": false,
+    "spellright.language": [
+        "en_US"
+    ],
+    "spellright.notificationClass": "hint",
+    "terminal.integrated.fontSize": 13,
     "todo-tree.general.tags": [
         "BUG",
         "HACK",
         "FIXME",
         "TODO"
     ],
-    "workbench.activityBar.visible": false,
-    "timeline.showView": true,
-    "workbench.iconTheme": "chalice-icon-theme",
-    "workbench.editor.limit.enabled": true,
-    "explorer.confirmDelete": false,
-    "git.enableSmartCommit": true,
+    "todo-tree.highlights.defaultHighlight": {
+        "background": "red",
+        "foreground": "white",
+        "icon": "check",
+        "type": "text"
+    },
+    "todo-tree.tree.showScanModeButton": false,
     "update.mode": "manual",
-    "workbench.statusBar.visible": true,
+    "window.menuBarVisibility": "toggle",
+    "window.restoreWindows": "none",
+    "window.title": "${folderName}${separator}${activeEditorMedium}",
+    "window.zoomLevel": 0.75,
+    "workbench.activityBar.visible": true,
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#5c63705e"
+    },
     "workbench.colorTheme": "Atom One Dark",
-    "breadcrumbs.enabled": true,
-    "scm.defaultViewMode": "tree",
-    "extensions.autoCheckUpdates": false,
-    "extensions.autoUpdate": false,
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.limit.enabled": true,
     "workbench.editor.limit.value": 12,
     "workbench.editor.tabSizing": "shrink",
-    "gitlens.currentLine.enabled": false,
-    "gitlens.codeLens.enabled": false,
-    "gitlens.statusBar.enabled": false,
-    "gitlens.views.repositories.showBranchComparison": false,
-    "gitlens.views.repositories.location": "scm",
-    "gitlens.views.fileHistory.location": "scm",
-    "gitlens.views.lineHistory.location": "scm",
-    "gitlens.views.compare.location": "scm",
-    "gitlens.views.search.location": "scm",
-    "gitlens.hovers.enabled": false,
-    "gitlens.views.fileHistory.avatars": false,
-    "gitlens.views.repositories.avatars": false,
-    "gitlens.views.repositories.files.layout": "tree",
-    "gitlens.views.lineHistory.avatars": false,
-    "gitlens.views.search.avatars": false,
-    "gitlens.views.search.files.layout": "tree",
-    "gitlens.views.compare.avatars": false,
-    "gitlens.views.compare.files.layout": "tree",
-    "gitlens.blame.avatars": false
+    // "workbench.iconTheme": "chalice-icon-theme",
+    "workbench.sideBar.location": "left",
+    "workbench.statusBar.visible": true,
+    "yaml.format.enable": true,
+    "workbench.iconTheme": "chalice-icon-theme",
 }

@@ -263,7 +263,7 @@ Install NVIDIA driver (I'm running [440.82](https://www.nvidia.com/Download/driv
 On Ubuntu 18.04:
 
 ```bash
-sudo apt purge '*nvidia*' '*bumblebee*' '*bbswitch*'
+sudo apt-get purge '*nvidia*' '*bumblebee*' '*bbswitch*'
 sudo add-apt-repository -y ppa:graphics-drivers/ppa
 sudo apt install nvidia-driver-440 mesa-utils # mesa-utils contains glxgears
 ```
@@ -410,7 +410,7 @@ Install NVIDIA driver (I'm running [440.82](https://www.nvidia.com/Download/driv
 On Ubuntu 18.04:
 
 ```bash
-sudo apt purge '*nvidia*' '*bumblebee*' '*bbswitch*'
+sudo apt-get purge '*nvidia*' '*bumblebee*' '*bbswitch*'
 sudo add-apt-repository -y ppa:graphics-drivers/ppa
 sudo apt install nvidia-driver-440 mesa-utils # mesa-utils contains glxgears
 ```
@@ -733,7 +733,7 @@ See below.
 
 > I'm using YubiKey 4C (there is a newer [YubiKey 5C](https://www.yubico.com/product/yubikey-5c)).  
 
-[YubiKey](https://www.yubico.com/why-yubico/for-developers/) is not just for U2F, passwordless [ssh/gpg](https://github.com/drduh/YubiKey-Guide), etc.  You can also use it as a poor man's replacement for fingerpring reader (e.g. you can [configure PAM](https://unix.stackexchange.com/questions/353541/i3-locking-screen-with-2-factor-authentication) to log you in in when YubiKey is inserted). 
+[YubiKey](https://www.yubico.com/why-yubico/for-developers/) is not just for U2F, passwordless [ssh/gpg](https://github.com/drduh/YubiKey-Guide), etc.  You can also use it as a poor man's replacement for fingerpring reader (e.g. you can [configure PAM](https://unix.stackexchange.com/questions/353541/i3-locking-screen-with-2-factor-authentication) to log you in when YubiKey is inserted). 
 
 <details>
 <summary>/etc/pam.d/i3lock</summary>

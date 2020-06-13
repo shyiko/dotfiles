@@ -7,14 +7,14 @@ sinks=$(pamixer --list-sinks | tail +2 | awk '{print $1}')
 case "$1" in
 up)
     volume=$(pamixer --get-volume ||:)
-    new_volume=$((volume+2))
+    new_volume=$((volume+1))
     for sink in $sinks; do
         pamixer --sink $sink --set-volume $new_volume
     done
 ;;
 down)
     volume=$(pamixer --get-volume ||:)
-    new_volume=$((volume-2))
+    new_volume=$((volume-1))
     for sink in $sinks; do
         pamixer --sink $sink --set-volume $new_volume
     done

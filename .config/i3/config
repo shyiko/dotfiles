@@ -2,7 +2,7 @@
 # https://wiki.archlinux.org/index.php/i3
 
 # font for window titles
-font pango:Noto Sans Mono 9
+font pango:Noto Sans Mono, FontAwesome 9
 popup_during_fullscreen leave_fullscreen
 new_window pixel 0
 focus_follows_mouse no
@@ -61,6 +61,7 @@ mode "$screen_layout" {
     # saved with arandr
     bindsym --release c mode "default"; exec ~/.dotfiles/.screenlayout/home-hdmi.sh
     bindsym --release r mode "default"; exec ~/.dotfiles/.screenlayout/home-hdmi-laptop-on-the-right.sh
+    bindsym --release d mode "default"; exec ~/.dotfiles/.screenlayout/default.sh
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
@@ -136,6 +137,7 @@ mode "resize" {
     # exit
     bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym $alt+Tab mode "default"
 }
 bindsym $mod+Shift+m mode "resize"
 
@@ -148,6 +150,7 @@ mode "move" {
     # exit
     bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym $alt+Tab mode "default"
 }
 bindsym $mod+m mode "move"
 
@@ -222,14 +225,14 @@ set $ws2  "2:2:  "
 set $ws3  "3:3"
 set $ws4  "4:4"
 set $ws5  "5:5:  "
-set $ws6  "6:6:  "
-set $ws7  "7:7:  "
+set $ws6  "6:6 "
+set $ws7  "7:7:  "
 set $ws8  "8:8:  "
-set $ws9  "9:9:  "
+set $ws9  "9:9:  "
 set $ws10 "10:10:  "
 set $ws11 "11:11"
 set $ws12 "12:12"
-set $ws13 "13:  "
+set $ws13 "13:  "
 # first one present (from the left) wins
 # https://i3wm.org/docs/userguide.html#workspace_screen
 workspace $ws0 output HDMI1 HDMI-1-1 HDMI-0 primary
@@ -365,6 +368,8 @@ bindsym Shift+Print exec gnome-screenshot
 for_window [title="Calculator"] floating enable
 # https://www.electronjs.org/apps/colorpicker
 for_window [title="Colorpicker"] floating enable
+for_window [title="Transmission"] floating enable
+for_window [title="YAD"] floating enable border normal
 # center idea/goland logo
 for_window [class="^jetbrains-.+" title="win0"] floating enable
 for_window [class="^jetbrains-.+"][window_type=dialog] focus

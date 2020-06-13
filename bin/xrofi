@@ -10,7 +10,7 @@ width=$(echo $screen_size | cut -d 'x' -f1 | head -1)
 height=$(echo $screen_size | cut -d 'x' -f2 | head -1)
 padding=$(($height/2-110)) # 420
 rofi_opt=
-if [[ "$(xrandr --current | grep -c '[0-9][*]')" ]]; then # --listactivemonitors is too slow
+if [[ "$(xrandr --current | grep -c '[0-9][*]')" == "1" ]]; then # --listactivemonitors is too slow
     rofi_opt="-width $width -padding $padding"
 fi
 export PATH=$PATH_BK

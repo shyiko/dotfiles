@@ -9,7 +9,9 @@ setxkbmap -option caps:escape
 pkill xbindkeys
 xbindkeys # --nodaemon &
 
-~/.dotfiles/root/usr/local/bin/xinput-set-prop-touchpad.sh
+~/.dotfiles/root/usr/local/bin/xinput-set-prop-dell-xps-15-touchpad.sh
+~/.dotfiles/root/usr/local/bin/xinput-set-prop-elecom-deft-pro.sh
+~/.dotfiles/root/usr/local/bin/xinput-set-prop-elecom-huge.sh
 ~/.dotfiles/root/usr/local/bin/xinput-set-prop-logitech-m570.sh
 ~/.dotfiles/root/usr/local/bin/xinput-set-prop-logitech-mx-ergo.sh
 

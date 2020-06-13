@@ -32,7 +32,7 @@ ethernet eth0 {
 }
 
 battery 0 {
-    format = "B: %percentage %remaining"
+    format = " %percentage %remaining"
     hide_seconds = true
     integer_battery_capacity = true
     last_full_capacity = true

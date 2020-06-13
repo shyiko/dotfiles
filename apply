@@ -226,6 +226,7 @@ function configure_home() {
         symlink ~/.dotfiles/.config/i3status/config ~/.config/i3status/config
         # nvim
         symlink ~/.dotfiles/.config/rofi/config ~/.config/rofi/config
+        symlink ~/.dotfiles/.config/safeeyes/safeeyes.json ~/.config/safeeyes/safeeyes.json
         symlink ~/.dotfiles/.config/ranger/rc.conf ~/.config/ranger/rc.conf
         symlink ~/.dotfiles/.config/pulse/daemon.conf ~/.config/pulse/daemon.conf
     fi

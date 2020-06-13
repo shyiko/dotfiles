@@ -7,5 +7,5 @@ mkdir -p /tmp/pkgs/aws
 cd /tmp/pkgs/aws
 
 curl -sSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o aws.zip
-unzip aws.zip
+atool -q -x aws.zip
 sudo ./aws/install

@@ -22,3 +22,5 @@ curl -sSL "$VIRTUALBOX_EXT_URL" -o Oracle_VM_VirtualBox_Extension_Pack.vbox-extp
 
 sudo apt install -y ./vbox.deb
 sudo VBoxManage extpack install --accept-license=$VIRTUALBOX_EXT_LICENSE_TEXT_SHA Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack
+
+sudo systemctl disable vboxweb-service.service

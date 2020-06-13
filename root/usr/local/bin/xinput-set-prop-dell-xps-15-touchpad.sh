@@ -6,3 +6,4 @@
 # right button's left/right/top/bottom middle button's left/right/top/bottom.
 # https://www.onlinemictest.com/mouse-test/
 xinput set-prop "DLL06E4:01 06CB:7A13 Touchpad" "Synaptics Soft Button Areas" 0 0 0 0 614 0 464 0
+# TDDO: rename to ...-dell-xps-15-touchpad.sh

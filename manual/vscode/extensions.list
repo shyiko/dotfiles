@@ -1,3 +1,4 @@
+# https://vscodethemes.com/
 Atom One Dark Theme
 Atom One Light Theme
 
@@ -6,16 +7,19 @@ Chalice Icon Theme
 Active File In StatusBar
 Better Jinja
 Bookmarks
+Color Highlight
+Copy Relative Path
 DotENV
-Duplicate action
 EditorConfig for VS Code
-GitLens
-Python
+File Utils
+Prettier - Code formatter
 Relative Path
-Spell Right
-    ln -s /usr/share/hunspell/en_US.* ~/.config/Code/Dictionaries/
+Sort JSON objects
+Spell Right # ln -s /usr/share/hunspell/en_US.* ~/.config/Code/Dictionaries/
 Systemd Support
 Terraform
+Todo Tree
 Vagrantfile Support
+vscode-json
 vscode-proto3
 YAML

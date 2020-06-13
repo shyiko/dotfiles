@@ -30,11 +30,13 @@ co = checkout
 s = status -s
 c = commit
 b = branch -vv
+d = diff
+dd = "!git diff | delta --width=variable --theme=base16 --hunk-header-decoration-style=omit --paging=always"
 bb = "!git for-each-ref --sort='-committerdate' --format='%(refname) %(committerdate:iso8601) %(contents:subject)' refs/heads | sed -e 's-refs/heads/--'"
 # remove untracked files (purge)
 rm-untracked = clean -df
 rm-not-gitignored = "!git clean -df && git reset --hard"
-rm-all = "!git clean -xdf && git reset --hard"
+rm-clean = "!git clean -xdf && git reset --hard"
 undo = reset --soft HEAD~1
 shelve = stash
 unshelve = stash apply

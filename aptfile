@@ -28,6 +28,7 @@ apt_pkgs=(
     apt-file
     software-properties-common # for add-apt-repository (unfortunate side-effect: software-properties-common pulls in packagekit)
     bash-completion
+    language-pack-en
 
     # X11/i3
     xorg
@@ -79,13 +80,17 @@ apt_pkgs=(
     font-viewer
     fonts-dejavu
     fonts-font-awesome
-    fonts-liberation2
+    fonts-liberation # not fonts-liberation2 due to hinting issues
     fonts-noto
+    fonts-open-sans
+    fonts-oxygen
+    fonts-roboto
     hunspell hunspell-en-us
-    meld
+    # meld
     flameshot # macOS - https://github.com/lupoDharkael/flameshot/issues/586
     cups
     system-config-printer
+    yad # for yad --color
 
     vlc
     firefox
@@ -95,7 +100,7 @@ apt_pkgs=(
     build-essential # for make
     procps # for watch
     git lighttpd
-    atool unzip unrar bzip2 xz-utils
+    atool unzip zip unrar rar bzip2 xz-utils p7zip # https://www.peazip.org/
     progress # https://github.com/xfennec/progress
     ripgrep
     jq
@@ -109,9 +114,11 @@ apt_pkgs=(
     htop
     elfutils # https://en.wikipedia.org/wiki/GNU_Binutils
     imagemagick
+    transmission
 
-    msr-tools # for wrmsr/rdmsr
+    linux-tools-generic
     util-linux # for lscpu - https://en.wikipedia.org/wiki/util-linux
+    msr-tools # for wrmsr/rdmsr
 
     # network
     network-manager-gnome

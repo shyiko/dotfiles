@@ -14,9 +14,9 @@
 #    5
 
 /usr/bin/xinput set-button-map $(/usr/bin/xinput list --id-only "pointer:ELECOM TrackBall Mouse DEFT Pro TrackBall") \
-    9 10 11 4 5 6 7 2 1 8 3 12
+    9 2 3 4 5 6 7 1 1 8 2 12
 #   1 2 3 4 5 6 7 8 9 10 11 12
 
 # i.e. ->
-#  9 1 | 8 3 11
-# 12 2 |
+#  9 1 | 8 3 2
+# 12 1 |

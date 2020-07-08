@@ -18,6 +18,9 @@
             "column": 80
         },
         {
+            "column": 100
+        },
+        {
             "column": 120
         }
     ],
@@ -204,7 +207,7 @@
     "window.restoreWindows": "none",
     "window.title": "${folderName}${separator}${activeEditorMedium}",
     "window.zoomLevel": 0.75,
-    "workbench.activityBar.visible": true,
+    "workbench.activityBar.visible": false,
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#5c63705e"
     },
@@ -217,5 +220,10 @@
     "workbench.sideBar.location": "left",
     "workbench.statusBar.visible": true,
     "yaml.format.enable": true,
-    "workbench.iconTheme": "chalice-icon-theme",
+    "workbench.iconTheme": null,
+    "extensions.ignoreRecommendations": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.snippetSuggestions": "top",
 }

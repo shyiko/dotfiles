@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+KUBENSX_VERSION=0.2.0
+
+mkdir -p /tmp/pkgs/kubensx
+cd /tmp/pkgs/kubensx
+
+curl -sSL "https://github.com/shyiko/kubensx/releases/download/$KUBENSX_VERSION/kubensx-$KUBENSX_VERSION-$(
+        bash -c '[[ $OSTYPE == darwin* ]] && echo darwin || echo linux'
+    )-amd64" \
+    -o kubensx
+chmod a+x kubensx
+sudo mv -f kubensx /usr/local/bin/

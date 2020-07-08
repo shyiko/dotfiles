@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+mkdir -p /tmp/pkgs/firefox-dev
+cd /tmp/pkgs/firefox-dev
+
+curl -sSL "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" \
+    -o firefox.tar
+atool -q -x firefox.tar
+VERSION=$(cat firefox/application.ini | grep '^Version=' | awk -F= '{print $2}')
+mv firefox/ ~/Applications/firefox-dev-$VERSION
+
+mkdir -p ~/.bin
+ln -sf ~/Applications/firefox-dev-$VERSION/firefox ~/.bin/firefox-dev

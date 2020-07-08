@@ -94,6 +94,7 @@ mode "$i3_layout" {
     bindsym p floating toggle
     # change focus between tiling / floating windows
     bindsym Control+p focus mode_toggle
+    bindsym Shift+p sticky toggle
 
     # change focus
     bindsym Left focus left
@@ -123,16 +124,16 @@ mode "$i3_layout" {
 }
 
 mode "resize" {
-    bindsym Left resize grow width 10 px or 10 ppt
-    bindsym Down resize shrink height 10 px or 10 ppt
-    bindsym Up resize grow height 10 px or 10 ppt
-    bindsym Right resize shrink width 10 px or 10 ppt
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
 
     # invert resize (for floating dialogs)
-    bindsym Shift+Left resize shrink width 10 px or 10 ppt
-    bindsym Shift+Down resize grow height 10 px or 10 ppt
-    bindsym Shift+Up resize shrink height 10 px or 10 ppt
-    bindsym Shift+Right resize grow width 10 px or 10 ppt
+    bindsym Shift+Left resize grow width 10 px or 10 ppt
+    bindsym Shift+Down resize shrink height 10 px or 10 ppt
+    bindsym Shift+Up resize grow height 10 px or 10 ppt
+    bindsym Shift+Right resize shrink width 10 px or 10 ppt
 
     # exit
     bindsym Return mode "default"
@@ -193,10 +194,6 @@ bindsym Control+$mod+Tab exec ~/.dotfiles/bin/xrofi -show window -window-format 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 bindsym $mod+c move absolute position center
-
-bindsym $mod+p floating toggle
-# change focus between tiling / floating windows
-bindsym Control+$mod+p focus mode_toggle
 
 # change focus
 bindsym $mod+Left focus left
@@ -291,6 +288,7 @@ bindsym $mod+u workspace $ws7
 bindsym $mod+i workspace $ws8
 bindsym $mod+o workspace $ws9
 bindsym $mod+semicolon workspace $ws10
+# bindsym $mod+p workspace $ws10
 bindsym $mod+a workspace $ws11
 bindsym $mod+s workspace $ws12
 # $ws13 dup
@@ -306,6 +304,7 @@ bindsym $mod+Shift+u move container to workspace $ws7
 bindsym $mod+Shift+i move container to workspace $ws8
 bindsym $mod+Shift+o move container to workspace $ws9
 bindsym $mod+Shift+semicolon move container to workspace $ws10
+# bindsym $mod+Shift+p move container to workspace $ws10
 bindsym $mod+Shift+a move container to workspace $ws11
 bindsym $mod+Shift+s move container to workspace $ws12
 # $ws13 dup

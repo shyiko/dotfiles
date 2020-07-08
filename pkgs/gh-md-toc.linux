@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+mkdir -p /tmp/pkgs/gh-md-toc
+cd /tmp/pkgs/gh-md-toc
+
+curl https://raw.githubusercontent.com/ekalinin/github-markdown-toc/master/gh-md-toc -o gh-md-toc
+chmod a+x gh-md-toc
+sudo mv gh-md-toc /usr/local/bin/

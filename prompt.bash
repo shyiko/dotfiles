@@ -3,7 +3,7 @@
 # To preview:
 # ```
 # env -i HOME=$HOME TERM=$TERM bash --noprofile --norc
-# source ~/.dotfiles/bash.d/prompt.bash
+# source ~/.dotfiles/prompt.bash
 #
 # # if you have https://github.com/romkatv/gitstatus cloned at ~/.gitstatus
 # source ~/.gitstatus/gitstatus.plugin.sh

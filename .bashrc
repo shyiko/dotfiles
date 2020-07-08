@@ -46,9 +46,13 @@ export HISTCONTROL=ignoredups:ignorespace
 
 [ -s "/etc/bash_completion" ] && source "/etc/bash_completion"
 
+source ~/.dotfiles/prompt.bash
+
 for f in $(ls ~/.dotfiles/bash.d/*.bash); do
   source $f
 done
+
+[ -s "$HOME/.dotfiles/.bashrc_local" ] && source "$HOME/.dotfiles/.bashrc_local"
 
 _history_append() { local exit_code=$?; history -a; return $exit_code; }
 export PROMPT_COMMAND="_history_append; $PROMPT_COMMAND"

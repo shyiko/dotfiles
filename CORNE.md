@@ -9,7 +9,7 @@ I recommend getting [PCB Kit from littlekeyboards](https://www.littlekeyboards.c
 - [USB Type-C cable](https://zapcables.com/diy-usb-cable-kit/) ([sample pack](https://zapcables.com/sleeving-sample-pack/))
 - [case](https://www.littlekeyboards.com/collections/catalog/products/corne-analyst-case) (this one comes with screws & 8mm standoffs)
 - 42 keyswitches ([Cherry MX Brown](https://novelkeys.xyz/collections/switches/products/cherry-switches) is a good starting point)
-- [40 1u + 2 1.5u](https://thomasbaart.nl/2019/02/10/keycap-count-by-size-and-row-for-ansi-and-iso/) [keycaps](https://kbdfans.com/search?type=product&q=blank+KEYCAP)  
+- [40 1u + 2 1.25u](https://thomasbaart.nl/2019/02/10/keycap-count-by-size-and-row-for-ansi-and-iso/) [keycaps](https://kbdfans.com/search?type=product&q=blank+KEYCAP)  
 - [HI MARK Tactile Pen](https://lifehacker.com/for-faster-touch-typing-put-a-bump-on-your-keyboard-1796456723) (for f/j tactile bumps; optional)
 - 12+ [7*1.5mm self-adhesive silicone feet](https://www.aliexpress.com/item/4000439059508.html) (optional as the case I linked above comes with clear silicone feet)
 

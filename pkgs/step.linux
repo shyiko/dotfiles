@@ -2,7 +2,7 @@
 #!/bin/bash
 set -e
 
-STEP_VERSION=0.14.4
+STEP_VERSION=0.15.3
 
 mkdir -p /tmp/pkgs/step
 cd /tmp/pkgs/step

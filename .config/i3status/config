@@ -22,7 +22,7 @@ order += "tztime local"
 # }
 
 wireless _first_ {
-    format_up = "%quality %essid(%ip)"
+    format_up = "%quality %essid (%ip)"
     format_down = "WiFi: down"
 }
 
@@ -47,5 +47,5 @@ volume master {
 }
 
 tztime local {
-    format = " %Y-%m-%d %H:%M "
+    format = " %Y-%m-%d %H:%M %Z (UTC%z) (week %V)"
 }

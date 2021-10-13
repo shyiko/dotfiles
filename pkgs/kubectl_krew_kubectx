@@ -1,0 +1,3 @@
+# https://github.com/ahmetb/kubectx#kubectl-plugins-macos-and-linux
+kubectl krew install ctx
+kubectl krew install ns

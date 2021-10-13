@@ -1,0 +1,11 @@
+
+#!/bin/bash
+set -e
+
+STEP_VERSION=0.15.5
+
+mkdir -p /tmp/pkgs/step-ca
+cd /tmp/pkgs/step-ca
+
+curl -sSL "https://github.com/smallstep/certificates/releases/download/v${STEP_VERSION}/step-certificates_${STEP_VERSION}_amd64.deb" -o step-ca.deb
+sudo apt install -y ./step-ca.deb

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-I3GAPS_VERSION=4.18.1
+I3GAPS_VERSION=4.19.1
 
 mkdir -p /tmp/pkgs/i3
 cd /tmp/pkgs/i3
@@ -27,17 +27,22 @@ sudo apt install build-essential automake git \
 git clone --depth=1 https://github.com/Airblader/i3.git --branch=$I3GAPS_VERSION repo
 cd repo
 
-autoreconf --force --install
-rm -rf build/ && mkdir -p build && cd build/
-../configure --disable-sanitizers --disable-docs --disable-mans
-make
+mkdir -p build && cd build
+meson ..
+ninja
+
+# autoreconf --force --install
+# rm -rf build/ && mkdir -p build && cd build/
+# ../configure --disable-sanitizers --disable-docs --disable-mans
+# make
+
 # sudo make install
 
-sudo apt install -y checkinstall
+# sudo apt install -y checkinstall
 # touch description-pak
-sudo checkinstall --pkgname=i3-gaps --pkgversion=$I3GAPS_VERSION --replaces=i3-wm --nodoc -y --install=no
+# sudo checkinstall --pkgname=i3-gaps --pkgversion=$I3GAPS_VERSION --replaces=i3-wm --nodoc -y --install=no
 
 # dpkg-deb -L i3-gaps_$I3GAPS_VERSION-1_amd64.deb
 
-sudo apt install -y ./i3-gaps_$I3GAPS_VERSION-1_amd64.deb
+# sudo apt install -y ./i3-gaps_$I3GAPS_VERSION-1_amd64.deb
 

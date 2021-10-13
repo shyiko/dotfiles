@@ -1,0 +1,7 @@
+#!/bin/bash
+# prioritize spotify over things like chrome.instance2371
+if [[ "$(playerctl -l | grep -c spotify)" == "1" ]]; then
+    playerctl -p spotify "$@"
+else
+    playerctl "$@"
+fi

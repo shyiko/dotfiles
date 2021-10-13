@@ -1,0 +1,20 @@
+#!/bin/bash
+set -euo pipefail
+
+# rm -rf ~/.local/share/wineprefixes/winamp
+
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/winamp wineboot -u
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/winamp winetricks win10
+# You can list all settings with
+# WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/winamp winetricks settings list
+# (see winetricks -h for more)
+
+# WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/winamp winetricks dlls list
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/winamp winetricks xact
+
+# WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/winamp winetricks dlls list
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/winamp winetricks winamp
+
+# Launch winamp with
+# WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/winamp sh -c 'cd "$WINEPREFIX/drive_c/Program Files/Winamp" && exec wine "winamp.exe"'
+

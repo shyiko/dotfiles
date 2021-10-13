@@ -34,10 +34,18 @@ bar {
     # status_command i3status
     status_command ~/.dotfiles/bin/i3-status
     # output primary
+
+    # intel
     tray_output HDMI1
+    # nvidia (dGPU)
     tray_output HDMI-1-1
+    # nvidia (eGPU)
     tray_output HDMI-0
+    # nvidia (dGPU/laptop)
+    tray_output eDP-1-1
+
     tray_output primary
+
     separator_symbol " | "
     tray_padding 6
 }
@@ -140,7 +148,7 @@ mode "resize" {
     bindsym Escape mode "default"
     bindsym $alt+Tab mode "default"
 }
-bindsym $mod+Shift+m mode "resize"
+# bindsym $mod+Shift+m mode "resize"
 
 mode "move" {
     bindsym Left move left 10px
@@ -153,7 +161,7 @@ mode "move" {
     bindsym Escape mode "default"
     bindsym $alt+Tab mode "default"
 }
-bindsym $mod+m mode "move"
+# bindsym $mod+m mode "move"
 
 set $mode_i3 i3: [r]reload [R]restart k[kill] backspace[restart] delete[poweroff]
 bindsym Control+$mod+Shift+a mode "$mode_i3"
@@ -200,6 +208,12 @@ bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
+
+bindsym $mod+m focus left
+bindsym $mod+comma focus down
+bindsym $mod+k focus up
+bindsym $mod+period focus right
+
 # focus parent/child container
 bindsym Control+$mod+Up focus parent
 bindsym Control+$mod+Down focus child
@@ -208,6 +222,11 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
+bindsym $mod+Shift+m move left
+bindsym $mod+Shift+comma move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+period move right
 
 bindsym Control+$mod+Left workspace prev
 bindsym Control+$mod+Right workspace next
@@ -353,9 +372,9 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.dotfiles/bin/volumectl up
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id ~/.dotfiles/bin/playerctl-smart play-pause
+bindsym XF86AudioNext exec --no-startup-id ~/.dotfiles/bin/playerctl-smart next
+bindsym XF86AudioPrev exec --no-startup-id ~/.dotfiles/bin/playerctl-smart previous
 
 # print area
 bindsym Control+Shift+Print exec gnome-screenshot --interactive
@@ -364,11 +383,15 @@ bindsym Shift+Print exec gnome-screenshot
 # gsettings set org.gnome.gnome-screenshot auto-save-directory "/home/$USER/Pictures/Screenshots/"
 
 # HINT: use xprop/xwininfo to find out class/title/etc.
-for_window [title="Calculator"] floating enable
-# https://www.electronjs.org/apps/colorpicker
-for_window [title="Colorpicker"] floating enable
-for_window [title="Transmission"] floating enable
-for_window [title="YAD"] floating enable border normal
+for_window [class="gnome-calculator"] floating enable
+for_window [class="transmission-gtk"] floating enable
+# for_window [title="Blizzard Battle.net"] floating enable
+for_window [class="hd_launcher.exe"] floating enable border normal
+for_window [class="Steam"] floating enable
+for_window [class="Wine"] floating enable border normal
+for_window [class="sc2.exe"] floating enable border normal
+for_window [class="battle.net.exe"] floating enable border normal
+for_window [class="yad"] floating enable border normal
 # center idea/goland logo
 for_window [class="^jetbrains-.+" title="win0"] floating enable
 for_window [class="^jetbrains-.+"][window_type=dialog] focus
@@ -386,7 +409,7 @@ exec --no-startup-id dunst
 # exec --no-startup-id insync
 
 exec --no-startup-id redshift
-exec --no-startup-id safeeyes
+# exec --no-startup-id safeeyes
 # Prefer https://github.com/jD91mZM2/xidlehook.
 # Alternatively - https://stackoverflow.com/a/56031064/482225.
 # exec --no-startup-id xautolock -time 10 -locker ~/.dotfiles/bin/xlock

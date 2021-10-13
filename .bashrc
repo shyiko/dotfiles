@@ -59,7 +59,8 @@ export PROMPT_COMMAND="_history_append; $PROMPT_COMMAND"
 
 _remember_pwd() { local exit_code=$?; printf %s "$PWD" > ~/.pwd; return $exit_code; }
 export PROMPT_COMMAND="_remember_pwd; $PROMPT_COMMAND"
-[ -f ~/.pwd ] && cd "$(cat ~/.pwd)"
+# $OLDPWD check is here to ensure things like (cd other_dir && bash -i) work as expected
+[ -f ~/.pwd ] && [[ "$OLDPWD" == "" ]] && cd "$(cat ~/.pwd)"
 
 _urxvt_selection_open() { local exit_code=$?; echo -ne "\0033]777;selection-open;path;$PWD\0007"; return $exit_code; }
 export PROMPT_COMMAND="_urxvt_selection_open; $PROMPT_COMMAND"

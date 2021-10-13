@@ -1,0 +1,26 @@
+#!/bin/bash
+set -euo pipefail
+
+# rm -rf ~/.local/share/wineprefixes/battle.net
+
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/battle.net wineboot -u
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/battle.net winetricks win10 sandbox
+# You can list all settings with
+# WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/battle.net winetricks settings list
+# (see winetricks -h for more)
+
+# WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/battle.net winetricks dlls list
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/battle.net winetricks dxvk
+# NOTE: at the time of writing. dxvk is an alias for dxvk173
+# https://github.com/doitsujin/dxvk/releases/tag/v1.7 (or newver) requires wine 5.8+
+# while winehg-stable == 5.0.x
+# A workaround is to install winehg-staging (currently it points to rc version of 6.0 release)
+
+# this is important; otherwise battle.net installer fails to load winhttp.dll if launched from ~/Downloads/... (Z drive)
+cp ~/Games/Battle.net-Setup.exe ~/.local/share/wineprefixes/battle.net/drive_c
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/battle.net wine 'C:\Battle.net-Setup.exe'
+rm -f ~/.local/share/wineprefixes/battle.net/drive_c/Battle.net-Setup.exe
+
+# Launch battle.net with
+# WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/battle.net sh -c 'cd "$WINEPREFIX/drive_c/Program Files/Battle.net" && exec wine "Battle.net Launcher.exe"'
+

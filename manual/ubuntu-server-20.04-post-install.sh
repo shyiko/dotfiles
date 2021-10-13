@@ -61,3 +61,6 @@ chmod 0700 /home/shyiko/.gnupg
 curl -sSL https://keybase.io/shyiko/pgp_keys.asc | gpg --import -
 gpg --card-status
 gpg --edit-key 160A7A9CF46221A56B06AD64461A804F2609FD89 # type "trust", select 5 - ultimate
+
+# install latest kernel (https://wiki.ubuntu.com/Kernel/RollingLTSEnablementStack)
+sudo apt install --install-recommends linux-generic-hwe-20.04

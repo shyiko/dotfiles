@@ -1,0 +1,2 @@
+#!/bin/bash
+exec google-chrome-stable --app="https://smile.amazon.com/Prometheus-Noomi-Rapace/dp/B009AJDDQU/ref=sr_1_2?dchild=1&keywords=prometheus&qid=1615006093&sr=8-2"

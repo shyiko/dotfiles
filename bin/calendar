@@ -1,2 +1,3 @@
 #!/bin/bash
-exec google-chrome-stable --app="https://calendar.google.com/calendar/b/0/r"
+exec google-chrome-stable --app="https://calendar.google.com/calendar/b/1/r"
+

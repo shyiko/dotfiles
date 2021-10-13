@@ -6,6 +6,7 @@ set -e
 # Ubuntu 18.04
 # sudo add-apt-repository -y ppa:yubico/stable
 # sudo apt install -y yubikey-manager-qt
+# TODO: https://developers.yubico.com/yubikey-manager-qt/Releases/
 
 # Ubuntu 20.04 - https://github.com/Yubico/yubikey-manager-qt/issues/238
 mkdir -p /tmp/pkgs/ykman-gui

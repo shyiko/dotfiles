@@ -242,6 +242,7 @@ _prompt_bash__after_command() {
         " $_prompt_bash__PS_PWD"
         $(_prompt_bash__color_off)
         "$dir_stat"
+        " $AT"
         "\n"
         # 2nd line
         "$_prompt_bash__PS_PROMPT "

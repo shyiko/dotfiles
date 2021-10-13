@@ -1,0 +1,5 @@
+#!/bin/bash
+# https://app-updates.agilebits.com/product_history/CLI
+curl -sSL https://cache.agilebits.com/dist/1P/op/pkg/v1.4.0/op_linux_amd64_v1.4.0.zip -O
+atool -x op_linux_amd64_v1.4.0.zip op
+sudo mv op /usr/local/bin/

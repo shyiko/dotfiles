@@ -2,4 +2,5 @@
 # See `nvidia-settings --help` for more.
 
 [gpu:0]/GPUPowerMizerMode=1
-CurrentMetaMode=DPY-1: 1920x1080 @1920x1080 +0+0 {ViewPortIn=1920x1080, ViewPortOut=1920x1080+0+0, ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}
+# CurrentMetaMode=DPY-1: 1920x1080 @1920x1080 +0+0 {ViewPortIn=1920x1080, ViewPortOut=1920x1080+0+0, ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}
+CurrentMetaMode=DPY-1: 2560x1080 @2560x1080 +0+0 {ViewPortIn=2560x1080, ViewPortOut=2560x1080+0+0, ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}

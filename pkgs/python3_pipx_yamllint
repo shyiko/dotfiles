@@ -1,0 +1,5 @@
+#!/bin/bash
+#@pkg.file=$HOME/.local/bin/yamllint
+set -e
+
+pipx install yamllint

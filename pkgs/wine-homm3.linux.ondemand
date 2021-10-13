@@ -1,0 +1,31 @@
+#!/bin/bash
+set -euo pipefail
+
+# rm -rf ~/.local/share/wineprefixes/homm3
+
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/homm3 wineboot -u
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/homm3 winetricks win10 sandbox
+
+# $ ll ~/Games/HoMM\ 3/
+# total 1237476
+# drwxrwxr-x 2 shyiko shyiko       4096 Dec 23 20:57  ./
+# drwxrwxr-x 3 shyiko shyiko       4096 Dec 23 20:47  ../
+# # https://sites.google.com/site/heroes3hd/eng/download
+# -rw-rw-r-- 1 shyiko shyiko   13950378 Dec 23 20:57  HoMM3_HD_Latest_setup.exe
+# # http://heroes3wog.net/horn-of-the-abyss-download/
+# -rw-rw-r-- 1 shyiko shyiko  247338218 Dec 23 20:40  HotA_1.6.1_setup.exe
+# # https://www.gog.com/account
+# -rw-rw-r-- 1 shyiko shyiko 1005040617 Dec 23 20:41 'setup_heroes_of_might_and_magic_3_complete_4.0_(28740)-1.bin'
+# -rw-rw-r-- 1 shyiko shyiko     822520 Dec 23 20:41 'setup_heroes_of_might_and_magic_3_complete_4.0_(28740).exe'
+cp ~/Games/HoMM\ 3/* ~/.local/share/wineprefixes/homm3/drive_c
+
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/homm3 wine 'C:\setup_heroes_of_might_and_magic_3_complete_4.0_(28740).exe'
+
+# HoMM3 HD is included in HoTA.
+# You may still want to install it if HoTA is not your thing.
+# WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/homm3 wine 'C:\HoMM3_HD_Latest_setup.exe'
+
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/homm3 wine 'C:\HotA_1.6.1_setup.exe'
+
+# Launch game with:
+# WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/homm3 sh -c 'cd "$WINEPREFIX/drive_c/GOG Games/HoMM 3 Complete" && exec wine HD_Launcher.exe'

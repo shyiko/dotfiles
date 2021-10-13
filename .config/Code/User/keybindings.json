@@ -83,16 +83,6 @@
         "command": "editor.action.moveLinesDownAction",
         "when": "editorTextFocus && !editorReadonly"
     },
-    {
-        "key": "alt+shift+up",
-        "command": "editor.action.moveLinesUpAction",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "alt+shift+down",
-        "command": "editor.action.moveLinesDownAction",
-        "when": "editorTextFocus && !editorReadonly"
-    },
 // navigation
     {
         "key": "ctrl+e",

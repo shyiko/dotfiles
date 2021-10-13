@@ -1,0 +1,9 @@
+# replace
+# <policy domain="coder" rights="none" pattern="PDF" />
+#
+# in
+# /etc/ImageMagick-6/policy.xml
+#
+# with
+# <policy domain="coder" rights="read | write" pattern="PDF" />
+

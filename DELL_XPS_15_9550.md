@@ -256,16 +256,16 @@ A few notes that apply specifically to 9550:
 Both are superseded by 
 [PRIME render offload](https://download.nvidia.com/XFree86/Linux-x86_64/440.82/README/primerenderoffload.html) ([[1]](https://wiki.archlinux.org/index.php/PRIME#PRIME_GPU_offloading)). It's not yet generally available, however ([on Arch you'll need Xorg >= 1.20.6-1](https://wiki.archlinux.org/index.php/PRIME)).  
 
-Setup below is based on [Offloading Graphics Display with RandR 1.4](https://download.nvidia.com/XFree86/Linux-x86_64/440.82/README/randr14.html) (dGPU does all the work while iGPU acts as output sink). 
+Setup below is based on [Offloading Graphics Display with RandR 1.4](https://download.nvidia.com/XFree86/Linux-x86_64/455.45.01/README/randr14.html) (dGPU does all the work while iGPU acts as output sink). 
 
-Install NVIDIA driver (I'm running [440.82](https://www.nvidia.com/Download/driverResults.aspx/159360/en-us) with [Vulkan 1.2 support](https://developer.nvidia.com/vulkan-driver)).
+Install NVIDIA driver (I'm running [455.45.01](https://www.nvidia.com/Download/Find.aspx?lang=en-us) with [Vulkan 1.2 support](https://developer.nvidia.com/vulkan-driver)).
 
 On Ubuntu 18.04:
 
 ```bash
 sudo apt-get purge '*nvidia*' '*bumblebee*' '*bbswitch*'
 sudo add-apt-repository -y ppa:graphics-drivers/ppa
-sudo apt install nvidia-driver-440 mesa-utils # mesa-utils contains glxgears
+sudo apt install nvidia-driver-455 mesa-utils vulkan-tools # mesa-utils contains glxgears, vulkan-tools cotains vulkaninfo
 ```
 
 Configure
@@ -387,7 +387,7 @@ sudo su -c "echo 1 > /sys/bus/pci/devices/0000\:01\:00.0/remove"
 
 ### eGPU
 
-I'm using [Gigabyte Aorus GTX 1080 Gaming Box (GV-N1080IXEB-8GD)](https://www.gigabyte.com/us/Graphics-Card/GV-N1080IXEB-8GD). 
+I'm using [Gigabyte Aorus GTX 1080 Gaming Box (GV-N1080IXEB-8GD)](https://www.gigabyte.com/us/Graphics-Card/GV-N1080IXEB-8GD) ([fan mod](https://egpu.io/forums/thunderbolt-enclosures/aorus-1080-1070-fan-replacement/)). 
 
 > Depending on your setup you might want to apply [NVIDIA Graphics Firmware Update Tool for DisplayPort 1.3 and 1.4](https://www.nvidia.com/en-us/drivers/nv-uefi-update-x64/).
 
@@ -405,14 +405,14 @@ ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}
 
 > You can monitor udev events via `sudo udevadm monitor` (in case you want to fine-tune rule above). Use `sudo udevadm control --reload-rules` to reload.
 
-Install NVIDIA driver (I'm running [440.82](https://www.nvidia.com/Download/driverResults.aspx/159360/en-us) with [Vulkan 1.2 support](https://developer.nvidia.com/vulkan-driver)).
+Install NVIDIA driver (I'm running [455.45.01](https://www.nvidia.com/Download/Find.aspx?lang=en-us) with [Vulkan 1.2 support](https://developer.nvidia.com/vulkan-driver)).
 
 On Ubuntu 18.04:
 
 ```bash
 sudo apt-get purge '*nvidia*' '*bumblebee*' '*bbswitch*'
 sudo add-apt-repository -y ppa:graphics-drivers/ppa
-sudo apt install nvidia-driver-440 mesa-utils # mesa-utils contains glxgears
+sudo apt install nvidia-driver-455 mesa-utils vulkan-tools # mesa-utils contains glxgears, vulkan-tools cotains vulkaninfo
 ```
 
 Configure
@@ -504,7 +504,7 @@ EndSection
 # See `nvidia-settings --help` for more.
 
 [gpu:0]/GPUPowerMizerMode=1
-CurrentMetaMode=DPY-1: 1920x1080 @1920x1080 +0+0 {ViewPortIn=1920x1080, ViewPortOut=1920x1080+0+0, ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}
+CurrentMetaMode=DPY-1: 2560x1080 @2560x1080 +0+0 {ViewPortIn=2560x1080, ViewPortOut=2560x1080+0+0, ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}
 ```
 
 > `GPUPowerMizerMode=1` is equivalent to changing "PowerMizer" -> "Preferred Mode" to "Prefer Maximum Performace" in `nvidia-settings`.
@@ -528,6 +528,30 @@ sudo update-initramfs -u
 lsinitramfs /boot/initrd.img-$(uname --kernel-release) | grep nvidia
 ```
 
+If you plan on using Vulkan API only with NVIDIA you might want to disable all ICDs but NVIDIA 
+(this way you won't have to bother with things like [`DXVK_FILTER_DEVICE_NAME=GTX`](https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-720069238) in steam) 
+
+```shell script
+# See https://wiki.archlinux.org/index.php/Vulkan &
+# https://github.com/ValveSoftware/Proton/issues/3931#issuecomment-719793573 for more.
+
+sudo mv /usr/share/vulkan/icd.d/intel_icd.i686.json{,.disabled}
+sudo mv /usr/share/vulkan/icd.d/intel_icd.x86_64.json{,.disabled}
+
+sudo mv /usr/share/vulkan/icd.d/radeon_icd.i686.json{,.disabled}
+sudo mv /usr/share/vulkan/icd.d/radeon_icd.x86_64.json{,.disabled}
+
+$ ls -l /usr/share/vulkan/icd.d/
+-rw-r--r-- 1 root root 161 Apr 15  2020 intel_icd.i686.json.disabled
+-rw-r--r-- 1 root root 163 Apr 15  2020 intel_icd.x86_64.json.disabled
+-rw-r--r-- 1 root root 140 May 29  2020 nvidia_icd.json
+-rw-r--r-- 1 root root 162 Apr 15  2020 radeon_icd.i686.json.disabled
+-rw-r--r-- 1 root root 164 Apr 15  2020 radeon_icd.x86_64.json.disabled
+
+$ vulkaninfo | grep "^GPU "
+GPU id : 0 (GeForce GTX 1080)
+```
+
 > See also https://egpu.io/.
 
 ### Steam
@@ -539,6 +563,9 @@ In order to play Windows-only titles on Linux:
 If you have `ForceCompositionPipeline` on (as in `~/.nvidia-settings-rc-custom` shown above) - disable VSync in the game.
 
 ## Display
+
+[BenQ EX3501R](https://www.benq.com/en-us/monitor/gaming/ex3501r/specifications.html) (HDMI v2.0 / 	
+DisplayPort v1.4) ([1](https://www.zytrax.com/tech/pc/resolution.html)).
 
 <details>
 <summary>~/.config/i3/config</summary>
@@ -701,7 +728,20 @@ Grab FLACs to test from http://www.2l.no/hires/.
 
 ## Webcam
 
-Works out of the box.
+Works out of the box but the image/audio quality is no good.
+I switched to Motu M4 + RØDE PodMic + AVerMedia Live Streamer CAM 513 (PW513) as a result. 
+
+### AVerMedia Live Streamer CAM 513 (PW513)
+
+```shell script
+sudo apt-get install -y v4l-utils
+
+# list controls & their values
+v4l2-ctl -d 2 -l
+
+# change brightness
+v4l2-ctl -d 2 -c brightness=4
+```
 
 <details>
 <summary>Software</summary>

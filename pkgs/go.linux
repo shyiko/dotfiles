@@ -2,7 +2,7 @@
 #@pkg.file=$HOME/.go/default/bin/go
 set -e
 
-GO_VERSION=1.14.3
+GO_VERSION=1.16.3
 
 if [ ! -f ~/.go/$GO_VERSION/bin/go ]; then
     mkdir -p /tmp/pkgs/go
@@ -13,4 +13,5 @@ if [ ! -f ~/.go/$GO_VERSION/bin/go ]; then
     rmdir ~/.go/$GO_VERSION~
 fi
 
+rm ~/.go/default
 ln -sf ~/.go/$GO_VERSION ~/.go/default

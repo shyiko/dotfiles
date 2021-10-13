@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-TERRAFORM_VERSION=0.12.25
+TERRAFORM_VERSION=0.12.29
 
 mkdir -p /tmp/pkgs/terraform
 cd /tmp/pkgs/terraform

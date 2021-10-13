@@ -1,9 +1,10 @@
 #!/bin/bash
 set -e
 
-mkdir -p /tmp/pkgs/telegram
-cd /tmp/pkgs/telegram
+# mkdir -p /tmp/pkgs/telegram
+# cd /tmp/pkgs/telegram
 
-curl -sSL "https://telegram.org/dl/desktop/linux" -o telegram.tar.xz
-atool -q -x telegram.tar.xz
-sudo mv -f Telegram/Telegram /usr/local/bin/telegram
+# curl -sSL "https://telegram.org/dl/desktop/linux" -o telegram.tar.xz
+# atool -q -x telegram.tar.xz
+# sudo mv -f Telegram/Telegram /usr/local/bin/telegram
+sudo apt install telegram-desktop

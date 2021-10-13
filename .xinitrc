@@ -14,6 +14,7 @@ xbindkeys # --nodaemon &
 ~/.dotfiles/root/usr/local/bin/xinput-set-prop-elecom-huge.sh
 ~/.dotfiles/root/usr/local/bin/xinput-set-prop-logitech-m570.sh
 ~/.dotfiles/root/usr/local/bin/xinput-set-prop-logitech-mx-ergo.sh
+~/.dotfiles/root/usr/local/bin/xinput-set-prop-microsoft-trackball-explorer.sh
 
 # clipboard sync
 pkill autocutsel
@@ -41,3 +42,16 @@ pkill compton
 
 # https://github.com/acrisci/playerctl/issues/51#issuecomment-431921919
 exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) i3
+
+# # Workaround for GTK apps slow start https://bbs.archlinux.org/viewtopic.php?id=230036
+# # `systemctl --user status xdg-desktop-portal-gtk.service` to confirm
+
+# $ cat /usr/lib/systemd/user/xdg-desktop-portal-gtk.service
+# [Unit]
+# Description=Portal service (GTK+/GNOME implementation)
+#
+# [Service]
+# Type=dbus
+# BusName=org.freedesktop.impl.portal.desktop.gtk
+# ExecStart=/usr/libexec/xdg-desktop-portal-gtk
+# Environment=DISPLAY=:0

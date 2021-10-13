@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+mkdir -p /tmp/pkgs/kubetail
+cd /tmp/pkgs/kubetail
+
+curl -sSLO https://raw.githubusercontent.com/johanhaleby/kubetail/master/kubetail
+chmod +x kubetail
+sudo mv kubetail /usr/local/bin/

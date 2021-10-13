@@ -1,0 +1,2 @@
+#!/bin/bash
+WINEARCH=win32 WINEPREFIX=$HOME/.local/share/wineprefixes/uplay sh -c 'cd "$WINEPREFIX/drive_c/Program Files/Ubisoft/Ubisoft Game Launcher" && exec wine "Uplay.exe"'

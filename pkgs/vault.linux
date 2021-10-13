@@ -10,3 +10,6 @@ curl -sSL "https://releases.hashicorp.com/vault/$VAULT_VERSION/vault_${VAULT_VER
     -o vault_$VAULT_VERSION.zip
 atool -q -x vault_$VAULT_VERSION.zip
 sudo mv -f vault /usr/local/bin/vault
+
+# https://support.hashicorp.com/hc/en-us/articles/115012787688-Vault-and-mlock-
+sudo setcap cap_ipc_lock=+ep $(readlink -f $(which vault))

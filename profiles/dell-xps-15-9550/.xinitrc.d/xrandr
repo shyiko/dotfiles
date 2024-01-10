@@ -1,0 +1,11 @@
+if [ "$(ls -l /etc/X11/xorg.conf | grep -c igpu)" -eq "1" ]; then
+	# generated with `gtf 2560 1080 60`
+	xrandr --newmode "2560x1080_60"  230.76  2560 2728 3000 3440  1080 1081 1084 1118  -HSync +Vsync
+	xrandr --addmode HDMI1 "2560x1080_60"
+elif [ "$(ls -l /etc/X11/xorg.conf | grep -c dgpu)" -eq "1" ]; then
+	xrandr --setprovideroutputsource modesetting NVIDIA-0
+	xrandr --auto
+	nvidia-settings --config ~/.dotfiles/profiles/dell-xps-15-9550/.nvidia-settings-rc-dgpu --load-config-only
+elif [ "$(ls -l /etc/X11/xorg.conf | grep -c egpu-nvidia)" -eq "1" ]; then
+	nvidia-settings --config ~/.dotfiles/profiles/dell-xps-15-9550/.nvidia-settings-rc-egpu --load-config-only
+fi

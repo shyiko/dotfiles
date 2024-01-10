@@ -1,2 +1,0 @@
-# Logitech MX Ergo hot-plugging
-ACTION=="add", SUBSYSTEM=="input", ATTR{name}=="Logitech MX Ergo", RUN+="/usr/bin/sudo -u shyiko /usr/bin/at -f /user/local/bin/udev-logitech-mx-ergo-add.sh now"

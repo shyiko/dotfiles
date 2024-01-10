@@ -1,0 +1,18 @@
+for f in $(cd $DIR/root && find . -type f); do
+    copy --root $DIR/root/$f "/$f"
+done
+
+if [ ! -f /etc/X11/xorg.conf ]; then
+    symlink --root /etc/X11/xorg.conf.igpu /etc/X11/xorg.conf
+fi
+
+for s in cpu-freq-after-suspend cpu-freq undervolt; do
+    if [[ "$(systemctl is-enabled $s.service)" != "enabled" ]]; then
+        if [[ "$DRY_RUN" == "1" ]]; then
+            echo "dry-run: sudo systemctl enable $s.service" >&2
+            continue
+        else
+            sudo systemctl enable $s.service
+        fi
+    fi
+done

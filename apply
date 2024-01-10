@@ -1,37 +1,23 @@
 #!/bin/bash
-#
-# Usage:
-# ```
-# ~/.dotfiles/assimilate
-# ```
-# - `
 set -euo pipefail
-
-if [[ "$(whoami)" != "shyiko" ]]; then
-    echo "This script is expected to be run by 'shyiko'"
-    exit 1
-fi
 
 usage() {
   cat <<EOF
-Usage: ${0} [command] [flags]
+Usage: ${0} [command] [flags] profile...
 
 Flags:
-  --dry-run Show what will happen without making any changes.
-  --skip-pkgs Do not install packages.
-  --skip-pkgs-aptfile
-  --skip-pkgs-brewfile
-  --skip-root Do not modify system files.
+  --dry-run          Show what will happen without making any changes.
+  --skip-pkgs        Do not install packages from aptfile/brewfile/etc (implies --skip-custom-pkgs)
+  --skip-custom-pkgs Do not install profiles/*/pkgs/.
+  --skip-root        Do not modify system files.
 EOF
-  exit 1
 }
 
 DRY_RUN=
 SKIP_PKGS=
-SKIP_APTFILE=
-SKIP_BREWFILE=
-SKIP_PKGSPKGS=
+SKIP_CUSTOMPKGS=
 SKIP_ROOT=
+PROFILES=()
 while [[ $# -gt 0 ]]; do
   case $1 in
     --dry-run)
@@ -39,32 +25,42 @@ while [[ $# -gt 0 ]]; do
       ;;
     --skip-pkgs)
       SKIP_PKGS=1
+      SKIP_CUSTOMPKGS=1
       ;;
-    --skip-pkgs-aptfile)
-      SKIP_APTFILE=1
-      ;;
-    --skip-pkgs-brewfile)
-      SKIP_BREWFILE=1
-      ;;
-    --skip-pkgs-pkgs)
-      SKIP_PKGSPKGS=1
+    --skip-custompkgs)
+      SKIP_CUSTOMPKGS=1
       ;;
     --skip-root)
       SKIP_ROOT=1
       ;;
     -h|--help)
       usage
+      exit 0
       ;;
     -*=)
       echo "Error: unknown flag $1" >&2
       exit 1
       ;;
+    default|dell-xps-15-9550|macbook-pro|pc|ubuntu-desktop|ubuntu-server)
+      PROFILES+=($1)
+      ;;
     *)
+      echo "Error: unknown profile $1" >&2
       usage
+      exit 1
       ;;
   esac
   shift
 done
+
+if [[ "${#PROFILES[@]}" == 0 ]]; then
+    echo $"Error: At least one profile name required. Available profiles:
+
+$(cd profiles; ls)
+" >&2
+    usage
+    exit 1
+fi
 
 OS=$(uname -s | tr '[:upper:]' '[:lower:]') # darwin or linux
 if [ -f /etc/lsb-release ]; then
@@ -119,166 +115,111 @@ function copy() {
     $run cp -i "$src" "$dst"
 }
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
 function install_pkgs_aptfile() {
-    if [[ "$SKIP_APTFILE" == "1" ]]; then
-        echo "Skipped ~/.dotfiles/aptfile (--skip-pkgs-aptfile)" >&2
+    if [[ "$SKIP_PKGS" == "1" || ! -f $DOTFILES_DIR/$DOTFILES_PROFILE_DIR/aptfile ]]; then
         return
     fi
-
     local aptfile_opt=
     if [[ "$DRY_RUN" == "1" ]]; then
         aptfile_opt=--dry-run
     fi
-    bash ~/.dotfiles/aptfile $aptfile_opt
+    echo "> $DOTFILES_PROFILE_DIR/aptfile" >&2
+    bash $DOTFILES_DIR/$DOTFILES_PROFILE_DIR/aptfile $aptfile_opt
 }
 
 function install_pkgs_brewfile() {
-    if [[ "$SKIP_BREWFILE" == "1" ]]; then
-        echo "Skipped ~/.dotfiles/brewfile (--skip-pkgs-brewfile)" >&2
+    if [[ "$SKIP_PKGS" == "1" || ! -f $DOTFILES_DIR/$DOTFILES_PROFILE_DIR/brewfile ]]; then
         return
     fi
-
     if ! command -v brew >/dev/null; then
         if [[ "$DRY_RUN" == "1" ]]; then
-            echo "Skipped brew installation (--dry-run)" >&2
+            echo "dry-run: install brew" >&2
         else
-            echo "Installing brew" >&2
+            echo "> install brew" >&2
             curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
         fi
     fi
-
     if [[ "$DRY_RUN" == "1" ]]; then
-        echo 'Skipped brew bundle install (--dry-run not supported)' >&2
+        echo "dry-run not supported: $DOTFILES_PROFILE_DIR/brewfile" >&2
     else
-        brew bundle install --file=~/.dotfiles/brewfile
+        echo "> $DOTFILES_PROFILE_DIR/brewfile" >&2
+        brew bundle install --file=$DOTFILES_DIR/$DOTFILES_PROFILE_DIR/brewfile
     fi
 }
 
-function install_pkgs() (
+function install_pkgs() {
     if [[ "$SKIP_PKGS" == "1" ]]; then
         return
     fi
-    echo "Installing pkgs..." >&2
-
-    if [[ "$DISTRIB_ID" == "Ubuntu" ]]; then
+    if [[ "${DISTRIB_ID:-}" == "Ubuntu" ]]; then
         install_pkgs_aptfile
     elif [[ "$OS" = "darwin" ]]; then
         install_pkgs_brewfile
     else
-        echo "Unsupported OS" >&2
+        echo "Error: unsupported OS" >&2
         exit 1
     fi
+}
 
-    if [[ "$SKIP_PKGSPKGS" == "1" ]]; then
-        echo "Skipped ~/.dotfiles/pkgs/* (--skip-pkgs-pkgs)" >&2
+function install_custom_pkgs() (
+    if [[ "$SKIP_CUSTOMPKGS" == "1" || ! -d $DOTFILES_DIR/$DOTFILES_PROFILE_DIR/pkgs ]]; then
         return
     fi
-
-    export PATH=$HOME/.bin:$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-
-    local pkg_dir=~/.dotfiles/pkgs
+    echo "> $DOTFILES_PROFILE_DIR/pkgs/*" >&2
+    export PATH=$HOME/.bin:$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    local pkg_dir=$DOTFILES_DIR/$DOTFILES_PROFILE_DIR/pkgs
     for f in $(ls $pkg_dir); do
-        if [[ "$f" == *.* && "$f" != *.$OS ]]; then
-            if [[ "$f" != *.linux && "$f" != *.darwin ]]; then
-                echo "Skipped running $pkg_dir/$f (ext != $OS)" >&2
-            fi
+        if [[ "$f" == *.ondemand || "$f" == *.disabled ]]; then
+            echo "> skipped: $DOTFILES_PROFILE_DIR/pkgs/$f" >&2
             continue
         fi
         cmd=$(eval "echo $(cat $pkg_dir/$f | grep '#@pkg.file=' | awk -F= '{print $2}')")
         f_without_ext=${f%%.*}
         cmd=${cmd:-$f_without_ext}
-        chmod +x $pkg_dir/$f
+        if [ ! -x $pkg_dir/$f ]; then
+            chmod +x $pkg_dir/$f
+        fi
         if ! command -v $cmd >/dev/null && ! [ -e $cmd ]; then
             if [[ "$DRY_RUN" == "1" ]]; then
-                echo "Skipped running $pkg_dir/$f (--dry-run)" >&2
+                echo "dry-run: $DOTFILES_PROFILE_DIR/pkgs/$f" >&2
                 continue
             fi
-            echo "Running $pkg_dir/$f" >&2
+            echo "> $DOTFILES_PROFILE_DIR/pkgs/$f" >&2
             $pkg_dir/$f
         fi
     done
 )
 
-function configure_home() {
-    echo "Configuring home..." >&2
-
-    if [[ "$DRY_RUN" == "1" ]]; then
-        echo 'Skipped vim +PlugInstall (--dry-run not supported)' >&2
-    else
-        if [ ! -d ~/.config/nvim/bundle/vundle.vim ]; then
-            git clone --depth 1 https://github.com/VundleVim/Vundle.vim.git \
-                --branch v0.10.2 \
-                ~/.config/nvim/bundle/vundle.vim
-        fi
-        symlink ~/.dotfiles/.config/nvim/colors/base16-ocean.vim ~/.config/nvim/colors/base16-ocean.vim
-        symlink ~/.dotfiles/.config/nvim/ftplugin/markdown.vim ~/.config/nvim/ftplugin/markdown.vim
-        symlink ~/.dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
-        nvim +PlugInstall +qall
-        mkdir -p ~/.local/share/nvim/{backup,swap,undo}
-    fi
-
-    symlink ~/.dotfiles/.config/bat/config ~/.config/bat/config
-    if [ "$OS" = "linux" ]; then
-        symlink ~/.dotfiles/.config/Code/User/settings.json ~/.config/Code/User/settings.json
-        symlink ~/.dotfiles/.config/Code/User/keybindings.json ~/.config/Code/User/keybindings.json
-        symlink ~/.dotfiles/.config/dunst/dunstrc ~/.config/dunst/dunstrc
-        symlink ~/.dotfiles/.config/i3/config ~/.config/i3/config
-        symlink ~/.dotfiles/.config/i3status/config ~/.config/i3status/config
-        # nvim
-        symlink ~/.dotfiles/.config/rofi/config ~/.config/rofi/config
-        symlink ~/.dotfiles/.config/safeeyes/safeeyes.json ~/.config/safeeyes/safeeyes.json
-        symlink ~/.dotfiles/.config/ranger/rc.conf ~/.config/ranger/rc.conf
-        symlink ~/.dotfiles/.config/pulse/daemon.conf ~/.config/pulse/daemon.conf
-    fi
-    symlink ~/.dotfiles/.gnupg/gpg-agent.conf.$OS ~/.gnupg/gpg-agent.conf
-    symlink ~/.dotfiles/.gnupg/gpg.conf ~/.gnupg/gpg.conf
-    symlink ~/.dotfiles/.grip/settings.py ~/.grip/settings.py
-    if [ "$OS" = "linux" ]; then
-        symlink ~/.dotfiles/.screenlayout ~/.screenlayout
-    fi
-    symlink ~/.dotfiles/.ssh/config ~/.ssh/config
-    if [ "$OS" = "linux" ]; then
-        symlink ~/.dotfiles/.urxvt/ext ~/.urxvt/ext
-    fi
-    symlink ~/.dotfiles/.bash_profile ~/.bash_profile
-    symlink ~/.dotfiles/.bashrc ~/.bashrc
-    symlink ~/.dotfiles/.curlrc ~/.curlrc
-    symlink ~/.dotfiles/.gitconfig ~/.gitconfig
-    symlink ~/.dotfiles/.hushlogin ~/.hushlogin
-    symlink ~/.dotfiles/.inputrc ~/.inputrc
-    if [ "$OS" = "linux" ]; then
-        symlink ~/.dotfiles/.xbindkeysrc ~/.xbindkeysrc
-        symlink ~/.dotfiles/.xinitrc ~/.xinitrc
-        symlink ~/.dotfiles/.Xmodmap ~/.Xmodmap
-        symlink ~/.dotfiles/.Xresources ~/.Xresources
-        symlink ~/.dotfiles/.xserverrc ~/.xserverrc
-    fi
-    # secrets
-    if [ -d ~/Documents/.dotfiles ]; then
-        symlink ~/Documents/.dotfiles/.config/asciinema/config ~/.config/asciinema/config
-        symlink ~/Documents/.dotfiles/.grip/auth.json ~/.grip/auth.json
-    else
-        echo "WARN: ~/Documents/.dotfiles not found (secrets won't be linked)" >&2
-    fi
-}
-
 function configure_root() {
-    if [[ "$SKIP_ROOT" == "1" ]]; then
+    if [[ "$SKIP_ROOT" == "1" || ! -f $DOTFILES_DIR/$DOTFILES_PROFILE_DIR/root.apply.source ]]; then
         return
     fi
-
-    echo "Configuring root..." >&2
-    if [ "$OS" = "linux" ]; then
-        for f in $(cd ~/.dotfiles/root && find . -type f); do
-            copy --root $HOME/.dotfiles/root/$f "/$f"
-        done
-
-        if [ ! -f /etc/X11/xorg.conf ]; then
-            symlink --root /etc/X11/xorg.conf.igpu /etc/X11/xorg.conf
-        fi
-    fi
+    echo "> $DOTFILES_PROFILE_DIR/root.apply.source" >&2
+    DIR=$DOTFILES_DIR/$DOTFILES_PROFILE_DIR
+    source $DOTFILES_DIR/$DOTFILES_PROFILE_DIR/root.apply.source
+    unset DIR
 }
 
-install_pkgs
-configure_home
-configure_root
+function configure_home() {
+    if [ ! -f $DOTFILES_DIR/$DOTFILES_PROFILE_DIR/home.apply.source ]; then
+        return
+    fi
+    echo "> $DOTFILES_PROFILE_DIR/home.apply.source" >&2
+    DIR=$DOTFILES_DIR/$DOTFILES_PROFILE_DIR
+    source $DOTFILES_DIR/$DOTFILES_PROFILE_DIR/home.apply.source
+    unset DIR
+}
+
+for profile in ${PROFILES[@]}; do
+    DOTFILES_PROFILE=$profile
+    DOTFILES_PROFILE_DIR=profiles/$profile
+    echo "> profile: $profile" >&2
+    install_pkgs
+    install_custom_pkgs
+    configure_root
+    configure_home
+done
+
+echo OK >&2

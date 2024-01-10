@@ -1,3 +1,0 @@
-sudo apt install nginx
-sudo systemctl disable nginx
-sudo systemctl stop nginx

@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+# borrowed from https://github.com/peterbourgon/dotfiles/blob/master/bin/ssh-proxy
+
+LOCAL_PORT=$1
+HOST=$2
+REMOTE_PORT=$3
+
+exec ssh -N -f -C -L $LOCAL_PORT:localhost:$REMOTE_PORT $HOST

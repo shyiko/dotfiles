@@ -1,4 +1,0 @@
-user = "root"
-group = "root"
-security_driver = "none"
-dynamic_ownership = 0

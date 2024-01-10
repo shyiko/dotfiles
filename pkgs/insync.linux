@@ -1,7 +1,0 @@
-#!/bin/bash
-set -e
-
-# https://www.insynchq.com/downloads
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys ACCAF35C
-sudo add-apt-repository -y "deb http://apt.insync.io/ubuntu $(lsb_release -cs) non-free contrib"
-sudo apt install -y insync

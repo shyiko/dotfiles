@@ -1,0 +1,2 @@
+#!/bin/bash
+exec google-chrome-stable --app=https://app.asana.com/0/1204632230851648/listhttps://en.wikipedia.org/wiki/Stunnelm

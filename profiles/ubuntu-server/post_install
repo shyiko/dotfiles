@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# sudo apt upgrade -y
+
+# timedatectl
+# timedatectl list-timezones
+sudo timedatectl set-timezone America/Los_Angeles
+
+# delete/disable bloat
+sudo apt purge -y snapd lxd-agent-loader cloud-init modemmanager ppp
+# systemctl list-unit-files --state=enabled --no-pager
+sudo systemctl disable motd-news.timer

@@ -1,3 +1,0 @@
-sudo apt install haproxy
-sudo systemctl disable haproxy
-sudo systemctl stop haproxy

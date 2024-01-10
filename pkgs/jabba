@@ -1,5 +1,0 @@
-#!/bin/bash
-#@pkg.file=$HOME/.jabba/bin/jabba
-set -e
-
-curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash -s -- --skip-rc

@@ -1,2 +1,0 @@
-#!/bin/bash
-pkexec ~/.dotfiles/bin/x-profile dgpu

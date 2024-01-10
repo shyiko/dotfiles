@@ -1,6 +1,0 @@
-#!/bin/bash
-export PATH=$HOME/.bin:$HOME/.local/bin:$HOME/.dotfiles/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-export LC_ALL=en_US.UTF-8 # otherwise krita segfaults
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
-export GPG_TTY=$(tty)
-exec "$@"

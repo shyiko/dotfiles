@@ -1,0 +1,10 @@
+.vscode
+.idea
+*.iml
+*.ipr
+*.iws
+*~
+.DS_Store
+.wip/
+.gitignored/
+.local/

@@ -1,0 +1,3 @@
+#!/bin/bash
+# e.g. curl -s 'https://ip-ranges.amazonaws.com/ip-ranges.json' | jq-inspect
+exec jq -r '[path(..)|map(if type=="number" then "[]" else tostring end)|join(".")|split(".[]")|join("[]")]|unique|map("."+.)|.[]'

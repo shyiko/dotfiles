@@ -1,0 +1,17 @@
+#!/bin/bash
+#@pkg.file=$HOME/.go/default/bin/go
+set -e
+
+GO_VERSION=${GO_VERSION:-1.21.5}
+
+if [ ! -f ~/.go/$GO_VERSION/bin/go ]; then
+    mkdir -p /tmp/pkgs/go
+    curl -sSL "https://dl.google.com/go/go$GO_VERSION.linux-amd64.tar.gz" -o "/tmp/pkgs/go/$GO_VERSION.tar.gz"
+    mkdir -p ~/.go/$GO_VERSION~
+    atool -q --extract-to=$HOME/.go/$GO_VERSION~ "/tmp/pkgs/go/$GO_VERSION.tar.gz"
+    mv ~/.go/$GO_VERSION~/go ~/.go/$GO_VERSION
+    rmdir ~/.go/$GO_VERSION~
+fi
+
+rm ~/.go/default
+ln -sf ~/.go/$GO_VERSION ~/.go/default

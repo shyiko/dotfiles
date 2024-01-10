@@ -1,5 +1,0 @@
-#!/bin/bash
-#@pkg.file=$HOME/.commacd.sh
-set -e
-
-curl -sSL https://github.com/shyiko/commacd/raw/v1.0.0/commacd.sh -o ~/.commacd.sh

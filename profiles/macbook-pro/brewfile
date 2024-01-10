@@ -1,0 +1,94 @@
+# https://formulae.brew.sh/formula/
+# https://formulae.brew.sh/cask/
+
+update
+brew install caskroom/cask/brew-cask
+
+cask install iterm2
+cask install bartender
+cask install spectacle # (or magnet from AppStore)
+cask install typora
+# https://medium.com/workflow-lab/6-tools-to-turn-any-webpage-into-desktop-mac-app-9ababf8ec740
+install nativefier # cask: flotato, fluid, ...
+install terminal-notifier
+
+install awscli
+cask install clion
+cask install discord
+cask install docker # includes docker-compose
+install fd
+cask install firefox
+cask install gns3
+cask install goland
+cask install google-chrome
+cask install google-cloud-sdk
+install grpcurl
+cask install insync
+cask install intellij-idea-ce
+cask install kicad
+install packer
+cask install parsec
+install python
+install rename
+cask install slack
+cask install spotify
+install step
+install terraform
+cask install vagrant
+install vault
+cask install virtualbox
+cask install visual-studio-code
+cask install visualvm
+cask install vlc
+cask install vnc-viewer
+install ykman
+cask install zoomus
+
+cask install figma
+cask install whatsapp
+cask install dynalist
+cask install notion
+
+# CLI tooling
+install coreutils
+install bash
+install llvm # for clang
+install watch
+install git
+install lighttpd
+install atool
+install unzip
+install unrar
+install bzip2
+install xz
+install progress
+install ripgrep
+install jq
+install fasd
+install direnv
+install neovim
+install ncdu
+install expect
+install bc
+install curl
+install htop-osx
+install x86_64-elf-binutils
+install imagemagick
+
+# network
+# https://github.com/brona/iproute2mac
+# for drill (drill if you can, dig if you have to, nslookup if you must)
+install ldns
+install mtr
+install socat
+install tcpdump
+install tcpflow
+install ngrep
+install mitmproxy
+install wireshark
+
+# security
+install gnupg
+install gnupg-pkcs11-scd # for gpg2 --card-status
+install pinentry-mac
+install ssh-copy-id

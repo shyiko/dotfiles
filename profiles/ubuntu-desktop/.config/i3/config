@@ -1,0 +1,419 @@
+# https://i3wm.org/docs/userguide.html
+# https://wiki.archlinux.org/index.php/i3
+
+# font for window titles
+font pango:Noto Sans Mono, FontAwesome 9
+popup_during_fullscreen leave_fullscreen
+new_window pixel 0
+focus_follows_mouse no
+mouse_warping none
+workspace_auto_back_and_forth yes
+
+# https://github.com/airblader/i3 (i3-gaps)
+# gaps top -5
+# gaps left -5
+# gaps right -5
+# gaps bottom -5
+gaps inner 5
+# gaps outer 0
+smart_gaps on
+
+bar {
+    height 26
+    strip_workspace_numbers yes
+    position top
+    colors {
+        background #2b303b
+        statusline #c0c5ce
+        separator  #586e75
+        focused_workspace  #ebcb8b #ebcb8b #002b36
+        active_workspace   #586e75 #586e75 #002b36
+        inactive_workspace #2b303b #2b303b #c0c5ce
+        urgent_workspace   #dc322f #dc322f #fdf6e3
+    }
+    # status_command i3status
+    status_command ~/.dotfiles/profiles/ubuntu-desktop/bin/i3-status
+    # output primary
+
+    # intel
+    tray_output HDMI1
+    # nvidia (dGPU)
+    tray_output HDMI-1-1
+    # nvidia (eGPU)
+    tray_output HDMI-0
+    # nvidia (dGPU/laptop)
+    tray_output eDP-1-1
+
+    tray_output primary
+
+    separator_symbol " | "
+    tray_padding 6
+}
+
+# class                 border  bg      text    indicator
+client.focused          #343d46 #343d46 #c0c5ce #2e9ef4
+client.focused_inactive #65737e #65737e #eff1f5 #484e50
+client.unfocused        #333333 #2b303b #888888 #292d2e
+client.urgent           #2f343a #bf616a #eff1f5 #900000
+
+set $mod Mod4
+set $alt Mod1
+
+# mouse+$mod to drag floating windows
+floating_modifier $mod
+
+set $screen_layout Screen Layout: [c]home-hdmi [r]home-hdmi-laptop-on-the-right
+bindsym Control+$mod+Shift+s mode "$screen_layout"
+
+mode "$screen_layout" {
+    # saved with arandr
+    bindsym --release c mode "default"; exec ~/.dotfiles/profiles/dell-xps-15-9550/.screenlayout/home-hdmi.sh
+    bindsym --release r mode "default"; exec ~/.dotfiles/profiles/dell-xps-15-9550/.screenlayout/home-hdmi-laptop-on-the-right.sh
+    bindsym --release d mode "default"; exec ~/.dotfiles/profiles/dell-xps-15-9550/.screenlayout/default.sh
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+set $i3_layout i3
+bindsym $alt+Tab mode "$i3_layout"
+
+mode "$i3_layout" {
+    bindsym s mode "default"; layout stacking
+    bindsym t mode "default"; layout tabbed
+    bindsym e mode "default"; layout toggle split
+
+    # each binding below can be trigerred outside of this mode by pressing $mode
+
+    # split in h/v orientation
+    bindsym v mode "default"; split v
+    bindsym Shift+v mode "default"; split h
+    # open terminal
+    bindsym space exec urxvt
+
+    bindsym Control+w kill
+    bindsym --release Control+Shift+w mode "default"; exec xkill
+
+    bindsym d mode "default"; exec ~/.dotfiles/profiles/ubuntu-desktop/bin/xrofi-app
+    bindsym Control+Tab mode "default"; exec ~/.dotfiles/profiles/ubuntu-desktop/bin/xrofi -show window -window-format '{w:3} {c} {t}'
+
+    bindsym f fullscreen toggle
+    bindsym c move absolute position center
+
+    bindsym p floating toggle
+    # change focus between tiling / floating windows
+    bindsym Control+p focus mode_toggle
+    bindsym Shift+p sticky toggle
+
+    # change focus
+    bindsym Left focus left
+    bindsym Down focus down
+    bindsym Up focus up
+    bindsym Right focus right
+    # focus parent/child container
+    bindsym Control+Up focus parent
+    bindsym Control+Down focus child
+    # move focused window
+    bindsym Shift+Left move left
+    bindsym Shift+Down move down
+    bindsym Shift+Up move up
+    bindsym Shift+Right move right
+
+    bindsym Control+Left workspace prev
+    bindsym Control+Right workspace next
+
+    bindsym r mode "resize"
+    bindsym Shift+r mode "move"
+    bindsym m mode "move"
+
+    # exit
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym $alt+Tab mode "default"
+}
+
+mode "resize" {
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    # invert resize (for floating dialogs)
+    bindsym Shift+Left resize grow width 10 px or 10 ppt
+    bindsym Shift+Down resize shrink height 10 px or 10 ppt
+    bindsym Shift+Up resize grow height 10 px or 10 ppt
+    bindsym Shift+Right resize shrink width 10 px or 10 ppt
+
+    # exit
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $alt+Tab mode "default"
+}
+# bindsym $mod+Shift+m mode "resize"
+
+mode "move" {
+    bindsym Left move left 10px
+    bindsym Down move down 10px
+    bindsym Up move up 10px
+    bindsym Right move right 10px
+
+    # exit
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $alt+Tab mode "default"
+}
+# bindsym $mod+m mode "move"
+
+set $mode_i3 i3: [r]reload [R]restart k[kill] backspace[restart] delete[poweroff]
+bindsym Control+$mod+Shift+a mode "$mode_i3"
+
+mode "$mode_i3" {
+    # reload config
+    bindsym r reload
+    # restart (preserve workspaces/session; can be used to upgrade i3)
+    bindsym Shift+r restart
+    # exit (terminate X session)
+    bindsym k mode "default"; exec i3-msg exit
+
+    bindsym BackSpace mode "default"; exec ~/.dotfiles/profiles/ubuntu-desktop/bin/i3-graceful-shutdown -r
+    bindsym Delete mode "default"; exec ~/.dotfiles/profiles/ubuntu-desktop/bin/i3-graceful-shutdown
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+bindsym $mod+l exec --no-startup-id ~/.dotfiles/profiles/ubuntu-desktop/bin/xlock
+
+# split in h/v orientation
+bindsym $mod+h split h
+bindsym $mod+v split v
+# open terminal
+bindsym $mod+Return exec urxvt
+bindsym $mod+space exec urxvt
+
+# kill focused window
+bindsym Control+$mod+w kill
+bindsym --release Control+Shift+$mod+w mode "default"; exec xkill
+
+# start a program launcher
+bindsym $mod+d exec ~/.dotfiles/profiles/ubuntu-desktop/bin/xrofi-app
+# bindsym $mod+d exec xrofi-show-runapp
+bindsym Control+$mod+Tab exec ~/.dotfiles/profiles/ubuntu-desktop/bin/xrofi -show window -window-format '{w:3} {c} {t}'
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+bindsym $mod+c move absolute position center
+
+# change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+m focus left
+bindsym $mod+comma focus down
+bindsym $mod+k focus up
+bindsym $mod+period focus right
+
+# focus parent/child container
+bindsym Control+$mod+Up focus parent
+bindsym Control+$mod+Down focus child
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+Shift+m move left
+bindsym $mod+Shift+comma move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+period move right
+
+bindsym Control+$mod+Left workspace prev
+bindsym Control+$mod+Right workspace next
+
+# workspaces
+# icons copy/pasted from http://fontawesome.io/cheatsheet/
+
+# primary screen
+set $ws0  "0:  "
+set $ws1  "1:1:  "
+set $ws2  "2:2:  "
+set $ws3  "3:3"
+set $ws4  "4:4"
+set $ws5  "5:5:  "
+set $ws6  "6:6 "
+set $ws7  "7:7:  "
+set $ws8  "8:8:  "
+set $ws9  "9:9:  "
+set $ws10 "10:10:  "
+set $ws11 "11:11"
+set $ws12 "12:12"
+set $ws13 "13:  "
+# first one present (from the left) wins
+# https://i3wm.org/docs/userguide.html#workspace_screen
+workspace $ws0 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws1 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws2 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws3 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws4 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws5 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws6 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws7 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws8 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws9 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws10 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws11 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws12 output HDMI1 HDMI-1-1 HDMI-0 primary
+workspace $ws13 output HDMI1 HDMI-1-1 HDMI-0 primary
+# default - switch
+bindsym $mod+asciitilde workspace $ws0
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+bindsym $mod+minus workspace $ws11
+bindsym $mod+equal workspace $ws12
+bindsym $mod+BackSpace workspace $ws13
+# default - move
+bindsym $mod+Shift+asciitilde move container to workspace $ws0
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+minus move container to workspace $ws11
+bindsym $mod+Shift+equal move container to workspace $ws12
+bindsym $mod+Shift+BackSpace move container to workspace $ws13
+# corne - switch
+bindsym $mod+Tab workspace $ws0
+bindsym $mod+q workspace $ws1
+bindsym $mod+w workspace $ws2
+bindsym $mod+e workspace $ws3
+bindsym $mod+r workspace $ws4
+bindsym $mod+t workspace $ws5
+bindsym $mod+y workspace $ws6
+bindsym $mod+u workspace $ws7
+bindsym $mod+i workspace $ws8
+bindsym $mod+o workspace $ws9
+bindsym $mod+semicolon workspace $ws10
+# bindsym $mod+p workspace $ws10
+bindsym $mod+a workspace $ws11
+bindsym $mod+s workspace $ws12
+# $ws13 dup
+# corne - move
+bindsym $mod+Shift+Tab move container to workspace $ws0
+bindsym $mod+Shift+q move container to workspace $ws1
+bindsym $mod+Shift+w move container to workspace $ws2
+bindsym $mod+Shift+e move container to workspace $ws3
+bindsym $mod+Shift+r move container to workspace $ws4
+bindsym $mod+Shift+t move container to workspace $ws5
+bindsym $mod+Shift+y move container to workspace $ws6
+bindsym $mod+Shift+u move container to workspace $ws7
+bindsym $mod+Shift+i move container to workspace $ws8
+bindsym $mod+Shift+o move container to workspace $ws9
+bindsym $mod+Shift+semicolon move container to workspace $ws10
+# bindsym $mod+Shift+p move container to workspace $ws10
+bindsym $mod+Shift+a move container to workspace $ws11
+bindsym $mod+Shift+s move container to workspace $ws12
+# $ws13 dup
+
+# secondary screen
+set $wsl1 "21: L1 "
+set $wsl2 "22: L2 "
+set $wsl3 "23: L3 "
+set $wsl4 "24: L4 "
+# first one present (from the left) wins
+# https://i3wm.org/docs/userguide.html#workspace_screen
+workspace $wsl1 output DVI-I-1-1 primary HDMI1 HDMI-1-1 HDMI-0
+workspace $wsl2 output DVI-I-1-1 primary HDMI1 HDMI-1-1 HDMI-0
+workspace $wsl3 output DVI-I-1-1 primary HDMI1 HDMI-1-1 HDMI-0
+workspace $wsl4 output DVI-I-1-1 primary HDMI1 HDMI-1-1 HDMI-0
+# default - switch
+bindsym $alt+$mod+1 workspace $wsl1
+bindsym $alt+$mod+2 workspace $wsl2
+bindsym $alt+$mod+3 workspace $wsl3
+bindsym $alt+$mod+4 workspace $wsl4
+# default - move
+bindsym $alt+$mod+Shift+1 move container to workspace $wsl1
+bindsym $alt+$mod+Shift+2 move container to workspace $wsl2
+bindsym $alt+$mod+Shift+3 move container to workspace $wsl3
+bindsym $alt+$mod+Shift+4 move container to workspace $wsl4
+# corne - switch
+bindsym $alt+$mod+q workspace $wsl1
+bindsym $alt+$mod+w workspace $wsl2
+bindsym $alt+$mod+e workspace $wsl3
+bindsym $alt+$mod+r workspace $wsl4
+# corne - move
+bindsym $alt+$mod+Shift+q move container to workspace $wsl1
+bindsym $alt+$mod+Shift+w move container to workspace $wsl2
+bindsym $alt+$mod+Shift+e move container to workspace $wsl3
+bindsym $alt+$mod+Shift+r move container to workspace $wsl4
+
+# use `xev` or `xmodmap -pke` to determine key alias
+bindsym XF86AudioMute exec --no-startup-id ~/.dotfiles/profiles/ubuntu-desktop/bin/volumectl toggle
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.dotfiles/profiles/ubuntu-desktop/bin/volumectl down
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.dotfiles/profiles/ubuntu-desktop/bin/volumectl up
+
+# bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master 1+ toggle
+# bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%-
+# bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
+
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+
+bindsym XF86AudioPlay exec --no-startup-id ~/.dotfiles/profiles/ubuntu-desktop/bin/playerctl-smart play-pause
+bindsym XF86AudioNext exec --no-startup-id ~/.dotfiles/profiles/ubuntu-desktop/bin/playerctl-smart next
+bindsym XF86AudioPrev exec --no-startup-id ~/.dotfiles/profiles/ubuntu-desktop/bin/playerctl-smart previous
+
+# print area
+bindsym Control+Shift+Print exec gnome-screenshot --interactive
+bindsym Shift+Print exec gnome-screenshot
+# don't forget to
+# gsettings set org.gnome.gnome-screenshot auto-save-directory "/home/$USER/Pictures/Screenshots/"
+
+# HINT: use xprop/xwininfo to find out class/title/etc.
+for_window [class="gnome-calculator"] floating enable
+for_window [class="transmission-gtk"] floating enable
+for_window [class="yad"] floating enable border normal
+# center idea/goland logo
+for_window [class="^jetbrains-.+" title="win0"] floating enable
+for_window [class="^jetbrains-.+"][window_type=dialog] focus
+# wine
+for_window [class="Steam"] floating enable
+for_window [class="Wine"] floating enable border normal
+for_window [class="hd_launcher.exe"] floating enable border normal
+for_window [class="sc2.exe"] floating enable border normal
+for_window [class="battle.net.exe"] floating enable border normal
+
+exec_always --no-startup-id feh --bg-fill ~/Pictures/.wallpaper.jpg
+
+# apt install network-manager-gnome
+exec --no-startup-id nm-applet
+# apt install blueman
+exec --no-startup-id blueman-applet
+# notification daemon (sudo apt install libnotify-bin && notify-send "hello")
+exec --no-startup-id dunst
+# https://flameshot.js.org/#/
+# exec --no-startup-id flameshot
+# exec --no-startup-id insync
+
+exec --no-startup-id redshift
+# exec --no-startup-id safeeyes
+# Prefer https://github.com/jD91mZM2/xidlehook.
+# Alternatively - https://stackoverflow.com/a/56031064/482225.
+exec --no-startup-id xautolock -time 10 -locker ~/.dotfiles/profiles/ubuntu-desktop/bin/xlock
+
+exec --no-startup-id mpv /home/$USER/Sounds/start.wav
+
+exec --no-startup-id i3-msg 'workspace "0:  "; exec urxvt'

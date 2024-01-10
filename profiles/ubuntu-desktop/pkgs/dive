@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+DIVE_VERSION=0.11.0
+
+mkdir -p /tmp/pkgs/dive
+cd /tmp/pkgs/dive
+
+curl -sSLo dive.tar.gz https://github.com/wagoodman/dive/releases/download/v${DIVE_VERSION}/dive_${DIVE_VERSION}_linux_amd64.tar.gz
+atool -x dive.tar.gz
+sudo mv dive/dive /usr/local/bin
+

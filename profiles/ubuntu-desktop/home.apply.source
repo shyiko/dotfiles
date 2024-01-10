@@ -1,0 +1,30 @@
+    symlink $DIR/.config/bat/config ~/.config/bat/config
+    symlink $DIR/.config/Code/User/settings.json ~/.config/Code/User/settings.json
+    symlink $DIR/.config/Code/User/keybindings.json ~/.config/Code/User/keybindings.json
+    symlink $DIR/.config/dunst/dunstrc ~/.config/dunst/dunstrc
+    symlink $DIR/.config/i3/config ~/.config/i3/config
+    symlink $DIR/.config/i3status/config ~/.config/i3status/config
+    symlink $DIR/.config/nvim/init.vim ~/.config/nvim/init.vim
+    symlink $DIR/.config/pulse/client.conf ~/.config/pulse/client.conf
+    symlink $DIR/.config/pulse/daemon.conf ~/.config/pulse/daemon.conf
+    symlink $DIR/.config/ranger/rc.conf ~/.config/ranger/rc.conf
+    symlink $DIR/.config/rofi/app.list ~/.config/rofi/app.list
+    if [ -f $DIR/.config/rofi/app.list.local ]; then
+    symlink $DIR/.config/rofi/app.list.local ~/.config/rofi/app.list.local
+    fi
+    symlink $DIR/.config/rofi/config ~/.config/rofi/config
+    symlink $DIR/.config/safeeyes/safeeyes.json ~/.config/safeeyes/safeeyes.json
+    symlink $DIR/.gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
+    symlink $DIR/.gnupg/gpg.conf ~/.gnupg/gpg.conf
+    symlink $DIR/.urxvt/ext ~/.urxvt/ext
+    symlink $DIR/.xinitrc ~/.xinitrc
+    symlink $DIR/.Xmodmap ~/.Xmodmap
+    symlink $DIR/.Xresources ~/.Xresources
+    symlink $DIR/.xserverrc ~/.xserverrc
+
+    symlink $DIR/.grip/settings.py ~/.grip/settings.py
+    symlink $DIR/.ssh/config ~/.ssh/config
+    # TODO: symlink $DIR/.grip/auth.json.secret ~/.grip/auth.json
+    # TODO: symlink $DIR/.config/asciinema/config.secret ~/.config/asciinema/config
+
+    symlink $DIR/bin ~/.bin.ubuntu-desktop

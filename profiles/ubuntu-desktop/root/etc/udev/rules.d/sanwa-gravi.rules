@@ -1,0 +1,2 @@
+# Sanwa Gravi hot-plugging
+ACTION=="add", SUBSYSTEM=="input", ATTR{name}=="Nordic 2.4G Wireless Receiver Mouse", RUN+="/usr/bin/sudo -u shyiko /usr/bin/at -f /usr/local/bin/xinput-set-prop-sanwa-gravi.sh now"

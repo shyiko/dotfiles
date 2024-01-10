@@ -1,0 +1,2 @@
+#!/bin/bash
+echo $'#!/bin/bash\nexec "$@"' > /usr/bin/sudo && chmod +x /usr/bin/sudo

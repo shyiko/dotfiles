@@ -1,0 +1,16 @@
+symlink $DIR/.vim/colors/base16-ocean.vim ~/.vim/colors/base16-ocean.vim
+symlink $DIR/.vim/ftplugin/markdown.vim ~/.vim/ftplugin/markdown.vim
+symlink $DIR/.vim/init.vim ~/.vim/init.vim
+if [ ! -d ~/.cache/vim ]; then
+    if [[ "$DRY_RUN" == "1" ]]; then
+        echo 'Skipped mdkir -p ~/.cache/vim' >&2
+    else
+        mkdir -p ~/.cache/vim
+    fi
+fi
+symlink $DIR/.bash_profile ~/.bash_profile
+symlink $DIR/.bashrc ~/.bashrc
+symlink $DIR/.curlrc ~/.curlrc
+symlink $DIR/.gitconfig ~/.gitconfig
+symlink $DIR/.hushlogin ~/.hushlogin
+symlink $DIR/.inputrc ~/.inputrc

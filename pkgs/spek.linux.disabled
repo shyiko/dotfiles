@@ -1,5 +1,0 @@
-# http://spek.cc/
-# https://github.com/alexkay/spek/blob/master/INSTALL.md#bsd-and-gnulinux
-
-# https://packages.ubuntu.com/search?keywords=spek (available for Ubuntu 18.04 but not 20.04)
-sudo apt install -y spek

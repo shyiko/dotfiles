@@ -1,0 +1,5 @@
+symlink $DIR/.config/rofi/app.list.dell-xps-15-9550 ~/.config/rofi/app.list.dell-xps-15-9550
+symlink $DIR/.screenlayout ~/.screenlayout
+symlink $DIR/.xinitrc.d/xrandr ~/.xinitrc.d/xrandr
+
+symlink $DIR/bin ~/.bin.dell-xps-15-9550

@@ -1,8 +1,0 @@
-#!/bin/bash
-set -e
-
-mkdir -p /tmp/pkgs/keybase
-cd /tmp/pkgs/keybase
-
-curl -sSLO https://prerelease.keybase.io/keybase_amd64.deb
-sudo apt install -y ./keybase_amd64.deb

@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+FILEZILLA_VERSION=3.66.4
+
+mkdir -p /tmp/pkgs/filezilla
+cd /tmp/pkgs/filezilla
+
+curl -sSL "https://dl2.cdn.filezilla-project.org/client/FileZilla_${FILEZILLA_VERSION}_x86_64-linux-gnu.tar.xz?h=MwXeJYkuaoEAIOqhLf2Lpg&x=1704708811" \
+    -o filezilla.tar.xz
+atool -q -x filezilla.tar.xz
+mv FileZilla3 ~/Applications/filezilla-${FILEZILLA_VERSION}
+
+ln -sf ~/Applications/filezilla-${FILEZILLA_VERSION}/bin/filezilla ~/.bin/filezilla

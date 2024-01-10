@@ -1,0 +1,43 @@
+#!/bin/bash
+set -euo pipefail
+
+DRY_RUN=
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --dry-run)
+      DRY_RUN=1
+      ;;
+    -h|--help)
+      usage
+      ;;
+    -*=)
+      echo "Error: unknown flag $1" >&2
+      exit 1
+      ;;
+    *)
+      usage
+      ;;
+  esac
+  shift
+done
+
+apt_pkgs=(
+    xserver-xorg-input-synaptics
+    xserver-xorg-video-intel # to make sure i915 is left after the purge
+    msr-tools # for wrmsr/rdmsr
+)
+
+apt_install_opt=
+if [[ "$DRY_RUN" == "1" ]]; then
+    apt_install_opt="--dry-run -qq"
+fi
+
+# set -x
+# sudo apt update -qq
+
+# https://linux.die.net/man/8/apt-get
+if (apt-get install --dry-run -yq "${apt_pkgs[@]}" 2>&1 || true) |
+    grep -cqE '^Conf|^Inst|^Remv|^E:'; then
+    set -x
+    sudo apt install $apt_install_opt -yq "${apt_pkgs[@]}"
+fi

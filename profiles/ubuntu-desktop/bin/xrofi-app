@@ -1,0 +1,16 @@
+#!/bin/bash
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+PATH= $DIR/xrofi -show run -font "mono 11" \
+    -run-list-command "/bin/bash -c '/bin/cat $DIR/../.config/rofi/app.list $DIR/../.config/rofi/app.list.*'" \
+    -run-command "$DIR/xrofi-app-run {cmd}"
+
+# remove commands that are no longer on the PATH
+tmp_file=$(mktemp ~/.cache/rofi-3.runcache.tmp.XXXXXX)
+echo > $tmp_file
+while read -r line; do
+    if which $(echo $line | awk '{print $2}') &>/dev/null; then
+        echo $line >> $tmp_file
+    fi
+done < ~/.cache/rofi-3.runcache
+mv -f $tmp_file ~/.cache/rofi-3.runcache
+

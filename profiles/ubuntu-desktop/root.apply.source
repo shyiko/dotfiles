@@ -1,0 +1,3 @@
+for f in $(cd $DIR/root && find . -type f); do
+    copy --root $DIR/root/$f "/$f"
+done

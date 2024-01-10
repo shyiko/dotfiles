@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+# https://www.balena.io/etcher/
+ETCHER_VERSION=1.18.11
+
+mkdir -p /tmp/pkgs/balena-etcher
+cd /tmp/pkgs/balena-etcher
+
+curl -sSL https://github.com/balena-io/etcher/releases/download/v${ETCHER_VERSION}/balena-etcher-electron_${ETCHER_VERSION}_amd64.deb \
+    -o balena-etcher.deb
+sudo apt install -y ./balena-etcher.deb

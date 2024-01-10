@@ -1,6 +1,0 @@
-#!/bin/bash
-set -e
-
-# https://github.com/phw/peek#ubuntu
-sudo add-apt-repository -y ppa:peek-developers/stable
-sudo apt install -y peek

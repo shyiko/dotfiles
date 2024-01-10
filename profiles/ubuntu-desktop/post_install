@@ -1,0 +1,38 @@
+#!/bin/bash
+set -euo pipefail
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+sudo systemctl enable bluetooth.service
+
+# configure fonts
+sudo rm -f /usr/share/fonts/truetype/msttcorefonts/cour* # Courier New is hard to read (check code @ https://reactjs.org/docs/hooks-overview.html)
+sudo apt purge -y fonts-noto-cjk fonts-noto-cjk-extra fonts-vlgothic xfonts-scalable
+# https://github.com/ryanoasis/nerd-fonts
+# Inconsolata is used by ~/.Xresources
+OTFDIR=.local/share/fonts/Unknown\ Vendor/OpenType/Inconsolata\ Nerd\ Font\ Mono
+mkdir -p ~/"$OTFDIR"
+cp "$DIR"/"$OTFDIR"/*.otf ~/"$OTFDIR"
+fc-cache -f -v
+
+# dconf dump /
+gsettings set org.gnome.nautilus.list-view use-tree-view true
+gsettings set org.gnome.nautilus.list-view default-zoom-level small
+gsettings set org.gnome.nautilus.icon-view default-zoom-level small
+
+# Workaround for "Couldn't call Modify on the PackageKit interface: no owner for PackageKit"
+#
+# https://wiki.archlinux.org/index.php/XDG_MIME_Applications#Variables_in_.desktop_files_that_affect_application_launch
+# https://wiki.archlinux.org/index.php/default_applications
+#
+# Alternatively, add <policy user="$USER">... to /etc/dbus-1/system.d/org.freedesktop.PackageKit.conf and
+# `systemctl restart dbus`.
+sudo sed -i 's/DBusActivatable=true/DBusActivatable=false/' /usr/share/applications/org.gnome.FontViewer.desktop
+
+mkdir -p ~/.config/Code/Dictionaries
+ln -s /usr/share/hunspell/en_US.* ~/.config/Code/Dictionaries/
+
+chmod 0700 $HOME/.gnupg
+curl -sSL https://keybase.io/shyiko/pgp_keys.asc | gpg --import -
+gpg --card-status
+echo "Type \"trust\", select \"5 - ultimate\" when asked" >&2
+gpg --edit-key 160A7A9CF46221A56B06AD64461A804F2609FD89

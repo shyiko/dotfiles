@@ -1,0 +1,13 @@
+#!/bin/bash
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+export PATH=$HOME/.bin:$HOME/.local/bin:$DIR:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+for f in $(ls -d $HOME/.bin.*/ 2>/dev/null); do # installed by ~/.dotfiles/profiles/*
+  export PATH=$f:$PATH
+done
+export PATH=$HOME/.dotfiles/bin:$PATH
+export LC_ALL=en_US.UTF-8 # otherwise krita segfaults
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
+export GPG_TTY=$(tty)
+export _JAVA_AWT_WM_STATIC_GRAVITY=1 # https://youtrack.jetbrains.com/issue/IDEA-229577
+exec "$@"

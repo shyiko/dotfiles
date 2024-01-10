@@ -1,0 +1,2 @@
+#!/bin/bash
+exec google-chrome-stable --app="https://smile.amazon.com/gp/video/mystuff/library/ref=atv_mys_yvl_tab"

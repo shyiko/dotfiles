@@ -1,5 +1,0 @@
-#!/bin/bash
-#@pkg.file=$HOME/.local/bin/yapf
-set -e
-
-pipx install yapf

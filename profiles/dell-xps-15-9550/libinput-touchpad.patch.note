@@ -1,0 +1,4 @@
+libinput does not support kinetic scrolling
+https://wayland.freedesktop.org/libinput/doc/latest/faqs.html#kinetic-scrolling-does-not-work
+
+Use synaptic if possible.

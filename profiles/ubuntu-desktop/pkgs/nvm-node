@@ -1,0 +1,13 @@
+
+#!/bin/bash
+#@pkg.file=$HOME/.nvm/alias/default
+set -e
+
+# https://github.com/nvm-sh/nvm
+NODE_VERSION=v20.10.0
+
+. ~/.nvm/nvm.sh
+if [[ "$(nvm alias default | awk '{print $3}')" != "$NODE_VERSION" ]]; then
+    nvm install $NODE_VERSION
+    nvm alias default $NODE_VERSION
+fi

@@ -1,0 +1,115 @@
+#!/bin/bash
+set -euo pipefail
+
+DRY_RUN=
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --dry-run)
+      DRY_RUN=1
+      ;;
+    -h|--help)
+      usage
+      ;;
+    -*=)
+      echo "Error: unknown flag $1" >&2
+      exit 1
+      ;;
+    *)
+      usage
+      ;;
+  esac
+  shift
+done
+
+apt_pkgs=(
+    # X11/i3
+    xorg
+    dbus-x11
+    x11-utils # for xev, xwininfo, ...
+    xdotool
+    xbacklight # alternative - light
+    xinput
+    xbindkeys
+    xvkbd
+    arandr
+    xclip
+    autocutsel
+    compton
+    i3
+    i3status
+    i3lock
+    rofi
+    dunst
+    feh
+    libnotify-bin
+    xautolock
+    rxvt-unicode
+    # gnome/GTK
+    lxappearance
+    arc-theme
+    adwaita-icon-theme-full
+    gnome-screenshot
+    gnome-system-monitor
+    gnome-disk-utility
+    gnome-calculator
+    dconf-editor
+    # cheese
+    nautilus
+    # file-roller
+    # baobab
+    evince
+    eog
+    # solaar
+    redshift
+    # safeeyes # https://www.dejal.com/timeout/ on macOS
+    pavucontrol
+    volumeicon-alsa
+    playerctl
+    font-manager
+    font-viewer
+    fonts-dejavu
+    fonts-font-awesome
+    fonts-liberation # not fonts-liberation2 due to hinting issues
+    fonts-noto
+    fonts-open-sans
+    fonts-oxygen
+    fonts-roboto
+    hunspell hunspell-en-us
+    # meld
+    rpi-imager
+    flameshot # macOS - https://github.com/lupoDharkael/flameshot/issues/586
+    system-config-printer cups
+    yad # for yad --color
+    vlc
+    mpv
+    # firefox # disabled in favor of firefox-dev
+    telegram-desktop
+    # network
+    network-manager-gnome
+    network-manager-openconnect-gnome
+    blueman
+    wireshark-gtk
+    wireguard-tools # wg & wg-quick
+    # infosec
+    policykit-1-gnome
+    gpg gpg-agent pinentry-gtk2
+    seahorse # for gnome keyring management
+    scdaemon pcscd # for gpg2 --card-status
+    openssh-client # for ssh-copy-id
+    at # used by root/etc/udev/rules.d/*
+)
+
+apt_install_opt=
+if [[ "$DRY_RUN" == "1" ]]; then
+    apt_install_opt="--dry-run -qq"
+fi
+
+# set -x
+# sudo apt update -qq
+
+# https://linux.die.net/man/8/apt-get
+if (apt-get install --dry-run -yq "${apt_pkgs[@]}" 2>&1 || true) |
+    grep -cqE '^Conf|^Inst|^Remv|^E:'; then
+    set -x
+    sudo apt install $apt_install_opt -yq "${apt_pkgs[@]}"
+fi

@@ -1,9 +1,0 @@
-#!/bin/bash
-#@pkg.file=$HOME/.cargo/bin/bat
-set -e
-
-# sudo apt install -o Dpkg::Options::="--force-overwrite" bat # conflict with ripgrep over /usr/.crates2.json
-# sudo ln -sf $(which batcat) /usr/local/bin/bat
-
-. $HOME/.cargo/env
-cargo install --git=https://github.com/sharkdp/bat --tag=v0.15.4

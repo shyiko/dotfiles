@@ -1,6 +1,0 @@
-#!/bin/bash
-#@pkg.file=$HOME/.nvm/nvm-exec
-set -e
-
-# https://github.com/nvm-sh/nvm#git-install
-git clone --depth 1 https://github.com/nvm-sh/nvm.git --branch v0.35.3 ~/.nvm

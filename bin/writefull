@@ -1,2 +1,0 @@
-#!/bin/bash
-exec /usr/local/bin/writefull --force-device-scale-factor=1.15

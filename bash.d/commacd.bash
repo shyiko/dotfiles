@@ -1,1 +1,0 @@
-source ~/.commacd.sh

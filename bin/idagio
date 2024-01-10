@@ -1,2 +1,0 @@
-#!/bin/bash
-exec google-chrome-stable --app="https://app.idagio.com/collection/playlists"

@@ -1,5 +1,0 @@
-#!/bin/bash
-#@pkg.file=$HOME/.local/bin/poetry
-set -e
-
-pipx install poetry

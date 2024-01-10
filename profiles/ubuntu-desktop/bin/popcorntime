@@ -1,0 +1,2 @@
+#!/bin/bash
+exec brave-browser-stable --app="https://ww1.solarmovie.id/"

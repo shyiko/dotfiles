@@ -1,0 +1,3 @@
+#!/bin/bash
+# alternative that supports TLS, etc - https://github.com/syntaqx/serve
+exec python3 -m http.server "$@"

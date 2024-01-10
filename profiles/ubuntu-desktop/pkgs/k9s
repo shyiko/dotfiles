@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+mkdir -p /tmp/pkgs/k9s
+cd /tmp/pkgs/k9s
+
+curl -sSL https://github.com/derailed/k9s/releases/download/v0.30.8/k9s_linux_arm64.deb \
+    -o k9s_linux_arm64.deb
+sudo apt install -y ./k9s_linux_arm64.deb

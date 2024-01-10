@@ -1,0 +1,4 @@
+/profiles/ubuntu-desktop/.config/rofi/app.list.*
+/profiles/ubuntu-desktop/bin/*@*
+/profiles/ubuntu-desktop/bin/*.slack.com
+!.local/

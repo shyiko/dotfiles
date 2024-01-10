@@ -1,0 +1,93 @@
+#!/bin/bash
+set -euo pipefail
+
+DRY_RUN=
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --dry-run)
+      DRY_RUN=1
+      ;;
+    -h|--help)
+      usage
+      ;;
+    -*=)
+      echo "Error: unknown flag $1" >&2
+      exit 1
+      ;;
+    *)
+      usage
+      ;;
+  esac
+  shift
+done
+
+apt_pkgs=(
+    ca-certificates
+    curl
+    gnupg
+    apt-transport-https
+    apt-file
+    software-properties-common # for add-apt-repository (unfortunate side-effect: software-properties-common pulls in packagekit)
+    bash-completion
+    language-pack-en # for en_US.UTF-8
+    # tooling
+    build-essential # for make
+    procps # for watch
+    git
+    atool unzip zip unrar rar bzip2 xz-utils p7zip-full # https://www.peazip.org/
+    # progress # https://github.com/xfennec/progress
+    bat
+    ripgrep
+    jq
+    jo
+    fasd
+    fzf
+    direnv
+    vim # neovim
+    ncdu
+    bc
+    elfutils # https://en.wikipedia.org/wiki/GNU_Binutils
+    moreutils # for ts, vipe, sponge, ...
+    # perf
+    linux-tools-generic
+    util-linux # for lscpu - https://en.wikipedia.org/wiki/util-linux
+    hwloc # for lstopo-no-graphics/lstopo
+    htop
+    # networking
+    ipcalc
+    iproute2 # for ip, ss, ...
+    iptables ipset
+    # drill if you can, dig if you have to, nslookup if you must
+    ldnsutils # for drill
+    dnsutils # for dig & nslookup (via bind9-utils dep)
+    mtr-tiny
+    socat
+    nmap
+    tshark # optional: tcpdump tcpflow ngrep
+    # mitmproxy
+    iputils-ping
+    # iputils-arping
+    lft # lft & whob
+    # iputils-tracepath traceroute # use lft instead
+    # whois # use whob instead
+    # ipvsadm
+    # conntrack # use ss instead unless you're intested in connections routed (and not only terminaed) by the host
+    # wireguard-tools # wg & wg-quick
+    # infosec
+    libnss3-tools # certutil & pk12util
+)
+
+apt_install_opt=
+if [[ "$DRY_RUN" == "1" ]]; then
+    apt_install_opt="--dry-run -qq"
+fi
+
+# set -x
+# sudo apt update -qq
+
+# https://linux.die.net/man/8/apt-get
+if (apt-get install --dry-run -yq "${apt_pkgs[@]}" 2>&1 || true) |
+    grep -cqE '^Conf|^Inst|^Remv|^E:'; then
+    set -x
+    sudo apt install $apt_install_opt -yq "${apt_pkgs[@]}"
+fi

@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+
+# open but unlinked
+lsof -a +L1 / | tr -s " " "\t" | tsv-summarize --header --group-by "COMMAND" --sum "SIZE/OFF" | numfmt --invalid=ignore --field=2 --to=iec | tail -n +2

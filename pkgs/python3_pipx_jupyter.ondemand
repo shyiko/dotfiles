@@ -1,5 +1,0 @@
-#!/bin/bash
-#@pkg.file=$HOME/.local/bin/jupyter
-set -e
-
-pipx install jupyter --include-deps

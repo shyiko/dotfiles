@@ -3,7 +3,7 @@
 https://www.instagram.com/p/CAgprOHjHfb/
 
 I recommend getting [PCB Kit from littlekeyboards](https://www.littlekeyboards.com/products/corne-mx-hotswap-kit) as it includes pretty much everything you'll need except 
-- 2 microcontrollers (e.g. [Elite-C](https://keeb.io/collections/frontpage/products/elite-c-usb-c-pro-micro-replacement-arduino-compatible-atmega32u4?variant=31151566422110) v3.0 or newer)
+- 2 microcontrollers (e.g. [Elite-C](https://www.littlekeyboards.com/products/elite-c-v3?_pos=1&_sid=90c2be7fa&_ss=r) v3.0 or newer)
 - [Mill Max 315-93-164-41-003000 sockets](https://www.digikey.com/product-detail/en/315-93-164-41-003000/ED4864-64-ND/279656/) (I bought them from [here](https://www.littlekeyboards.com/products/mill-max-ultra-low-profile-sockets); you'll need 2 x 12pin for each microcontroller) + [Mill Max 3320-0-00-15-00-00-03-0 pins](https://www.digikey.com/product-detail/en/3320-0-00-15-00-00-03-0/ED1134-ND/4147392) (24 for each microcontroller)
 - [TRRS cable](https://zapcables.com/diy-trrs-cable-kit/) ([sample pack](https://zapcables.com/sleeving-sample-pack/))
 - [USB Type-C cable](https://zapcables.com/diy-usb-cable-kit/) ([sample pack](https://zapcables.com/sleeving-sample-pack/))
